@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 245, 245, 255;
+    --foreground: 50, 55, 60;
+    --card: 248, 248, 255;
+    --card-foreground: 50, 55, 60;
+    --popover: 248, 248, 255;
+    --popover-foreground: 50, 55, 60;
+    --primary: 59, 100, 246;
+    --primary-foreground: 255, 255, 255;
+    --secondary: 245, 245, 255;
+    --secondary-foreground: 75, 80, 85;
+    --muted: 245, 245, 255;
+    --muted-foreground: 130, 140, 150;
+    --accent: 245, 245, 255;
+    --accent-foreground: 50, 55, 60;
+    --destructive: 220, 53, 69;
+    --destructive-foreground: 255, 255, 255;
+    --border: 220, 225, 235;
+    --input: 230, 235, 245;
+    --radius: 0.5rem;
+    --sidebar-background: 245, 245, 255;
+    --sidebar-foreground: 65, 70, 75;
+    --sidebar-primary: 49, 110, 226;
+    --sidebar-primary-foreground: 255, 255, 255;
+    --sidebar-accent: 245, 245, 255;
+    --sidebar-accent-foreground: 50, 55, 60;
+    --sidebar-border: 225, 230, 240;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background: 20, 24, 38;
+      --foreground: 210, 220, 235;
+      --card: 26, 30, 46;
+      --card-foreground: 210, 220, 235;
+      --popover: 24, 28, 44;
+      --popover-foreground: 210, 220, 235;
+      --primary: 59, 110, 230;
+      --primary-foreground: 240, 245, 255;
+      --secondary: 32, 36, 50;
+      --secondary-foreground: 185, 195, 210;
+      --muted: 28, 32, 46;
+      --muted-foreground: 150, 160, 180;
+      --accent: 30, 34, 50;
+      --accent-foreground: 210, 220, 235;
+      --border: 40, 44, 60;
+      --input: 28, 32, 46;
+      --sidebar-background: 22, 26, 40;
+      --sidebar-foreground: 210, 220, 235;
+      --sidebar-primary: 59, 110, 230;
+      --sidebar-primary-foreground: 255, 255, 255;
+      --sidebar-accent: 28, 32, 46;
+      --sidebar-accent-foreground: 210, 220, 235;
+      --sidebar-border: 28, 32, 46;
+    }
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border p-0 m-0 outline-none;
+  }
+  body {
+    @apply w-screen font-figtree bg-accent text-foreground;
+  }
+}
