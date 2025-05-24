@@ -1,5 +1,13 @@
+import CreditMetrics from './components/CreditMetrics';
+import RecentDrafts from './components/RecentDrafts';
+
 const Page = () => {
-  return <h1>Hello Next.js!</h1>;
+  return (
+    <main className='w-full flex flex-col items-center'>
+      <CreditMetrics />
+      <RecentDrafts />
+    </main>
+  );
 };
 
 export default Page;

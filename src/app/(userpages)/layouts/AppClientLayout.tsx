@@ -3,6 +3,7 @@
 import Sidebar from './components/Sidebar';
 import Topbar from './components/Topbar';
 import MobileNavbar from './components/MobileNavbar';
+import MobileFooter from './components/MobileFooter';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
@@ -21,12 +22,14 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
       )}
 
       <main
-        className={`min-h-screen bg-background flex-1 p-4 ${
-          isMobile ? 'mt-12' : 'rounded-lg m-4'
-        }`}>
-        <Topbar />
+        className={`min-h-screen p-4 ${
+          !isMobile ? 'bg-background rounded-lg m-4' : 'pb-24'
+        } flex-1`}>
+        {!isMobile && <Topbar />}
         {children}
       </main>
+
+      <footer> {isMobile && <MobileFooter />} </footer>
     </div>
   );
 };

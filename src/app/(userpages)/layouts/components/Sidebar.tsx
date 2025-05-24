@@ -1,6 +1,8 @@
+"use client";
+
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { layoutRoutes as sidebarRoutes } from '../constants/layoutRoutes';
+import { sidebarRoutes } from '../constants/layoutRoutes';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   Popover,
