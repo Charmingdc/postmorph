@@ -37,7 +37,7 @@ const RecentDrafts = () => {
   ];
 
   return (
-    <div className='mt-12'>
+    <div className='my-12'>
       <h3 className='text-2xl font-bold mb-2'> Recent Drafts </h3>
 
       <div className='w-full h-auto flex flex-col gap-y-4'>
@@ -47,7 +47,7 @@ const RecentDrafts = () => {
               <div
                 key={draft.id}
                 className='w-full flex flex-col bg-card p-4 border rounded-xl transition-all duration-500 hover:border-primary'>
-                <div className='bg-background capitalize p-3 rounded-xl mb-3'>
+                <div className='w-fit bg-background capitalize py-2 px-4 rounded-lg mb-3'>
                   {draft.type}
                 </div>
 

@@ -12,7 +12,9 @@ const DraftBox = ({ draft }: DraftBoxProps) => {
 
   return (
     <div className='w-full flex flex-col gap-2 bg-card text-card-foreground p-4 border rounded-xl transition-all duration-500 hover:border-primary'>
-      <div className='bg-background capitalize p-3 rounded-xl mb-3'>{type}</div>
+      <div className='w-fit bg-background capitalize py-2 px-4 rounded-lg mb-3'>
+        {type}
+      </div>
 
       <p className='line-clamp-5'> {content} </p>
 
