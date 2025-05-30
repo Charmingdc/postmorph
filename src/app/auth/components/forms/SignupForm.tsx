@@ -41,7 +41,9 @@ const SignupForm = () => {
           formData.append("password", form.password);
 
           startTransition(() => signupAction(formData));
-          if (!state.message) clearForm();
+          if (!pending && !state.message) {
+            clearForm();
+          }
         }}
         className='w-full flex flex-col justify-center p-4 mt-2'
       >

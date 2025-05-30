@@ -1,36 +1,129 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# **✨ Postmorph: Repurpose Your Content Effortlessly! ✨**
 
-## Getting Started
+Tired of spending hours creating content for every platform? 😩 **Postmorph** is here to rescue you! 🎉 This Next.js app helps you repurpose your existing content into various formats with just a few clicks. 🚀 Streamline your workflow and reach a wider audience! 🎯
 
-First, run the development server:
+## ⚙️ Installation
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Get Postmorph up and running in a few easy steps!
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- 👯 **Clone the Repository:**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+  ```bash
+  git clone git@github.com:Charmingdc/postmorph.git
+  cd postmorph
+  ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- 📦 **Install Dependencies:**
 
-## Learn More
+  ```bash
+  npm install
+  # or
+  yarn install
+  # or
+  pnpm install
+  ```
 
-To learn more about Next.js, take a look at the following resources:
+- ⚙️ **Set Up Environment Variables:**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+  - Create a `.env.local` file in the root directory.
+  - Add your Supabase URL and Anon Key:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+    ```
+    NEXT_PUBLIC_SUPABASE_URL=YOUR_SUPABASE_URL
+    NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY
+    ```
 
-## Deploy on Vercel
+- 🚀 **Run the Development Server:**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+  ```bash
+  npm run dev
+  # or
+  yarn dev
+  # or
+  pnpm dev
+  ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+  Open [http://localhost:3000](http://localhost:3000) in your browser to view the application. 🌐
+
+## 💻 Usage
+
+Postmorph makes content repurposing a breeze. Here's how to use it:
+
+<details>
+<summary><b>1. Select Input Format</b></summary>
+<br/>
+Choose the format of your original content (e.g., blog, YouTube video).
+<img src="https://i.imgur.com/your_image_url_1.png" alt="Select Input Format" width="400"/>
+</details>
+
+<details>
+<summary><b>2. Select Output Format & Tone</b></summary>
+<br/>
+Pick the desired output format (e.g., tweet, LinkedIn post) and tone (e.g., professional, funny).
+<img src="https://i.imgur.com/your_image_url_2.png" alt="Select Output Format" width="400"/>
+</details>
+
+<details>
+<summary><b>3. Paste Your Link</b></summary>
+<br/>
+Enter the link to your original content.
+<img src="https://i.imgur.com/your_image_url_3.png" alt="Paste Your Link" width="400"/>
+</details>
+
+<details>
+<summary><b>4. Repurpose!</b></summary>
+<br/>
+Click the "Repurpose Now" button and let Postmorph work its magic! ✨
+<img src="https://i.imgur.com/your_image_url_4.png" alt="Repurpose!" width="400"/>
+</details>
+
+## ✨ Key Features
+
+- 📝 **Content Repurposing:** Transform existing content into various formats.
+- 🎨 **Custom Brand Voices:** Add custom writing styles to reflect your brand.
+- 📊 **Credit Metrics:** Track your credit usage.
+- 💾 **Drafts:** Save and manage your content drafts.
+- 📱 **Mobile-Friendly:** Use Postmorph on any device.
+- 🔐 **Authentication:** Secure sign-in and sign-up with Supabase.
+
+## 🛠️ Technologies Used
+
+| Technology    | Link                                       |
+| :------------ | :----------------------------------------- |
+| Next.js       | [https://nextjs.org/](https://nextjs.org/) |
+| TypeScript    | [https://www.typescriptlang.org/](https://www.typescriptlang.org/) |
+| Tailwind CSS  | [https://tailwindcss.com/](https://tailwindcss.com/) |
+| Supabase      | [https://supabase.com/](https://supabase.com/) |
+| Radix UI      | [https://www.radix-ui.com/](https://www.radix-ui.com/) |
+| Lucide React  | [https://lucide.dev/](https://lucide.dev/)   |
+| ESLint        | [https://eslint.org/](https://eslint.org/)   |
+| Class Variance Authority  | [https://cva.style/](https://cva.style/)   |
+
+## 🤝 Contributing
+
+We welcome contributions from the community! 🎉 Here's how you can help:
+
+- 🐛 **Report Bugs:** Help us find and fix issues.
+- 💡 **Suggest Features:** Share your ideas for improving Postmorph.
+- 💻 **Submit Pull Requests:** Contribute code changes.
+
+Please follow these guidelines:
+
+- 📖 Read the [Contributing Guidelines](link-to-contributing-guidelines).
+- ✍️ Follow the [Code of Conduct](link-to-code-of-conduct).
+- ✅ Write clear and concise commit messages.
+
+## 📜 License
+
+This project is licensed under the [MIT License](link-to-license).
+
+## 🧑‍💻 Author Info
+
+- **Charmingdc**
+  - [GitHub](https://github.com/Charmingdc)
+  - [Twitter](author's twitter link)
+  - [LinkedIn](author's linkedIn link)
+
+---
+
+[![Readme was generated by Dokugen](https://img.shields.io/badge/Readme%20was%20generated%20by-Dokugen-brightgreen)](https://www.npmjs.com/package/dokugen)

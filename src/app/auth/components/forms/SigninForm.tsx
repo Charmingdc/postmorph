@@ -44,7 +44,9 @@ const SigninForm = () => {
           formData.append("password", form.password);
 
           startTransition(() => signinAction(formData));
-          if (!state.message) clearForm();
+          if (!pending && !state.message) {
+            clearForm();
+          }
         }}
         className='w-full min-h-screen flex flex-col justify-center p-4'
       >

@@ -25,7 +25,7 @@ const signup = async (
     }
   });
 
-  /* if (data?.user) {
+  if (data?.user) {
     const { id, email } = data.user;
 
     await supabase.from("Profiles").insert({
@@ -33,14 +33,14 @@ const signup = async (
       username: formFields.username,
       email
     });
-  }*/
+  }
 
   if (error) {
     return { message: error.message };
   }
 
-  revalidatePath("/", "layout");
-  redirect("/");
+  revalidatePath("/dashboard", "layout");
+  redirect("/auth/signin");
 };
 
 export default signup;

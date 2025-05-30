@@ -1,33 +1,34 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import DropdownField from './DropdownField';
-import { Button } from '@/components/ui/button';
-import { Skeleton } from '@/components/ui/skeleton';
+import { useState } from "react";
+import DropdownField from "./DropdownField";
+import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   FileText,
   Youtube,
   Instagram,
   Twitter,
   Linkedin,
-  Sparkles
-} from 'lucide-react';
+  Sparkles,
+  Link
+} from "lucide-react";
 
 const inputFormats = [
-  'blog',
-  'youtube video',
-  'instagram reel',
-  'x thread',
-  'linkedin post'
+  "blog",
+  "youtube video",
+  "instagram reel",
+  "x thread",
+  "linkedin post"
 ] as const;
 
 const formatIcons: Record<string, JSX.Element> = {
   blog: <FileText className='w-4 h-4' />,
-  'youtube video': <Youtube className='w-4 h-4' />,
-  'instagram reel': <Instagram className='w-4 h-4' />,
-  'x thread': <Twitter className='w-4 h-4' />,
-  'linkedin post': <Linkedin className='w-4 h-4' />,
-  'reddit post': <Linkedin className='w-4 h-4' />,
+  "youtube video": <Youtube className='w-4 h-4' />,
+  "instagram reel": <Instagram className='w-4 h-4' />,
+  "x thread": <Twitter className='w-4 h-4' />,
+  "linkedin post": <Linkedin className='w-4 h-4' />,
+  "reddit post": <Link className='w-4 h-4' />,
   tweet: <Twitter className='w-4 h-4' />,
   professional: <Sparkles className='w-4 h-4' />,
   casual: <Sparkles className='w-4 h-4' />,
@@ -36,21 +37,21 @@ const formatIcons: Record<string, JSX.Element> = {
 };
 
 const outputOptionsMap: Record<(typeof inputFormats)[number], string[]> = {
-  blog: ['tweet', 'x thread', 'linkedin post', 'reddit post'],
-  'youtube video': ['tweet', 'x thread', 'linkedin post', 'reddit post'],
-  'instagram reel': ['tweet', 'x thread', 'linkedin post', 'reddit post'],
-  'x thread': ['linkedin post', 'reddit post'],
-  'linkedin post': ['x thread', 'tweet', 'reddit post']
+  blog: ["tweet", "x thread", "linkedin post", "reddit post"],
+  "youtube video": ["tweet", "x thread", "linkedin post", "reddit post"],
+  "instagram reel": ["tweet", "x thread", "linkedin post", "reddit post"],
+  "x thread": ["linkedin post", "reddit post"],
+  "linkedin post": ["x thread", "tweet", "reddit post"]
 };
 
-const tones = ['professional', 'casual', 'funny', 'motivational'];
+const tones = ["professional", "casual", "funny", "motivational"];
 
 const RepurposeForm = () => {
   const [inputFormat, setInputFormat] =
-    useState<(typeof inputFormats)[number]>('blog');
-  const [outputFormat, setOutputFormat] = useState<string>('tweet');
-  const [tone, setTone] = useState<string>('professional');
-  const [linkValue, setLinkValue] = useState('');
+    useState<(typeof inputFormats)[number]>("blog");
+  const [outputFormat, setOutputFormat] = useState<string>("tweet");
+  const [tone, setTone] = useState<string>("professional");
+  const [linkValue, setLinkValue] = useState("");
   const [loading, setLoading] = useState(false);
   const [repurposedResults, setRepurposedResults] = useState<string[]>([]);
 
@@ -63,7 +64,7 @@ const RepurposeForm = () => {
 
     setTimeout(() => {
       setLoading(false);
-      setRepurposedResults(['hello', 'world']);
+      setRepurposedResults(["hello", "world"]);
     }, 5000);
   };
 
@@ -79,7 +80,8 @@ const RepurposeForm = () => {
           e.preventDefault();
           handleSubmit();
         }}
-        className='w-full flex flex-col items-center gap-6'>
+        className='w-full flex flex-col items-center gap-6'
+      >
         <div className='w-full flex flex-wrap md:flex-nowrap gap-4'>
           <DropdownField
             label='Input'
@@ -128,7 +130,8 @@ const RepurposeForm = () => {
 
         <Button
           type='submit'
-          className='w-[60%] h-12 p-4 rounded-xl transition-all duration-500 hover:opacity-70'>
+          className='w-[60%] h-12 p-4 rounded-xl transition-all duration-500 hover:opacity-70'
+        >
           Repurpose Now
         </Button>
       </form>
