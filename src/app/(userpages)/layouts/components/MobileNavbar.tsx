@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 
 import {
   AlignStartVertical,
@@ -9,32 +9,44 @@ import {
   CircleUserRound,
   Bell,
   LogOut
-} from 'lucide-react';
+} from "lucide-react";
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger
-} from '@/components/ui/popover';
+} from "@/components/ui/popover";
+
+import signout from "@/app/auth/actions/signout";
 
 const formatPageName = (name: string | undefined) => {
-  if (!name) return '';
-  return name.replace(/-/g, ' ');
+  if (!name) return "";
+  return name.replace(/-/g, " ");
 };
 
 const MobileNavbar = () => {
+  const router = useRouter();
   const pathname: string = usePathname();
   const pageName: string | undefined = pathname
-    .split('/')
+    .split("/")
     .filter(Boolean)
     .pop();
+
+  const handleSignout = async () => {
+    try {
+      await signout();
+      router.push('/auth/signin')
+    } catch (err) {
+      console.error("An error occured when logging user out:", err.message);
+    }
+  };
 
   return (
     <nav>
       <ul className='w-full min-h-12 flex items-center justify-between p-4 pt-2'>
         <li className='font-bold text-2xl capitalize'>
-          {pageName === 'dashboard' ? (
+          {pageName === "dashboard" ? (
             <h2>
               Hey, <br /> Charmingdc
             </h2>
@@ -44,7 +56,7 @@ const MobileNavbar = () => {
             </div>
           )}
         </li>
-        {pageName === 'dashboard' && (
+        {pageName === "dashboard" && (
           <li>
             <Popover>
               <PopoverTrigger asChild>
@@ -76,18 +88,23 @@ const MobileNavbar = () => {
                 <div className='w-full flex flex-col items-center gap-y-2 py-2 border-b-2 my-2'>
                   <Link
                     href=''
-                    className='w-full flex items-center gap-2 p-2 rounded-lg hover:bg-card hover:text-primary'>
+                    className='w-full flex items-center gap-2 p-2 rounded-lg hover:bg-card hover:text-primary'
+                  >
                     <CircleUserRound size={20} /> Account
                   </Link>
                   <Link
                     href=''
-                    className='w-full flex items-center gap-2 p-2 rounded-lg hover:bg-card hover:text-primary'>
+                    className='w-full flex items-center gap-2 p-2 rounded-lg hover:bg-card hover:text-primary'
+                  >
                     <Bell size={20} /> Notifications
                   </Link>
                 </div>
 
-                <button className='flex items-center gap-2 text-red-600'>
-                  <LogOut size={20} /> Logout
+                <button
+                  onClick={handleSignout}
+                  className='flex items-center gap-2 text-red-600'
+                >
+                  <LogOut size={20} /> Signout
                 </button>
               </PopoverContent>
             </Popover>

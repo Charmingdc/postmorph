@@ -37,6 +37,7 @@ const SignupForm = () => {
           e.preventDefault();
 
           const formData = new FormData();
+          formData.append("username", form.username);
           formData.append("email", form.email);
           formData.append("password", form.password);
 

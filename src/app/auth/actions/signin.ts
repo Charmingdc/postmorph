@@ -3,7 +3,26 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
+import { z } from "zod";
+import { fromZodError } from "zod-validation-error";
+
 import { createClient } from "@/utils/supabase/server";
+
+const FormSchema = z.object({
+  email: z
+    .string({
+      required_error: "Email is required",
+      invalid_type_error: "Email must be a string"
+    })
+    .email("Invalid email format"),
+
+  password: z
+    .string({
+      required_error: "Password is required",
+      invalid_type_error: "Password must be a string"
+    })
+    .min(6, "Password must be at least 6 characters long")
+});
 
 const signin = async (
   prevState: { message: string },
@@ -11,12 +30,21 @@ const signin = async (
 ): Promise<{ message: string }> => {
   const supabase = await createClient();
 
-  const data = {
+  const formFields = {
     email: formData.get("email") as string,
     password: formData.get("password") as string
   };
 
-  const { error } = await supabase.auth.signInWithPassword(data);
+  const result = FormSchema.safeParse(formFields);
+  if (!result.success) {
+    return { message: fromZodError(result.error).message };
+  }
+
+  const validFields = result.data;
+  const { error } = await supabase.auth.signInWithPassword({
+    email: validFields.email,
+    password: validFields.password
+  });
 
   if (error) {
     return { message: error.message };
