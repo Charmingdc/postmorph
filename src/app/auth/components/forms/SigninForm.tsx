@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState, startTransition } from "react";
+import { useEffect, useActionState, startTransition } from "react";
+import { toast } from "sonner";
 import signin from "@/app/auth/actions/signin";
 
 import GoogleAuthButton from "../ui/GoogleAuthButton";
@@ -9,9 +10,9 @@ import Input from "../ui/Input";
 import { Button } from "@/components/ui/button";
 import PostmorphWorkflow from "@/app/auth/assets/postmorph-workflow.png";
 
-import useForm from "@/app/auth/hooks/useForm";
-import { inputFields } from "@/app/auth/lib/constants";
 import type { FormFields } from "@/app/auth/types";
+import { inputFields } from "@/app/auth/lib/constants";
+import useForm from "@/app/auth/hooks/useForm";
 
 type SigninState = { message: string };
 
@@ -33,6 +34,16 @@ const SigninForm = () => {
     field => field.valueKey !== "username"
   );
 
+  useEffect(() => {
+    if (!pending) {
+      if (!state.message) {
+        clearForm();
+      } else {
+        toast.error("An error occurred", { description: state.message });
+      }
+    }
+  }, [pending, state.message]);
+
   return (
     <div className='w-screen min-h-screen flex flex-col p-4 gap-x-4 md:grid md:grid-cols-2'>
       <form
@@ -44,9 +55,6 @@ const SigninForm = () => {
           formData.append("password", form.password);
 
           startTransition(() => signinAction(formData));
-          if (!pending && !state.message) {
-            clearForm();
-          }
         }}
         className='w-full min-h-screen flex flex-col justify-center p-4'
       >
@@ -84,8 +92,6 @@ const SigninForm = () => {
         >
           {pending ? "Signing in..." : "Sign In"}
         </Button>
-
-        {state?.message && <p className='mt-2 text-red-600'>{state.message}</p>}
 
         <p className='w-full text-center'>
           Don't have an account?

@@ -11,7 +11,8 @@ import { createClient } from "@/utils/supabase/server";
 const FormSchema = z.object({
   username: z
     .string({
-      required_error: "Username is required"})
+      required_error: "Username is required"
+    })
     .min(4, "Username must be at least 4 characters long"),
 
   email: z
@@ -41,7 +42,6 @@ const signup = async (
     password: formData.get("password") as string
   };
 
-  
   const result = FormSchema.safeParse(formFields);
   if (!result.success) {
     return { message: fromZodError(result.error).message };
