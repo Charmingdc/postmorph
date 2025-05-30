@@ -8,22 +8,39 @@ import { createClient } from "@/utils/supabase/server";
 const signup = async (
   prevState: { message: string },
   formData: FormData
-): Promise<{message: string}> => {
+): Promise<{ message: string }> => {
   const supabase = await createClient();
 
-  const data = {
+  const formFields = {
     email: formData.get("email") as string,
-    password: formData.get("password") as string
+    password: formData.get("password") as string,
+    username: formData.get("username") as string
   };
 
-  const { error } = await supabase.auth.signUp(data);
+  const { data, error } = await supabase.auth.signUp({
+    email: formFields.email,
+    password: formFields.password,
+    options: {
+      emailRedirectTo: "auth/signin"
+    }
+  });
+
+  /* if (data?.user) {
+    const { id, email } = data.user;
+
+    await supabase.from("Profiles").insert({
+      user_id: id,
+      username: formFields.username,
+      email
+    });
+  }*/
 
   if (error) {
     return { message: error.message };
   }
 
-  revalidatePath("/dashboard", "layout");
-  redirect("/dashboard");
+  revalidatePath("/", "layout");
+  redirect("/");
 };
 
 export default signup;
