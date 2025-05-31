@@ -29,11 +29,7 @@ export default function RootLayout({
           theme='system'
           position='top-center'
           visibleToasts={3}
-          toastOptions={{
-            cancel: {
-              label: "Close",
-            }
-          }}
+          closeButton={true}
         />
       </body>
     </html>

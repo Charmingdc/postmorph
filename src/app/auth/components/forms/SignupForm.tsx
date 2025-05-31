@@ -3,6 +3,8 @@
 import { useEffect, useActionState, startTransition } from "react";
 import Link from "next/link";
 import { toast } from "sonner";
+
+
 import signup from "@/app/auth/actions/signup";
 
 import GoogleAuthButton from "../ui/GoogleAuthButton";
@@ -62,7 +64,7 @@ const SignupForm = () => {
           more efficiently.
         </p>
 
-        <GoogleAuthButton authMode='signup' onClick={() => alert("hi")} />
+        <GoogleAuthButton authMode='signup' />
 
         <div className='flex items-center my-4'>
           <hr className='flex-grow border-t-2' />
@@ -91,10 +93,8 @@ const SignupForm = () => {
           type='submit'
           disabled={pending}
         >
-          {pending ? "Signing up..." : "Sign up"}
+          {pending ? "Processing..." : "Sign up"}
         </Button>
-
-
 
         <p className='w-full text-center'>
           Already have an account?

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 import {
   AlignStartVertical,
@@ -35,10 +36,16 @@ const MobileNavbar = () => {
 
   const handleSignout = async () => {
     try {
+      const toastId = toast.loading("Signing out....");
+
       await signout();
-      router.push('/auth/signin')
+
+      toast.dismiss(toastId);
+      router.push("/auth/signin");
     } catch (err) {
-      console.error("An error occured when logging user out:", err.message);
+      toast.error("An error occured when logging user out:", {
+        description: err.message
+      });
     }
   };
 

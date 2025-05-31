@@ -53,15 +53,19 @@ const signup = async (
     password: validFields.password,
     options: {
       emailRedirectTo: "auth/signin"
+    },
+    data: {
+      full_name: username,
+      avatar_url: null
     }
   });
 
   if (data?.user) {
     const { id, email } = data.user;
 
-    await supabase.from("Profiles").insert({
+    await supabase.from("Profiles").upsert({
       user_id: id,
-      username: validFields.username,
+      full_name: validFields.username,
       email
     });
   }

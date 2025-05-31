@@ -61,7 +61,7 @@ const SigninForm = () => {
         <h1 className='text-3xl font-bold mb-2'> Welcome back </h1>
         <p className='mb-4'> What are we repurposing today? </p>
 
-        <GoogleAuthButton authMode='signin' onClick={() => alert("hi")} />
+        <GoogleAuthButton authMode='signin'  />
 
         <div className='flex items-center my-4'>
           <hr className='flex-grow border-t-2' />
