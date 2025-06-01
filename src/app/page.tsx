@@ -1,3 +1,5 @@
+import Spinner from "@/components/ui/spinner";
+
 const Page = () => {
   return (
     <main
@@ -8,7 +10,9 @@ const Page = () => {
         Postmorph
       </h1>
 
-      <div className='absolute bottom-[6rem]'> loading... </div>
+      <div className='absolute bottom-[6rem]'>
+        <Spinner />
+      </div>
     </main>
   );
 };
