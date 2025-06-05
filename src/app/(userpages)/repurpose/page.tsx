@@ -1,6 +1,6 @@
-import RepurposeForm from './components/RepurposeForm';
+import RepurposeForm from "./components/RepurposeForm";
 
-const Page = () => {
+const RepurposePage = () => {
   return (
     <main className='w-full'>
       <RepurposeForm />
@@ -8,4 +8,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default RepurposePage;

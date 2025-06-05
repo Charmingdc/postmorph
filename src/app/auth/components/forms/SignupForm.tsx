@@ -4,7 +4,6 @@ import { useEffect, useActionState, startTransition } from "react";
 import Link from "next/link";
 import { toast } from "sonner";
 
-
 import signup from "@/app/auth/actions/signup";
 
 import GoogleAuthButton from "../ui/GoogleAuthButton";
@@ -37,7 +36,7 @@ const SignupForm = () => {
     if (!pending) {
       if (!state.message) {
         clearForm();
-      } else {
+      } else if (state.message) {
         toast.error("An error occurred", { description: state.message });
       }
     }

@@ -10,17 +10,10 @@ import { createClient } from "@/utils/supabase/server";
 
 const FormSchema = z.object({
   email: z
-    .string({
-      required_error: "Email is required",
-      invalid_type_error: "Email must be a string"
-    })
+    .string({ required_error: "Email is required" })
     .email("Invalid email format"),
-
   password: z
-    .string({
-      required_error: "Password is required",
-      invalid_type_error: "Password must be a string"
-    })
+    .string({ required_error: "Password is required" })
     .min(6, "Password must be at least 6 characters long")
 });
 
@@ -41,13 +34,13 @@ const signin = async (
   }
 
   const validFields = result.data;
-  const { error } = await supabase.auth.signInWithPassword({
+  const { error: signInError } = await supabase.auth.signInWithPassword({
     email: validFields.email,
     password: validFields.password
   });
 
-  if (error) {
-    return { message: error.message };
+  if (signInError) {
+    return { message: signInError.message };
   }
 
   revalidatePath("/dashboard", "layout");

@@ -24,24 +24,10 @@ const googleSignin = async (): Promise<{ message: string }> => {
     return { message: error.message };
   }
 
-  if (data?.url) {
+ if (data?.url) {
     redirect(data.url);
-  }
+  } 
 
-  if (data?.user) {
-    const user = data.user;
-    const meta = user.user_metadata;
-
-    const fullName = meta.full_name || meta.name;
-    const avatarUrl = meta.avatar_url || meta.picture || null;
-
-    await supabase.from("Profiles").upsert({
-      user_id: user.id,
-      email: user.email,
-      full_name: fullName,
-      avatar_url: avatarUrl
-    });
-  }
 };
 
 export default googleSignin;

@@ -53,29 +53,16 @@ const signup = async (
     password: validFields.password,
     options: {
       emailRedirectTo: "auth/signin"
-    },
-    data: {
-      full_name: username,
-      avatar_url: null
     }
   });
 
-  if (data?.user) {
-    const { id, email } = data.user;
-
-    await supabase.from("Profiles").upsert({
-      user_id: id,
-      full_name: validFields.username,
-      email
-    });
-  }
-
   if (error) {
+    console.log(error);
     return { message: error.message };
   }
 
   revalidatePath("/dashboard", "layout");
-  redirect("/auth/signin");
+  redirect("/auth/email-verification");
 };
 
 export default signup;

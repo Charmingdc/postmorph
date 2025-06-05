@@ -1,7 +1,7 @@
 import CreditMetrics from './components/CreditMetrics';
 import RecentDrafts from './components/RecentDrafts';
 
-const Page = () => {
+const Dashboard = () => {
   return (
     <main className='w-full flex flex-col items-center'>
       <CreditMetrics />
@@ -10,4 +10,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default Dashboard

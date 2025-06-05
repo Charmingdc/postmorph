@@ -1,6 +1,6 @@
-import DraftsList from './components/DraftsList';
+import DraftsList from "./components/DraftsList";
 
-const Page = () => {
+const DraftsPage = () => {
   return (
     <main className='w-full'>
       <DraftsList />
@@ -8,4 +8,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default DraftsPage;

@@ -1,8 +1,8 @@
-import VoiceCountBar from './components/VoiceCountBar';
-import AddVoiceForm from './components/AddVoiceForm';
-import VoiceList from './components/VoiceList';
+import VoiceCountBar from "./components/VoiceCountBar";
+import AddVoiceForm from "./components/AddVoiceForm";
+import VoiceList from "./components/VoiceList";
 
-const Page = () => {
+const BrandVoicePage = () => {
   return (
     <main className='mb-14'>
       <p> Add custom voices that reflects your brand. </p>
@@ -14,4 +14,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default BrandVoicePage;
