@@ -5,8 +5,6 @@ import { usePathname, useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 import {
-  AlignStartVertical,
-  Send,
   CircleUserRound,
   Bell,
   LogOut

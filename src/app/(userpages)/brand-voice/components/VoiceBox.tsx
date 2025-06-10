@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { WandSparkles, Feather, Mic } from 'lucide-react';
 
 type VoiceBoxProps = {

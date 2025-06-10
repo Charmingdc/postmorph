@@ -30,8 +30,8 @@ const AddVoiceForm = () => {
         <DialogHeader>
           <DialogTitle> Add New Custom Voice </DialogTitle>
           <DialogDescription>
-            Fill the form below to add your custom writing style. Click save
-            when you're done.
+            {`Fill the form below to add your custom writing style. Click save
+            when you're done.`}
           </DialogDescription>
         </DialogHeader>
         <div className='w-full flex flex-col items-center py-4'>

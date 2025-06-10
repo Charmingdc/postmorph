@@ -1,13 +1,13 @@
-import Link from 'next/link';
-import { Trash, PencilLine } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import type { DraftType } from '@/lib/types';
+import Link from "next/link";
+import { Trash, PencilLine } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import type { DraftType } from "@/lib/types";
 
-type DrafBoxProps = {
+type DraftBoxProps = {
   draft: DraftType;
 };
 
-const DraftBox = ({ draft }: DraftBoxProps) => {
+const DraftBox = ({ draft }: DraftBoxProps ) => {
   const { type, content } = draft;
 
   return (
@@ -25,7 +25,8 @@ const DraftBox = ({ draft }: DraftBoxProps) => {
 
         <Link
           href={`/edit`}
-          className='flex items-center gap-4 p-2 px-4 border border-border rounded-lg transition-all duration-300 hover:bg-card'>
+          className='flex items-center gap-4 p-2 px-4 border border-border rounded-lg transition-all duration-300 hover:bg-card'
+        >
           <PencilLine /> Edit
         </Link>
       </div>

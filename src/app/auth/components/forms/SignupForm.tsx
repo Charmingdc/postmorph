@@ -2,6 +2,7 @@
 
 import { useEffect, useActionState, startTransition } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { toast } from "sonner";
 
 import signup from "@/app/auth/actions/signup";
@@ -9,7 +10,6 @@ import signup from "@/app/auth/actions/signup";
 import GoogleAuthButton from "../ui/GoogleAuthButton";
 import Input from "../ui/Input";
 import { Button } from "@/components/ui/button";
-import UsersConcepts from "@/app/auth/assets/illustration-01.png";
 
 import type { FormFields } from "@/app/auth/lib/types";
 import { inputFields } from "@/app/auth/lib/constants";
@@ -40,7 +40,7 @@ const SignupForm = () => {
         toast.error("An error occurred", { description: state.message });
       }
     }
-  }, [pending, state.message]);
+  }, [pending, state.message, clearForm]);
 
   return (
     <div className='w-screen min-h-screen flex flex-col p-4 pt-10 gap-x-4 md:grid md:grid-cols-2 md:pt-4'>
@@ -111,7 +111,11 @@ const SignupForm = () => {
           Built for modern creators
         </h2>
 
-        <img src={UsersConcepts} alt='users concepts' className='w-[90%]' />
+        <Image
+          src='@/app/auth/assets/illustration-01.png'
+          alt='users concepts'
+          className='w-[90%]'
+        />
 
         <h3 className='text-xl font-bold text-card-foreground'>
           And others...

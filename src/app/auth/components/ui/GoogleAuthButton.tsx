@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image"
 import { useTransition } from "react";
 import { toast } from "sonner";
 import googleSignin from "@/app/auth/actions/googleSignin";
@@ -38,9 +39,9 @@ const GoogleAuthButton = ({ authMode = "signin" }: GoogleAuthButtonProps) => {
         isPending ? "opacity-50 cursor-not-allowed" : ""
       }`}
     >
-      <img
+      <Image
         src='/icons/google-icon.png'
-        alt='Google Login'
+        alt='Google Signin'
         width='25px'
         height='25px'
       />

@@ -48,7 +48,7 @@ const signup = async (
   }
 
   const validFields = result.data;
-  const { data, error } = await supabase.auth.signUp({
+  const { error } = await supabase.auth.signUp({
     email: validFields.email,
     password: validFields.password,
     options: {

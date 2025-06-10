@@ -1,14 +1,15 @@
 "use client";
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { sidebarRoutes } from '../constants/layoutRoutes';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import Link from "next/link";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { sidebarRoutes } from "../constants/layoutRoutes";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger
-} from '@/components/ui/popover';
+} from "@/components/ui/popover";
 import {
   LayoutDashboard,
   Send,
@@ -16,12 +17,12 @@ import {
   CircleUserRound,
   Bell,
   LogOut
-} from 'lucide-react';
+} from "lucide-react";
 
 const Sidebar = () => {
   const pathname: string = usePathname();
   const pageName: string | undefined = pathname
-    .split('/')
+    .split("/")
     .filter(Boolean)
     .pop();
 
@@ -29,7 +30,7 @@ const Sidebar = () => {
     <nav>
       <div className='w-64 h-screen fixed flex flex-col gap-2 p-4 bg-sidebar border-r-2'>
         <div className='flex items-center pb-2 border-b-[.080rem] mb-2'>
-          <img
+          <Image
             src='/icons/postmorph-logo.png'
             alt='Postmorph Logo'
             width='40px'
@@ -41,7 +42,8 @@ const Sidebar = () => {
 
         <Link
           href='/dashboard'
-          className='w-[90%] flex items-center bg-primary text-primary-foreground gap-2 p-4 rounded-lg mb-2'>
+          className='w-[90%] flex items-center bg-primary text-primary-foreground gap-2 p-4 rounded-lg mb-2'
+        >
           <LayoutDashboard />
           Dashboard
         </Link>
@@ -49,19 +51,20 @@ const Sidebar = () => {
         {Object.entries(sidebarRoutes).map(([section, routes]) => (
           <div key={section}>
             <h3 className='font-bold capitalize mb-2'>
-              {section === 'aiTools' ? 'AI Tools' : section}
+              {section === "aiTools" ? "AI Tools" : section}
             </h3>
             <ul className='flex flex-col gap-y-[.1rem] text-[.9rem] text-muted-foreground border-b-2 mb-2'>
               {routes.map(route => {
                 const Icon = route.icon;
-                const isActive = pageName === route.url.split('/').pop();
+                const isActive = pageName === route.url.split("/").pop();
                 return (
                   <li key={route.url}>
                     <Link
                       href={route.url}
                       className={`${
-                        isActive ? 'bg-sidebar-border text-foreground' : ''
-                      } flex items-center p-3 gap-x-2 rounded-md hover:bg-sidebar-border hover:text-foreground`}>
+                        isActive ? "bg-sidebar-border text-foreground" : ""
+                      } flex items-center p-3 gap-x-2 rounded-md hover:bg-sidebar-border hover:text-foreground`}
+                    >
                       <Icon size={16} />
                       {route.text}
                     </Link>

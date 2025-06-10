@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useActionState, startTransition } from "react";
 import { toast } from "sonner";
 import signin from "@/app/auth/actions/signin";
@@ -8,7 +9,7 @@ import signin from "@/app/auth/actions/signin";
 import GoogleAuthButton from "../ui/GoogleAuthButton";
 import Input from "../ui/Input";
 import { Button } from "@/components/ui/button";
-import PostmorphWorkflow from "@/app/auth/assets/postmorph-workflow.png";
+
 
 import type { FormFields } from "@/app/auth/types";
 import { inputFields } from "@/app/auth/lib/constants";
@@ -42,7 +43,7 @@ const SigninForm = () => {
         toast.error("An error occurred", { description: state.message });
       }
     }
-  }, [pending, state.message]);
+  }, [pending, state.message, clearForm]);
 
   return (
     <div className='w-screen min-h-screen flex flex-col p-4 gap-x-4 md:grid md:grid-cols-2'>
@@ -94,7 +95,7 @@ const SigninForm = () => {
         </Button>
 
         <p className='w-full text-center'>
-          Don't have an account?
+          {`Don't have an account?`}
           <Link
             href='/auth/signup'
             className='text-primary ml-1 underline-offset-2 hover:underline'
@@ -109,7 +110,11 @@ const SigninForm = () => {
           Our simple 4-step process makes content repurposing effortless
         </h2>
 
-        <img src={PostmorphWorkflow} alt='users concepts' className='w-[90%]' />
+        <Image
+          src='@/app/auth/assets/postmorphWorkflow.png'
+          alt='Postmorph workflow'
+          className='w-[90%]'
+        />
 
         <h3 className='text-xl text-center font-bold text-card-foreground'>
           Contents repurposing have never being easier.
