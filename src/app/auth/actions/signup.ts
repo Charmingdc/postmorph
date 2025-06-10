@@ -52,12 +52,16 @@ const signup = async (
     email: validFields.email,
     password: validFields.password,
     options: {
-      emailRedirectTo: "auth/signin"
+      emailRedirectTo: "auth/signin",
+      data: {
+        name: validFields.username,
+        full_name: validFields.username,
+        avatar_url: `${process.env.NEXT_PUBLIC_APP_URL}/icons/default-avatar.png`
+      }
     }
   });
 
   if (error) {
-    console.log(error);
     return { message: error.message };
   }
 

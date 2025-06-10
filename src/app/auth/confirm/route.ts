@@ -55,9 +55,8 @@ export async function GET(request: NextRequest) {
     const { error: insertError } = await supabase.from("Profiles").insert({
       user_id: user.id,
       email: user.email,
-      full_name: user.user_metadata?.full_name ?? "New user",
-      avatar_url:
-        user.user_metadata?.avatar_url || user.user_metadata?.picture || ""
+      full_name: user.user_metadata?.name || user.user_metadata?.full_name,
+      avatar_url: user.user_metadata?.avatar_url || null
     });
 
     if (insertError) {
