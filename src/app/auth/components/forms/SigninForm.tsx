@@ -2,18 +2,19 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useActionState, startTransition } from "react";
+import { useEffect, useState, useActionState, startTransition } from "react";
 import { toast } from "sonner";
-import signin from "@/app/auth/actions/signin";
 
+import signin from "@/app/auth/actions/signin";
 import GoogleAuthButton from "../ui/GoogleAuthButton";
 import Input from "../ui/Input";
 import { Button } from "@/components/ui/button";
 
-
 import type { FormFields } from "@/app/auth/types";
 import { inputFields } from "@/app/auth/lib/constants";
 import useForm from "@/app/auth/hooks/useForm";
+
+import postmorphWorkflow from "@/app/auth/assets/postmorph-workflow.png";
 
 type SigninState = { message: string };
 
@@ -27,9 +28,8 @@ const SigninForm = () => {
     SigninState,
     (formData: FormData) => Promise<SigninState>,
     boolean
-  ] = useActionState(signin, {
-    message: ""
-  });
+  ] = useActionState(signin, { message: "" });
+  const [formCleared, setFormCleared] = useState<boolean>(false);
 
   const filteredFields = inputFields.filter(
     field => field.valueKey !== "username"
@@ -37,19 +37,23 @@ const SigninForm = () => {
 
   useEffect(() => {
     if (!pending) {
-      if (!state.message) {
+      if (!state.message && !formCleared) {
         clearForm();
-      } else {
-        toast.error("An error occurred", { description: state.message });
+        setFormCleared(true);
+      } else if (state.message) {
+        toast.error("Authentication Failed", {
+          description: state.message
+        });
       }
     }
-  }, [pending, state.message, clearForm]);
+  }, [pending, state.message, clearForm, formCleared]);
 
   return (
     <div className='w-screen min-h-screen flex flex-col p-4 gap-x-4 md:grid md:grid-cols-2'>
       <form
         onSubmit={async e => {
           e.preventDefault();
+          setFormCleared(false);
 
           const formData = new FormData();
           formData.append("email", form.email);
@@ -59,14 +63,14 @@ const SigninForm = () => {
         }}
         className='w-full min-h-screen flex flex-col justify-center p-4'
       >
-        <h1 className='text-3xl font-bold mb-2'> Welcome back </h1>
-        <p className='mb-4'> What are we repurposing today? </p>
+        <h1 className='text-3xl font-bold mb-2'>Welcome back</h1>
+        <p className='mb-4'>What are we repurposing today?</p>
 
         <GoogleAuthButton authMode='signin' />
 
         <div className='flex items-center my-4'>
           <hr className='flex-grow border-t-2' />
-          <span className='mx-4 text-muted-foreground'> or continue with </span>
+          <span className='mx-4 text-muted-foreground'>or continue with</span>
           <hr className='flex-grow border-t-2' />
         </div>
 
@@ -111,13 +115,16 @@ const SigninForm = () => {
         </h2>
 
         <Image
-          src='@/app/auth/assets/postmorphWorkflow.png'
+          src={postmorphWorkflow}
           alt='Postmorph workflow'
-          className='w-[90%]'
+          width={postmorphWorkflow.width}
+          height={postmorphWorkflow.height}
+          className='w-full max-w-[90%] h-auto mx-auto'
+          priority
         />
 
         <h3 className='text-xl text-center font-bold text-card-foreground'>
-          Contents repurposing have never being easier.
+          Content repurposing has never been easier.
         </h3>
       </div>
     </div>

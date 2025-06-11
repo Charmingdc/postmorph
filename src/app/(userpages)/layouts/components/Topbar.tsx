@@ -1,18 +1,18 @@
-"use client"
+"use client";
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { RefreshCw } from 'lucide-react';
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { RefreshCw } from "lucide-react";
 
 const formatPageName = (name: string | undefined) => {
-  if (!name) return '';
-  return name.replace(/-/g, ' ');
+  if (!name) return "";
+  return name.replace(/-/g, " ");
 };
 
-const Topbar = () => {
+const Topbar = ({ currentUserName }: { currentUserName: string }) => {
   const pathname: string = usePathname();
   const pageName: string | undefined = pathname
-    .split('/')
+    .split("/")
     .filter(Boolean)
     .pop();
 
@@ -21,8 +21,8 @@ const Topbar = () => {
       <ul className='w-full flex items-center justify-between gap-4 mb-2'>
         <li className='capitalize'>
           <h2 className='text-2xl font-bold'>
-            {pageName === 'dashboard'
-              ? `Welcome back, Charmingdc`
+            {pageName === "dashboard"
+              ? `Welcome back, ${currentUserName}`
               : formatPageName(pageName)}
           </h2>
         </li>

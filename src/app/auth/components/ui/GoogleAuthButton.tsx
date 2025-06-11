@@ -42,8 +42,8 @@ const GoogleAuthButton = ({ authMode = "signin" }: GoogleAuthButtonProps) => {
       <Image
         src='/icons/google-icon.png'
         alt='Google Signin'
-        width='25px'
-        height='25px'
+        width={25}
+        height={25}
       />
       {label}
     </button>

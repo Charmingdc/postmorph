@@ -1,15 +1,10 @@
 "use client";
 
+import { toast } from "sonner";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { toast } from "sonner";
 
-import {
-  CircleUserRound,
-  Bell,
-  LogOut
-} from "lucide-react";
-
+import { CircleUserRound, Bell, LogOut } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Popover,
@@ -19,12 +14,19 @@ import {
 
 import signout from "@/app/auth/actions/signout";
 
+type CleanUser = {
+  id: string;
+  name: string;
+  email: string;
+  avatar_url: string;
+} | null;
+
 const formatPageName = (name: string | undefined) => {
   if (!name) return "";
   return name.replace(/-/g, " ");
 };
 
-const MobileNavbar = () => {
+const MobileNavbar = ({ currentUser }: { currentUser: CleanUser }) => {
   const router = useRouter();
   const pathname: string = usePathname();
   const pageName: string | undefined = pathname
@@ -34,14 +36,12 @@ const MobileNavbar = () => {
 
   const handleSignout = async () => {
     try {
-      const toastId = toast.loading("Signing out....");
-
+      const toastId = toast.loading("Signing out...");
       await signout();
-
       toast.dismiss(toastId);
       router.push("/auth/signin");
-    } catch (err) {
-      toast.error("An error occured when logging user out:", {
+    } catch (err: any) {
+      toast.error("Error signing out", {
         description: err.message
       });
     }
@@ -51,9 +51,9 @@ const MobileNavbar = () => {
     <nav>
       <ul className='w-full min-h-12 flex items-center justify-between p-4 pt-2'>
         <li className='font-bold text-2xl capitalize'>
-          {pageName === "dashboard" ? (
+          {pageName === "dashboard" && currentUser ? (
             <h2>
-              Hey, <br /> Charmingdc
+              Hey, <br /> {currentUser.name}
             </h2>
           ) : (
             <div className='flex items-center gap-1 pt-3 -mb-2'>
@@ -61,16 +61,18 @@ const MobileNavbar = () => {
             </div>
           )}
         </li>
-        {pageName === "dashboard" && (
+        {pageName === "dashboard" && currentUser && (
           <li>
             <Popover>
               <PopoverTrigger asChild>
-                <Avatar className='w-12 h-12 border-2 border-primary rounded-full mr-2 mt-1'>
+                <Avatar className='w-12 h-12 border border-border rounded-full mr-2 mt-1'>
                   <AvatarImage
-                    src='https://github.com/shadcn.png'
-                    alt='@shadcn'
+                    src={currentUser.avatar_url}
+                    alt={currentUser.name}
                   />
-                  <AvatarFallback>CN</AvatarFallback>
+                  <AvatarFallback className='text-lg font-bold uppercase'>
+                    {currentUser.name.slice(0, 2)}
+                  </AvatarFallback>
                 </Avatar>
               </PopoverTrigger>
 
@@ -78,15 +80,19 @@ const MobileNavbar = () => {
                 <div className='w-ful flex items-center gap-2 pb-2 border-b-2'>
                   <Avatar className='rounded-full'>
                     <AvatarImage
-                      src='https://github.com/shadcn.png'
-                      alt='@shadcn'
+                      src={currentUser.avatar_url}
+                      alt={currentUser.name}
                     />
-                    <AvatarFallback>CN</AvatarFallback>
+                    <AvatarFallback className='font-bold uppercase'>
+                      {currentUser.name.slice(0, 2)}
+                    </AvatarFallback>
                   </Avatar>
 
                   <div className='w-full text-[.8rem]'>
-                    <p className='w-full font-bold truncate'> Charmingdc </p>
-                    <p className='w-full truncate'> charmingdc002@gmail.com </p>
+                    <p className='w-full font-bold truncate'>
+                      {currentUser.name}
+                    </p>
+                    <p className='w-full truncate'>{currentUser.email}</p>
                   </div>
                 </div>
 

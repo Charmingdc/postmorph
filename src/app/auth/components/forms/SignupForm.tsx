@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useActionState, startTransition } from "react";
+import { useEffect, useState, useActionState, startTransition } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { toast } from "sonner";
@@ -14,6 +14,8 @@ import { Button } from "@/components/ui/button";
 import type { FormFields } from "@/app/auth/lib/types";
 import { inputFields } from "@/app/auth/lib/constants";
 import useForm from "@/app/auth/hooks/useForm";
+
+import postmorphUsersConcept from "@/app/auth/assets/illustration-01.png";
 
 type SignupState = { message: string };
 
@@ -31,22 +33,27 @@ const SignupForm = () => {
   ] = useActionState(signup, {
     message: ""
   });
+  const [formCleared, setFormCleared] = useState<boolean>(false);
 
   useEffect(() => {
     if (!pending) {
-      if (!state.message) {
+      if (!state.message && !formCleared) {
         clearForm();
+        setFormCleared(true);
       } else if (state.message) {
-        toast.error("An error occurred", { description: state.message });
+        toast.error("Authentication Failed", {
+          description: state.message
+        });
       }
     }
-  }, [pending, state.message, clearForm]);
+  }, [pending, state.message, clearForm, formCleared]);
 
   return (
     <div className='w-screen min-h-screen flex flex-col p-4 pt-10 gap-x-4 md:grid md:grid-cols-2 md:pt-4'>
       <form
         onSubmit={async e => {
           e.preventDefault();
+          setFormCleared(false);
 
           const formData = new FormData();
           formData.append("username", form.username);
@@ -112,9 +119,12 @@ const SignupForm = () => {
         </h2>
 
         <Image
-          src='@/app/auth/assets/illustration-01.png'
-          alt='users concepts'
-          className='w-[90%]'
+          src={postmorphUsersConcept}
+          alt='Postmorph users concept'
+          width={postmorphUsersConcept.width}
+          height={postmorphUsersConcept.height}
+          className='w-full max-w-[90%] h-auto mx-auto'
+          priority
         />
 
         <h3 className='text-xl font-bold text-card-foreground'>

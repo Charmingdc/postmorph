@@ -1,10 +1,15 @@
-import '@/app/globals.css';
-import AppClientLayout from './layouts/AppClientLayout';
+import "@/app/globals.css";
+import AppClientLayout from "./layouts/AppClientLayout";
+import { QueryProvider } from "./QueryProvider";
 
 export default function RootLayout({
   children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <AppClientLayout> {children} </AppClientLayout>;
+  return (
+    <QueryProvider>
+      <AppClientLayout>{children}</AppClientLayout>
+    </QueryProvider>
+  );
 }
