@@ -9,10 +9,10 @@ const ErrorBox = ({
 }: ErrorBoxProps) => {
   return (
     <div
-      className={`w-full p-4 bg-red-50 border border-red-200 text-red-700 rounded-xl text-sm ${className}`}>
+      className={`w-full p-6 bg-red-50 border border-red-200 text-red-700 rounded-xl text-sm ${className}`}>
       ⚠️ {message}
     </div>
   );
 };
 
-export default ErrorBox;
+export { ErrorBox }

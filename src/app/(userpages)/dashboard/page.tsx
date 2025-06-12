@@ -5,7 +5,7 @@ import CreditMetrics from "./components/CreditMetrics";
 import RecentDrafts from "./components/RecentDrafts";
 
 const Dashboard = async () => {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const {
     data: { user }

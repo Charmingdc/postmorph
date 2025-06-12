@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { createClient } from "@/utils/supabase/client";
 import { useIsMobile } from "@/hooks/use-mobile";
 
+import { LoadingScreen } from "@/components/ui/loading-screen";
 import Sidebar from "./components/Sidebar";
 import Topbar from "./components/Topbar";
 import MobileNavbar from "./components/MobileNavbar";
@@ -86,7 +87,7 @@ const AppClientLayout = ({ children }: { children: React.ReactNode }) => {
           <Topbar currentUserName={currentUser.name} />
         )}
 
-        {isLoading && <p>Loading user...</p>}
+        {isLoading && <LoadingScreen />}
         {!isLoading && !error && currentUser && children}
       </main>
 
