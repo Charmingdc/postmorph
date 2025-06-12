@@ -2,7 +2,8 @@
 
 import { createClient } from "@/utils/supabase/server";
 
-const fetchUserCredits = async (userId: string) => {
+const fetchUserCredits = async (userId: string): Promise<{total_credits: number,
+used_credits: number}> => {
   const supabase = await createClient();
 
   const { data, error } = await supabase

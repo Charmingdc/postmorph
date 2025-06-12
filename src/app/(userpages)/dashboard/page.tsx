@@ -19,7 +19,7 @@ const Dashboard = async () => {
   return (
     <main className='w-full flex flex-col items-center'>
       <CreditMetrics currentUserId={user.id} />
-      <RecentDrafts />
+      <RecentDrafts currentUserId={user.id} />
     </main>
   );
 };

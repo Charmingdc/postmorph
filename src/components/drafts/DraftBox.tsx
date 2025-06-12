@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { Trash, PencilLine } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -7,16 +9,18 @@ type DraftBoxProps = {
   draft: DraftType;
 };
 
-const DraftBox = ({ draft }: DraftBoxProps ) => {
+const DraftBox = ({ draft }: DraftBoxProps) => {
   const { type, content } = draft;
 
   return (
     <div className='w-full flex flex-col gap-2 bg-card text-card-foreground p-4 border rounded-xl transition-all duration-500 hover:border-primary'>
-      <div className='w-fit bg-background capitalize py-2 px-4 rounded-lg mb-3'>
+      <div className='w-fit bg-background text-sm capitalize py-2 px-4 rounded-lg mb-3'>
         {type}
       </div>
 
-      <p className='line-clamp-5'> {content} </p>
+      <div className='prose prose-sm text-sm whitespace-pre-wrap line-clamp-8'>
+        {content}
+      </div>
 
       <div className='w-full flex items-center gap-4 mt-4'>
         <Button variant='destructive'>

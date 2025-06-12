@@ -1,5 +1,5 @@
 import NoDataCard from '@/components/ui/no-data-card';
-import DraftBox from './DraftBox';
+import DraftBox from '@/components/drafts/DraftBox';
 import { demoDrafts } from '../lib/constants';
 
 const DraftsList = () => {

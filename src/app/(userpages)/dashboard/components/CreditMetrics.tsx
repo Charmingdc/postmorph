@@ -38,8 +38,7 @@ const CreditMetrics = async ({ currentUserId }: { currentUserId: string }) => {
         <h3 className='text-4xl font-bold my-4'>{remaining}</h3>
 
         <p className='mb-2'>
-          <strong>{used_credits}</strong> used /{" "}
-          <strong>{total_credits}</strong> total
+          <strong>{`${progress}%`}</strong> of credits used
         </p>
 
         <Progress value={progress} />
