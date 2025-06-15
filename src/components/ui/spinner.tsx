@@ -1,10 +1,16 @@
-const Spinner = () => {
+const Spinner = ({
+  width = 8,
+  height = 8
+}: {
+  width: number;
+  height: number;
+}) => {
   return (
-    <div className='flex gap-3 flex-wrap justify-center p-4 md:p-12'>
+    <div className='flex gap-3 flex-wrap justify-center md:p-12'>
       <svg
         aria-hidden='true'
         role='status'
-        className='inline w-8 h-8 animate-spin'
+        className={`inline w-${width} h-${height} animate-spin`}
         viewBox='0 0 100 101'
         fill='none'
         xmlns='http://www.w3.org/2000/svg'

@@ -1,20 +1,17 @@
-import { Suspense } from "react";
+import Link from "next/link";
+import DraftController from "@/components/drafts/DraftController";
+import fetchUserDrafts from "@/lib/drafts/fetchUserDrafts";
 
-import DraftLoader from "@/components/drafts/DraftLoader";
-import DraftBox from "@/components/drafts/DraftBox";
-import fetchUserDrafts from "../lib/fetchUserDrafts";
-
-const RecentDrafts = ({ currentUserId }: { currentUserId: string }) => {
-  const draftsPromise = fetchUserDrafts(currentUserId);
+const RecentDrafts = async ({ currentUserId }: { currentUserId: string }) => {
+  const drafts = await fetchUserDrafts(currentUserId, 3);
 
   return (
     <div className='my-12'>
       <h3 className='text-2xl font-bold mb-2'>Recent Drafts</h3>
+      <DraftController drafts={drafts} />
 
-      <div className='w-full h-auto flex flex-col gap-y-4'>
-        <Suspense fallback={<DraftLoader />}>
-          <DraftBox drafts={draftsPromise} />
-        </Suspense>
+      <div className='w-full flex items-center justify-center mt-8'>
+        <Link href='/drafts'> View all </Link>
       </div>
     </div>
   );

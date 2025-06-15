@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/dialog";
 import { Plus, ChevronsUpDown } from "lucide-react";
 
-import fetchUserCredits from "../lib/fetchUserCredits";
+import fetchUserCredits from "@/lib/credits/fetchUserCredits";
 
 type UserCredits = {
   total_credits: number;

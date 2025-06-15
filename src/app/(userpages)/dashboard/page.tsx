@@ -1,17 +1,14 @@
 import { redirect } from "next/navigation";
-import { createClient } from "@/utils/supabase/server";
+import getUser from "@/lib/user/server";
 
 import CreditMetrics from "./components/CreditMetrics";
 import RecentDrafts from "./components/RecentDrafts";
+import DraftLoader from "@/components/drafts/DraftLoader";
+import { Suspense } from "react";
 
 const Dashboard = async () => {
-  const supabase = await createClient();
+  const user = await getUser();
 
-  const {
-    data: { user }
-  } = await supabase.auth.getUser();
-
-  // Redirect to login if no user
   if (!user) {
     redirect("/auth/signin");
   }
@@ -19,7 +16,10 @@ const Dashboard = async () => {
   return (
     <main className='w-full flex flex-col items-center'>
       <CreditMetrics currentUserId={user.id} />
-      <RecentDrafts currentUserId={user.id} />
+
+      <Suspense fallback={<DraftLoader />}>
+        <RecentDrafts currentUserId={user.id} />
+      </Suspense>
     </main>
   );
 };

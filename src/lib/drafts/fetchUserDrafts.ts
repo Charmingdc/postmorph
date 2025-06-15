@@ -3,13 +3,22 @@
 import { createClient } from "@/utils/supabase/server";
 import type { DraftType } from "@/lib/types";
 
-const fetchUserDrafts = async (userId: string): Promise<DraftType[]> => {
+const fetchUserDrafts = async (
+  userId: string,
+  limit: number | null = null
+): Promise<DraftType[]> => {
   const supabase = await createClient();
 
-  const { data, error } = await supabase
+  let query = supabase
     .from("drafts")
     .select("*")
     .eq("user_id", userId);
+
+  if (limit !== null) {
+    query = query.limit(limit);
+  }
+
+  const { data, error } = await query;
 
   if (error || !data) {
     throw new Error(error.message);
@@ -19,7 +28,7 @@ const fetchUserDrafts = async (userId: string): Promise<DraftType[]> => {
     id: draft.id,
     type: draft.type,
     content: draft.content,
-    createdAt: draft.created_at
+    createdAt: draft.created_at,
   }));
 };
 

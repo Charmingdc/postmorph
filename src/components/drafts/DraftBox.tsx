@@ -1,32 +1,44 @@
 "use client";
 
-import { use } from "react";
 import Link from "next/link";
-import { Trash, PencilLine } from "lucide-react";
+import { useEffect } from "react";
+import { toast } from "sonner";
+import { Copy, CopyCheck, Trash, PencilLine } from "lucide-react";
 
 import NoDataCard from "@/components/ui/no-data-card";
 import { Button } from "@/components/ui/button";
+import Spinner from "@/components/ui/spinner";
+
+import useClipboard from "@/hooks/useClipboard";
 import type { DraftType } from "@/lib/types";
 
-type DraftBoxProps = {
-  drafts: Promise<DraftType[]>;
+type Props = {
+  drafts: DraftType[];
+  onDelete: (id: string) => void;
+  isDeleting: boolean;
 };
 
-const DraftBox = ({ drafts }: DraftBoxProps) => {
-  const allDrafts = use(drafts);
+const DraftBox = ({ drafts, onDelete, isDeleting }: Props) => {
+  const { copied, copy } = useClipboard();
 
-  if (!allDrafts || allDrafts.length === 0) {
+  useEffect(() => {
+    if (copied) {
+      toast.success("Copied to clipboard successfully");
+    }
+  }, [copied]);
+
+  if (!drafts || drafts.length === 0) {
     return (
       <NoDataCard
         title='No Drafts'
-        message={`You don't have any drafts saved.`}
+        message="You don't have any drafts saved."
       />
     );
   }
 
   return (
     <>
-      {allDrafts.map(draft => (
+      {drafts.map(draft => (
         <div
           key={draft.id}
           className='w-full flex flex-col gap-2 bg-card text-card-foreground p-4 border rounded-xl transition-all duration-500 hover:border-primary'
@@ -40,16 +52,24 @@ const DraftBox = ({ drafts }: DraftBoxProps) => {
           </div>
 
           <div className='w-full flex items-center gap-4 mt-4'>
-            <Button variant='destructive'>
-              <Trash /> Delete
+            <Button variant='outline' onClick={() => copy(draft.content)}>
+              {copied ? <CopyCheck className='text-green-400' /> : <Copy />}
             </Button>
 
             <Link
-              href={`/edit`}
-              className='flex items-center gap-4 p-2 px-4 border border-border rounded-lg transition-all duration-300 hover:bg-card'
+              href={`/editor`}
+              className='flex items-center gap-4 p-2 px-3 border border-border rounded-lg transition-all duration-300 hover:bg-accent'
             >
-              <PencilLine /> Edit
+              <PencilLine />
             </Link>
+
+            <Button
+              variant='destructive'
+              onClick={() => onDelete(draft.id)}
+              disabled={isDeleting}
+            >
+              {isDeleting ? <Spinner /> : <Trash />}
+            </Button>
           </div>
         </div>
       ))}
