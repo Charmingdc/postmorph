@@ -12,7 +12,8 @@ const fetchUserDrafts = async (
   let query = supabase
     .from("drafts")
     .select("*")
-    .eq("user_id", userId);
+    .eq("user_id", userId)
+    .order("created_at", { ascending: false });
 
   if (limit !== null) {
     query = query.limit(limit);
@@ -28,7 +29,7 @@ const fetchUserDrafts = async (
     id: draft.id,
     type: draft.type,
     content: draft.content,
-    createdAt: draft.created_at,
+    createdAt: draft.created_at
   }));
 };
 

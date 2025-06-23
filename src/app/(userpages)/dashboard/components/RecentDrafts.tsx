@@ -6,7 +6,7 @@ const RecentDrafts = async ({ currentUserId }: { currentUserId: string }) => {
   const drafts = await fetchUserDrafts(currentUserId, 3);
 
   return (
-    <div className='my-12'>
+    <div className='w-full my-12'>
       <h3 className='text-2xl font-bold mb-2'>Recent Drafts</h3>
       <DraftController drafts={drafts} />
 

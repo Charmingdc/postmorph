@@ -1,6 +1,8 @@
 "use client";
 
 import { useTransition } from "react";
+import { createClient } from "@/utils/supabase/client";
+
 import { useRouter } from "next/navigation";
 import DraftBox from "./DraftBox";
 import deleteDraft from "@/app/(userpages)/drafts/actions/deleteDraft";
@@ -12,8 +14,12 @@ const DraftController = ({ drafts }: { drafts: DraftType[] }) => {
 
   const handleDelete = async (id: string) => {
     startTransition(async () => {
-      await deleteDraft(id);
-      router.refresh();
+      try {
+        await deleteDraft(id);
+        router.refresh();
+      } catch (err) {
+        console.error("Error deleting draft:", err.message);
+      }
     });
   };
 

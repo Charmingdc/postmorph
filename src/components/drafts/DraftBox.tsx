@@ -41,7 +41,7 @@ const DraftBox = ({ drafts, onDelete, isDeleting }: Props) => {
       {drafts.map(draft => (
         <div
           key={draft.id}
-          className='w-full flex flex-col gap-2 bg-card text-card-foreground p-4 border rounded-xl transition-all duration-500 hover:border-primary'
+          className='w-full flex flex-col gap-2 bg-card text-card-foreground p-4 border mb-4 rounded-xl transition-all duration-500 hover:border-primary'
         >
           <div className='w-fit bg-background text-sm capitalize py-2 px-4 rounded-lg mb-3'>
             {draft.type}
