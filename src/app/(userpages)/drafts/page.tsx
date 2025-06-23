@@ -1,8 +1,6 @@
-import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import getUser from "@/lib/user/server";
 
-import DraftLoader from "@/components/drafts/DraftLoader";
 import DraftsList from "./components/DraftsList";
 
 const DraftsPage = async () => {
@@ -13,9 +11,7 @@ const DraftsPage = async () => {
 
   return (
     <main className='w-full'>
-      <Suspense fallback={<DraftLoader />}>
-        <DraftsList currentUserId={user.id} />
-      </Suspense>
+      <DraftsList currentUserId={user.id} />
     </main>
   );
 };

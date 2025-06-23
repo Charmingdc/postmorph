@@ -10,15 +10,16 @@ const DraftLoader = () => {
           my-3'
         >
           {/* Type Tag Placeholder */}
-          <Skeleton className='w-20 h-10 mb-3 rounded-md' />
+          <Skeleton className='w-20 h-10 mb-3 rounded-xl' />
 
           {/* Content Placeholder */}
-          <Skeleton className='w-full h-32 rounded-md' />
+          <Skeleton className='w-full h-32 rounded-xl' />
 
           {/* Buttons */}
           <div className='w-full flex items-center gap-4 mt-4'>
-            <Skeleton className='w-24 h-10 rounded-md' />
-            <Skeleton className='w-24 h-10 rounded-md' />
+            <Skeleton className='w-10 h-10 rounded-xl' />
+            <Skeleton className='w-10 h-10 rounded-xl' />
+            <Skeleton className='w-10 h-10 rounded-xl' />
           </div>
         </div>
       ))}
