@@ -17,9 +17,9 @@ const DraftLoader = () => {
 
           {/* Buttons */}
           <div className='w-full flex items-center gap-4 mt-4'>
-            <Skeleton className='w-10 h-10 rounded-xl' />
-            <Skeleton className='w-10 h-10 rounded-xl' />
-            <Skeleton className='w-10 h-10 rounded-xl' />
+            <Skeleton className='w-14 h-10 rounded-xl' />
+            <Skeleton className='w-14 h-10 rounded-xl' />
+            <Skeleton className='w-14 h-10 rounded-xl' />
           </div>
         </div>
       ))}

@@ -1,4 +1,3 @@
-import { redirect } from "next/navigation";
 import getUser from "@/lib/user/server";
 
 import CreditMetrics from "./components/CreditMetrics";
@@ -9,16 +8,12 @@ import { Suspense } from "react";
 const Dashboard = async () => {
   const user = await getUser();
 
-  if (!user) {
-    redirect("/auth/signin");
-  }
-
   return (
     <main className='w-full flex flex-col items-center'>
-      <CreditMetrics currentUserId={user.id} />
+      <CreditMetrics currentUserId={user.userId} />
 
       <Suspense fallback={<DraftLoader />}>
-        <RecentDrafts currentUserId={user.id} />
+        <RecentDrafts currentUserId={user.userId} />
       </Suspense>
     </main>
   );

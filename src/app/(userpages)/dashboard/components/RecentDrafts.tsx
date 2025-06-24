@@ -3,13 +3,15 @@ import DraftController from "@/components/drafts/DraftController";
 import Link from "next/link";
 
 const RecentDrafts = async ({ currentUserId }: { currentUserId: string }) => {
+  const cookieStore = await cookies();
+  const cookieStr = cookieStore.toString();
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL;
 
   const res = await fetch(
     `${baseUrl}/api/drafts?userId=${currentUserId}&from=0&to=2`,
     {
       headers: {
-        Cookie: cookies().toString()
+        Cookie: cookieStr
       },
       cache: "no-store"
     }
