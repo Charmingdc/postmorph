@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import Spinner from "@/components/ui/spinner";
 
 import useClipboard from "@/hooks/useClipboard";
-import type { DraftType } from "@/lib/types";
+import type { DraftType } from "@/types/index";
 
 type Props = {
   drafts: DraftType[];

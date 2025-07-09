@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
-import type { DraftType } from "@/lib/types";
+import type { DraftType } from "@/types/index";
 
 const PAGE_SIZE = 10;
 

@@ -1,7 +1,8 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
+import type { Profile } from "@/types/index";
 
-const getProfile = async () => {
+const getProfile = async (): Promise<Profile | null> => {
   const supabase = await createClient();
 
   const {

@@ -6,7 +6,7 @@ import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 import DraftBox from "./DraftBox";
 import deleteDraft from "@/app/(userpages)/drafts/actions/deleteDraft";
-import type { DraftType } from "@/lib/types";
+import type { DraftType } from "@/types/index";
 
 const DraftController = ({ drafts }: { drafts: DraftType[] }) => {
   const [isPending, startTransition] = useTransition();

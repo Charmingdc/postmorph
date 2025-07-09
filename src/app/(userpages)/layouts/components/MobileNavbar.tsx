@@ -65,7 +65,7 @@ const MobileNavbar = ({ currentUser }: { currentUser: CleanUser }) => {
           <li>
             <Popover>
               <PopoverTrigger asChild>
-                <Avatar className='w-12 h-12 border border-border rounded-full mr-2 mt-1'>
+                <Avatar className='w-10 h-10 border border-border rounded-full mr-2 mt-1'>
                   <AvatarImage
                     src={currentUser.avatar_url}
                     alt={currentUser.name}
