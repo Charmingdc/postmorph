@@ -1,9 +1,9 @@
-import getUser from "@/lib/user/server";
+import getProfile from "@/lib/user/server";
 
 import UserAvatar from "./components/UserAvatar";
 
 const settingsPage = async () => {
-  const user = await getUser();
+  const profile = await getProfile();
 
   return (
     <main>
@@ -11,7 +11,7 @@ const settingsPage = async () => {
       <p className='text-muted-foreground'> Manage your account settings </p>
 
       <div className='w-full flex gap-y-4 my-4'>
-        <UserAvatar userAvatarUrl={user.avatar_url} />
+        <UserAvatar userAvatarUrl={profile.avatar_url} />
       </div>
     </main>
   );

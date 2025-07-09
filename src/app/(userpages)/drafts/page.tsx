@@ -1,17 +1,14 @@
 import { redirect } from "next/navigation";
-import getUser from "@/lib/user/server";
+import getProfile from "@/lib/user/server";
 
 import DraftsList from "./components/DraftsList";
 
 const DraftsPage = async () => {
-  const user = await getUser();
-  if (!user) {
-    redirect("/auth/signin");
-  }
+  const profile = await getProfile();
 
   return (
     <main className='w-full'>
-      <DraftsList currentUserId={user.id} />
+      <DraftsList currentUserId={profile.user_id} />
     </main>
   );
 };
