@@ -1,3 +1,8 @@
+type ActionState = {
+  type: "string" | "error" | "";
+  message: string;
+};
+
 type Profile = {
   user_id: string;
   full_name: string;
@@ -16,4 +21,4 @@ type DraftType = {
   createdAt: string;
 };
 
-export type { Profile, DraftType };
+export type { ActionState, Profile, DraftType };

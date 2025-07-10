@@ -76,7 +76,7 @@ const MobileNavbar = ({ currentUser }: { currentUser: CleanUser }) => {
                 </Avatar>
               </PopoverTrigger>
 
-              <PopoverContent className='rounded-xl'>
+              <PopoverContent className='rounded-xl m-2 mr-4'>
                 <div className='w-ful flex items-center gap-2 pb-2 border-b-2'>
                   <Avatar className='rounded-full'>
                     <AvatarImage
