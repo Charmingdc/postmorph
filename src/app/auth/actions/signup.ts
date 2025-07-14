@@ -56,7 +56,8 @@ const signup = async (
       data: {
         name: validFields.username,
         full_name: validFields.username,
-        avatar_url: `${process.env.NEXT_PUBLIC_APP_URL}/icons/default-avatar.png`
+        avatar_url:
+        `https://ui-avatars.com/api/?name=${encodeURIComponent(validFields.username)}&background=random&bold=true&size=128`
       }
     }
   });

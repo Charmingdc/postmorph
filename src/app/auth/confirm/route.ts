@@ -34,7 +34,6 @@ export async function GET(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   if (!user || userError) {
-    console.error("User fetch error:", userError);
     redirect("/error");
   }
 
@@ -46,7 +45,7 @@ export async function GET(request: NextRequest) {
     .single();
 
   if (profileError && profileError.code !== "PGRST116") {
-    console.error("Profile lookup error:", profileError);
+
     redirect("/error");
   }
 
