@@ -13,7 +13,7 @@ type Props = {
   avatarUrl?: string | null;
 };
 
-const MAX_FILE_SIZE_MB = 2;
+const MAX_FILE_SIZE_MB = 4;
 const initialState = { type: "success" as const, message: "" };
 
 const AvatarUploader = ({ fullName, avatarUrl }: Props) => {
@@ -43,7 +43,7 @@ const AvatarUploader = ({ fullName, avatarUrl }: Props) => {
     if (!file) return;
 
     if (file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
-      toast.error("File must be under 2MB");
+      toast.error(`File must be under ${MAX_FILE_SIZE_MB}MB`);
       return;
     }
 
@@ -61,7 +61,7 @@ const AvatarUploader = ({ fullName, avatarUrl }: Props) => {
       return;
     }
 
-    const path = `avatars/${user.id}/${Date.now()}-${file.name}`;
+    const path = `${user.id}/${Date.now()}-${file.name}`;
     const { error: uploadError } = await supabase.storage
       .from("avatars")
       .upload(path, file, {
@@ -70,9 +70,6 @@ const AvatarUploader = ({ fullName, avatarUrl }: Props) => {
       });
 
     if (uploadError) {
-      console.log("Uploading as user:", user.id);
-console.log("Upload path:", path);
-      console.log('Bucket error:', uploadError);
       toast.error("Image upload failed.");
       return;
     }
@@ -126,9 +123,18 @@ console.log("Upload path:", path);
       {filePath && (
         <>
           <input type='hidden' name='filePath' value={filePath} />
-          <Button type='submit' className='mt-2 w-fit' disabled={isPending}>
-            {isPending ? "Saving..." : "Save Avatar"}
-          </Button>
+          <div className='flex flex-row gap-3 items-center mt-2'>
+            <Button
+              variant='destructive'
+              type='button'
+              onClick={() => setPreview(null)}
+            >
+              Cancel
+            </Button>
+            <Button type='submit' className='w-fit' disabled={isPending}>
+              {isPending ? "Saving..." : "Save Avatar"}
+            </Button>{" "}
+          </div>
         </>
       )}
     </form>
