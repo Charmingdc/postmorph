@@ -1,15 +1,23 @@
 import type { NextConfig } from "next";
 
+const SUPABASE_HOSTNAME = new URL(process.env.NEXT_PUBLIC_SUPABASE_URL!)
+  .hostname;
+
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
         protocol: "https",
         hostname: "lh3.googleusercontent.com",
-        pathname: "/**",
+        pathname: "/**"
       },
-    ],
-  },
+      {
+        protocol: "https",
+        hostname: SUPABASE_HOSTNAME,
+        pathname: "/storage/v1/object/public/avatars/**"
+      }
+    ]
+  }
 };
 
 export default nextConfig;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useActionState } from "react";
+import { useState, useEffect, useActionState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 
@@ -12,7 +12,6 @@ import SectionWrapper from "./SectionWrapper";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-const sendPasswordReset = async () => {};
 const SecuritySettings = () => {
   const [newPassword, setNewPassword] = useState("");
 
@@ -21,10 +20,15 @@ const SecuritySettings = () => {
     FormData
   >(changePassword, { type: "", message: "" });
 
-  const [resetState, resetPasswordAction, pendingReset] = useActionState<
-    ActionState,
-    FormData
-  >(sendPasswordReset, { type: "", message: "" });
+  useEffect(() => {
+    if (!changePswState.message) return;
+
+    if (changePswState.type === "error") {
+      toast.error(changePswState.message);
+    } else {
+      toast.success(changePswState.message);
+    }
+  }, [changePswState]);
 
   const { data: user, isLoading } = useQuery({
     queryKey: ["user"],
@@ -38,7 +42,7 @@ const SecuritySettings = () => {
   });
 
   const usesPassword = user?.identities?.some(i => i.provider === "email");
-  const email = user?.email ?? "";
+
 
   if (isLoading) return <p>Loading...</p>;
 
@@ -46,7 +50,7 @@ const SecuritySettings = () => {
     <SectionWrapper>
       <h2 className='font-bold text-lg'> Password </h2>
 
-      {!usesPassword ? (
+      {usesPassword ? (
         <form action={changePswAction} className='flex flex-col gap-2 -mt-3'>
           <p className='text-sm text-muted-foreground mb-1'>
             To change your password, enter the new password in the input below
@@ -65,30 +69,11 @@ const SecuritySettings = () => {
           </Button>
         </form>
       ) : (
-        <form
-          action={resetPasswordAction}
-          className='flex flex-col gap-2 -mt-3'
-        >
-          <input type='hidden' name='email' value={email} />
-          <p className='text-sm text-muted-foreground mb-1'>
-            You signed in with Google or another provider. Click the button
-            below to add a password to your account:
-          </p>
-          <Button type='submit' disabled={pendingReset}>
-            {pendingReset ? "Sending..." : "Create a Password"}
-          </Button>
-        </form>
+        <p className='text-sm text-muted-foreground p-3 border rounded-lg -mt-4'>
+          Since your account is connected via Google, email and password changes
+          are managed through your Google account.
+        </p>
       )}
-
-      {changePswState.message &&
-        toast[changePswState.type === "error" ? "error" : "success"](
-          changePswState.message
-        )}
-
-      {resetState.message &&
-        toast[resetState.type === "error" ? "error" : "success"](
-          resetState.message
-        )}
     </SectionWrapper>
   );
 };

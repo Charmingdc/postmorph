@@ -1,4 +1,3 @@
-import { redirect } from "next/navigation";
 import getProfile from "@/lib/user/server";
 
 import DraftsList from "./components/DraftsList";

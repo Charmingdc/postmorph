@@ -11,7 +11,7 @@ const useProfile = () => {
   return useQuery<Profile | null>({
     queryKey: ["user-profile"],
     queryFn: async () => {
-      const profile = await getProfileClient();
+      const profile = await getProfile();
       if (!profile) {
         router.push("/auth/signin");
         return null;

@@ -3,11 +3,12 @@
 import { useState, useEffect, useActionState } from "react";
 import { toast } from "sonner";
 import { createClient } from "@/utils/supabase/client";
-import changeDp from "../actions/changeDp";
+import changeDp from "../../actions/changeDp";
 
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
+import type { ActionState } from "@/types/index";
 type Props = {
   fullName: string;
   avatarUrl?: string | null;
@@ -20,12 +21,12 @@ const AvatarUploader = ({ fullName, avatarUrl }: Props) => {
   const [preview, setPreview] = useState<string | null>(null);
   const [filePath, setFilePath] = useState<string | null>(null);
 
-  const [changeDpState, formAction, isPending] = useActionState(
-    async (_prev, formData: FormData) => {
-      return await changeDp(formData);
-    },
-    initialState
-  );
+  const [changeDpState, formAction, isPending] = useActionState<
+    ActionState,
+    FormData
+  >(async (_prev, formData: FormData) => {
+    return await changeDp(formData);
+  }, initialState);
 
   useEffect(() => {
     if (!changeDpState.message) return;
@@ -85,7 +86,7 @@ const AvatarUploader = ({ fullName, avatarUrl }: Props) => {
 
   return (
     <form
-      className='w-full flex flex-col gap-2'
+      className='w-full flex flex-col gap-2 pb-6 border-b-[.060rem]'
       action={formAction}
       onSubmit={e => {
         if (!filePath) e.preventDefault();
@@ -113,10 +114,11 @@ const AvatarUploader = ({ fullName, avatarUrl }: Props) => {
       >
         <Image
           src={preview || fallback}
-          width={120}
-          height={120}
+          width='120'
+          height='120'
           alt={`${fullName}'s avatar`}
-          className='h-36 rounded-lg object-cover'
+          className='w-32 h-32 rounded-full object-cover mt-2'
+          priority
         />
       </label>
 
@@ -127,13 +129,16 @@ const AvatarUploader = ({ fullName, avatarUrl }: Props) => {
             <Button
               variant='destructive'
               type='button'
-              onClick={() => setPreview(null)}
+              onClick={() => {
+                setPreview(null);
+                setFilePath(null);
+              }}
             >
               Cancel
             </Button>
             <Button type='submit' className='w-fit' disabled={isPending}>
               {isPending ? "Saving..." : "Save Avatar"}
-            </Button>{" "}
+            </Button>
           </div>
         </>
       )}

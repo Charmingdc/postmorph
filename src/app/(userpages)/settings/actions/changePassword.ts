@@ -1,6 +1,7 @@
 "use server";
 
+const changePassword = async () => {
+  
+};
 
-const changePassword = () => {}
-
-export default changePassword
+export default changePassword;

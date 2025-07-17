@@ -40,10 +40,14 @@ const MobileNavbar = ({ currentUser }: { currentUser: CleanUser }) => {
       await signout();
       toast.dismiss(toastId);
       router.push("/auth/signin");
-    } catch (err: any) {
-      toast.error("Error signing out", {
-        description: err.message
-      });
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        toast.error("Error signing out", {
+          description: err.message
+        });
+      } else {
+        toast.error("An unknown error as occured");
+      }
     }
   };
 

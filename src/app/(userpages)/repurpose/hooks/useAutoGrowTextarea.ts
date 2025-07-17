@@ -10,5 +10,5 @@ export default function useAutoGrowTextarea(
       el.style.height = "auto";
       el.style.height = `${el.scrollHeight}px`;
     }
-  }, [value]);
+  }, [ref, value]);
 }
