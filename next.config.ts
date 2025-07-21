@@ -15,7 +15,8 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: SUPABASE_HOSTNAME,
         pathname: "/storage/v1/object/public/avatars/**"
-      }
+      },
+      { protocol: "https", hostname: "ui-avatars.com", pathname: "/**" }
     ]
   }
 };

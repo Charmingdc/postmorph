@@ -45,7 +45,6 @@ export async function GET(request: NextRequest) {
     .single();
 
   if (profileError && profileError.code !== "PGRST116") {
-
     redirect("/error");
   }
 
@@ -62,7 +61,7 @@ export async function GET(request: NextRequest) {
       console.error("Insert error:", insertError);
       redirect("/error");
     }
-  }
+  } 
 
   // All good, redirect to intended destination
   redirect(next);

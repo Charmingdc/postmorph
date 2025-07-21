@@ -33,6 +33,7 @@ const SignupForm = () => {
   ] = useActionState(signup, {
     message: ""
   });
+  const [errorShown, setErrorShown] = useState<boolean>(false);
   const [formCleared, setFormCleared] = useState<boolean>(false);
 
   useEffect(() => {
@@ -40,13 +41,15 @@ const SignupForm = () => {
       if (!state.message && !formCleared) {
         clearForm();
         setFormCleared(true);
-      } else if (state.message) {
+      } else if (state.message && !errorShown) {
         toast.error("Authentication Failed", {
           description: state.message
         });
+
+        setErrorShown(true);
       }
     }
-  }, [pending, state.message, clearForm, formCleared]);
+  }, [pending, state.message, clearForm, formCleared, errorShown]);
 
   return (
     <div className='w-screen min-h-screen flex flex-col p-4 pt-10 gap-x-4 md:grid md:grid-cols-2 md:pt-4'>

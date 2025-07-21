@@ -82,7 +82,7 @@ const AvatarUploader = ({ fullName, avatarUrl }: Props) => {
     avatarUrl ||
     `https://ui-avatars.com/api/?name=${encodeURIComponent(
       fullName
-    )}&background=random&bold=true&size=128`;
+    )}&background=random&bold=true&size=128.png`;
 
   return (
     <form

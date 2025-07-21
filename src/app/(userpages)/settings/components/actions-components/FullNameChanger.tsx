@@ -37,6 +37,7 @@ const FullNameChanger = ({ fullName }: { fullName: string }) => {
         name='fullname'
         value={fullNameInput}
         onChange={e => setFullNameInput(e.target.value)}
+        disabled={isPending}
       />
       <Button disabled={isPending || fullName === fullNameInput}>
         {isPending ? "Updating" : "Update"}

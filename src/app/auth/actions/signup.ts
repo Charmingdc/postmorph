@@ -57,7 +57,7 @@ const signup = async (
         name: validFields.username,
         full_name: validFields.username,
         avatar_url:
-        `https://ui-avatars.com/api/?name=${encodeURIComponent(validFields.username)}&background=random&bold=true&size=128`
+        `https://ui-avatars.com/api/?name=${encodeURIComponent(validFields.username)}&background=random&bold=true&size=128.png`
       }
     }
   });

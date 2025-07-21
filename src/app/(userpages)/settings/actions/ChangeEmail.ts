@@ -5,12 +5,18 @@ import { createClient } from "@/utils/supabase/server";
 
 type Result = { type: "success" | "error"; message: string };
 
-const changeEmail = async (): Promise<Result> => {
-  const email = formData.get("email") as string;
-  if (!email) {
+const changeEmail = async (
+  prevState: { type: "success"; message: string },
+  formData: FormData
+): Promise<Result> => {
+  const newEmail = formData.get("email") as string;
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const isValidEmail = emailRegex.test(newEmail);
+  if (!newEmail || !isValidEmail) {
     return {
       type: "error",
-      message: "Email must be provided"
+      message: "Invalid email provided"
     };
   }
 
@@ -19,11 +25,24 @@ const changeEmail = async (): Promise<Result> => {
     data: { user },
     error: authError
   } = await supabase.auth.getUser();
-  
+
   if (authError || !user) {
     return { type: "error", message: "You must be logged in." };
   }
-  
+
+  const { error } = await supabase.auth.updateUser({ email: newEmail });
+  if (error) {
+    return {
+      type: "error",
+      message: error.message || "Failed to update email."
+    };
+  }
+
+  return {
+    type: "success",
+    message:
+      "Email update initiated. Please confirm via the email link to complete the  process."
+  };
   revalidatePath("/settings", "layout");
 };
 

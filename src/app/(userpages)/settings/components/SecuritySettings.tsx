@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 import { createClient } from "@/utils/supabase/client";
-import changePassword from "../actions/changePassword";
+import updatePassword from "@/app/auth/actions/updatePassword";
 import type { ActionState } from "@/types/index";
 
 import SectionWrapper from "./SectionWrapper";
@@ -18,7 +18,7 @@ const SecuritySettings = () => {
   const [changePswState, changePswAction, pendingChange] = useActionState<
     ActionState,
     FormData
-  >(changePassword, { type: "", message: "" });
+  >(updatePassword, { type: "", message: "" });
 
   useEffect(() => {
     if (!changePswState.message) return;
@@ -42,7 +42,6 @@ const SecuritySettings = () => {
   });
 
   const usesPassword = user?.identities?.some(i => i.provider === "email");
-
 
   if (isLoading) return <p>Loading...</p>;
 

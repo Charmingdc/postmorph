@@ -8,8 +8,8 @@ import { createClient } from "@/utils/supabase/client";
 import changeEmail from "../../actions/ChangeEmail";
 import type { ActionState } from "@/types/index";
 
-import Input from "@/components/ui/Input";
-import Button from "@/components/ui/Button";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 const initialState = { type: "success" as const, message: "" };
 
@@ -57,7 +57,9 @@ const EmailChanger = ({ email: initialEmail }: { email: string }) => {
         name='email'
         value={emailInput}
         onChange={e => setEmailInput(e.target.value)}
-        className='hover:border-4'
+        className={`${
+          usesPassword ? "" : "hover:border-4"
+        }`}
         disabled={isPending}
       />
 
@@ -66,10 +68,14 @@ const EmailChanger = ({ email: initialEmail }: { email: string }) => {
       </Button>
     </form>
   ) : (
-    <p className='text-sm text-muted-foreground p-3 border rounded-lg -mt-4'>
-      Since your account is connected via Google, email and password changes are
-      managed through your Google account.
-    </p>
+    <>
+      <h2 className='font-bold text-lg'>Edit Email</h2>
+
+      <p className='text-sm text-muted-foreground p-3 border rounded-lg -mt-6'>
+        Since your account is connected via Google, email and password changes
+        are managed through your Google account.
+      </p>
+    </>
   );
 };
 
