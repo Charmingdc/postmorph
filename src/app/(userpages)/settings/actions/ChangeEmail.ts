@@ -2,13 +2,12 @@
 
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/utils/supabase/server";
-
-type Result = { type: "success" | "error"; message: string };
+import type { ActionState } from "@/types/index";
 
 const changeEmail = async (
   prevState: { type: "success"; message: string },
   formData: FormData
-): Promise<Result> => {
+): Promise<ActionState> => {
   const newEmail = formData.get("email") as string;
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

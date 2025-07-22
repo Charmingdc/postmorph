@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 const SecuritySettings = () => {
+  const [currentPassword, setCurrentPassword] = useState<string>("");
   const [newPassword, setNewPassword] = useState("");
 
   const [changePswState, changePswAction, pendingChange] = useActionState<
@@ -42,7 +43,6 @@ const SecuritySettings = () => {
   });
 
   const usesPassword = user?.identities?.some(i => i.provider === "email");
-
   if (isLoading) return <p>Loading...</p>;
 
   return (
@@ -52,9 +52,18 @@ const SecuritySettings = () => {
       {usesPassword ? (
         <form action={changePswAction} className='flex flex-col gap-2 -mt-3'>
           <p className='text-sm text-muted-foreground mb-1'>
-            To change your password, enter the new password in the input below
-            and hit Update
+            To change your password, enter your current and new password in the
+            inputs box below and hit Update
           </p>
+          <Input
+            name='currentPassword'
+            type='password'
+            placeholder='Enter current password'
+            value={currentPassword}
+            onChange={e => setCurrentPassword(e.target.value)}
+            required
+          />
+
           <Input
             name='newPassword'
             type='password'
@@ -63,7 +72,11 @@ const SecuritySettings = () => {
             onChange={e => setNewPassword(e.target.value)}
             required
           />
-          <Button type='submit' disabled={!newPassword || pendingChange}>
+
+          <Button
+            type='submit'
+            disabled={!currentPassword || !newPassword || pendingChange}
+          >
             {pendingChange ? "Updating..." : "Update"}
           </Button>
         </form>

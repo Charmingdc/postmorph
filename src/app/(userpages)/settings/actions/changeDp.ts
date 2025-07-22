@@ -2,10 +2,9 @@
 
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/utils/supabase/server";
+import type { ActionState } from "@/types/index";
 
-type Result = { type: "success" | "error"; message: string };
-
-const changeDp = async (formData: FormData): Promise<Result> => {
+const changeDp = async (formData: FormData): Promise<ActionState> => {
   const filePath = formData.get("filePath") as string;
   if (!filePath) {
     return { type: "error", message: "No file path provided." };

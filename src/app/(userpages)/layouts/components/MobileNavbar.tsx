@@ -4,7 +4,12 @@ import { toast } from "sonner";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
-import { CircleUserRound, LayoutDashboard, LogOut } from "lucide-react";
+import {
+  LayoutDashboard,
+  Receipt,
+  CircleUserRound,
+  LogOut
+} from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Popover,
@@ -102,16 +107,23 @@ const MobileNavbar = ({ currentUser }: { currentUser: CleanUser }) => {
 
                 <div className='w-full flex flex-col items-center gap-y-2 py-2 border-b-2 my-2'>
                   <Link
-                    href='/settings'
-                    className='w-full flex items-center gap-2 p-2 rounded-lg hover:bg-card hover:text-primary'
-                  >
-                    <CircleUserRound size={20} /> Account Settings
-                  </Link>
-                  <Link
                     href='/dashboard'
                     className='w-full flex items-center gap-2 p-2 rounded-lg hover:bg-card hover:text-primary'
                   >
                     <LayoutDashboard size={20} /> Dashboard
+                  </Link>
+
+                  <Link
+                    href='/billings'
+                    className='w-full flex items-center gap-2 p-2 rounded-lg hover:bg-card hover:text-primary'
+                  >
+                    <Receipt size={20} /> Billings & Usage
+                  </Link>
+                  <Link
+                    href='/settings'
+                    className='w-full flex items-center gap-2 p-2 rounded-lg hover:bg-card hover:text-primary'
+                  >
+                    <CircleUserRound size={20} /> Account Settings
                   </Link>
                 </div>
 
