@@ -29,7 +29,7 @@ const Page = () => {
 
         const supabase = await createClient();
 
-        // ✅ Step 1: Verify the OTP
+        // Verify the OTP
         const { error: verifyError } = await supabase.auth.verifyOtp({
           token_hash,
           type: "email_change"
@@ -38,30 +38,6 @@ const Page = () => {
         if (verifyError) {
           setStatus("error");
           setMessage("Verification failed.");
-          return;
-        }
-
-        // ✅ Step 2: Get the user
-        const {
-          data: { user },
-          error: userError
-        } = await supabase.auth.getUser();
-
-        if (userError || !user) {
-          setStatus("error");
-          setMessage("Could not fetch user after verification.");
-          return;
-        }
-
-        // ✅ Step 3: Update Profiles table
-        const { error: updateError } = await supabase
-          .from("Profiles")
-          .update({ email: user.email })
-          .eq("user_id", user.id);
-
-        if (updateError) {
-          setStatus("error");
-          setMessage("Email verified, but failed to update profile.");
           return;
         }
 

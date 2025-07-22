@@ -28,17 +28,7 @@ const changeFullname = async (
     return { type: "error", message: "You must be logged in." };
   }
 
-  // Update user fullname in the Profiles table
-  const { error: updateError } = await supabase
-    .from("Profiles")
-    .update({ full_name: fullname })
-    .eq("user_id", user.id);
-
-  if (updateError) {
-    return { type: "error", message: "Failed to update profile." };
-  }
-
-  // Update user metadata in auth
+  // Update user metadata
   const { error: metaError } = await supabase.auth.updateUser({
     data: {
       name: fullname,
@@ -49,13 +39,12 @@ const changeFullname = async (
   if (metaError) {
     return {
       type: "error",
-      message: "Fullname updated but failed to sync user metadata."
+      message: "Failed to update full name"
     };
   }
 
   // Revalidate settings page
   revalidatePath("/settings", "layout");
-
   return { type: "success", message: "Fullname updated successfully!" };
 };
 

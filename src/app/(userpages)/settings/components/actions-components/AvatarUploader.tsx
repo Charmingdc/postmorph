@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useActionState } from "react";
+import { useState, useEffect, useActionState, startTransition } from "react";
 import { toast } from "sonner";
 import { createClient } from "@/utils/supabase/client";
 import changeDp from "../../actions/changeDp";
@@ -9,6 +9,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
 import type { ActionState } from "@/types/index";
+
 type Props = {
   fullName: string;
   avatarUrl?: string | null;
@@ -19,7 +20,9 @@ const initialState = { type: "success" as const, message: "" };
 
 const AvatarUploader = ({ fullName, avatarUrl }: Props) => {
   const [preview, setPreview] = useState<string | null>(null);
+  const [file, setFile] = useState<File | null>(null);
   const [filePath, setFilePath] = useState<string | null>(null);
+  const [isUploading, setIsUploading] = useState<boolean>(false);
 
   const [changeDpState, formAction, isPending] = useActionState<
     ActionState,
@@ -36,20 +39,26 @@ const AvatarUploader = ({ fullName, avatarUrl }: Props) => {
       toast.success(changeDpState.message);
       setPreview(null);
       setFilePath(null);
+      setFile(null);
     }
   }, [changeDpState]);
 
-  const handleSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+  const handleSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selected = e.target.files?.[0];
+    if (!selected) return;
 
-    if (file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
+    if (selected.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
       toast.error(`File must be under ${MAX_FILE_SIZE_MB}MB`);
       return;
     }
 
-    const previewUrl = URL.createObjectURL(file);
-    setPreview(previewUrl);
+    setFile(selected);
+    setPreview(URL.createObjectURL(selected));
+  };
+
+  const handleUpload = async () => {
+    if (!file) return;
+    setIsUploading(true);
 
     const supabase = await createClient();
     const {
@@ -58,6 +67,7 @@ const AvatarUploader = ({ fullName, avatarUrl }: Props) => {
     } = await supabase.auth.getUser();
 
     if (authError || !user) {
+      setIsUploading(false);
       toast.error("You must be logged in.");
       return;
     }
@@ -71,11 +81,20 @@ const AvatarUploader = ({ fullName, avatarUrl }: Props) => {
       });
 
     if (uploadError) {
+      setIsUploading(false);
       toast.error("Image upload failed.");
       return;
     }
 
     setFilePath(path);
+    setIsUploading(false);
+
+    const form = new FormData();
+    form.append("filePath", path);
+
+    startTransition(() => {
+      formAction(form);
+    });
   };
 
   const fallback =
@@ -87,10 +106,7 @@ const AvatarUploader = ({ fullName, avatarUrl }: Props) => {
   return (
     <form
       className='w-full flex flex-col gap-2 pb-6 border-b-[.060rem]'
-      action={formAction}
-      onSubmit={e => {
-        if (!filePath) e.preventDefault();
-      }}
+      onSubmit={e => e.preventDefault()}
     >
       <input
         type='file'
@@ -107,9 +123,9 @@ const AvatarUploader = ({ fullName, avatarUrl }: Props) => {
       </p>
 
       <label
-        htmlFor={`${isPending ? "" : "fileSelector"}`}
+        htmlFor={isUploading || isPending ? "" : "fileSelector"}
         className={`cursor-pointer w-fit ${
-          isPending && "opacity-50 pointer-events-none"
+          isUploading || (isPending && "opacity-50 pointer-events-none")
         }`}
       >
         <Image
@@ -122,25 +138,35 @@ const AvatarUploader = ({ fullName, avatarUrl }: Props) => {
         />
       </label>
 
-      {filePath && (
-        <>
-          <input type='hidden' name='filePath' value={filePath} />
-          <div className='flex flex-row gap-3 items-center mt-2'>
-            <Button
-              variant='destructive'
-              type='button'
-              onClick={() => {
-                setPreview(null);
-                setFilePath(null);
-              }}
-            >
-              Cancel
-            </Button>
-            <Button type='submit' className='w-fit' disabled={isPending}>
-              {isPending ? "Saving..." : "Save Avatar"}
-            </Button>
-          </div>
-        </>
+      {preview && (
+        <div className='flex flex-row gap-3 items-center mt-2'>
+          {isUploading ||
+            (isPending && (
+              <Button
+                variant='outline'
+                type='button'
+                onClick={() => {
+                  setPreview(null);
+                  setFile(null);
+                  setFilePath(null);
+                }}
+              >
+                Cancel
+              </Button>
+            ))}
+          <Button
+            type='button'
+            className='w-fit'
+            disabled={isUploading || isPending}
+            onClick={handleUpload}
+          >
+            {isUploading
+              ? "Uploading..."
+              : isPending
+              ? "Saving..."
+              : "Save Avatar"}
+          </Button>
+        </div>
       )}
     </form>
   );

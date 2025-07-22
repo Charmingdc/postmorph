@@ -51,17 +51,7 @@ const changeDp = async (formData: FormData): Promise<Result> => {
     }
   }
 
-  // Update the profile with new avatar_url
-  const { error: updateError } = await supabase
-    .from("Profiles")
-    .update({ avatar_url: publicUrl })
-    .eq("user_id", user.id);
-
-  if (updateError) {
-    return { type: "error", message: "Failed to update profile." };
-  }
-
-  // Update user metadata in auth
+  // Update user avatar metadata in auth
   const { error: metaError } = await supabase.auth.updateUser({
     data: {
       avatar_url: publicUrl,
@@ -72,7 +62,7 @@ const changeDp = async (formData: FormData): Promise<Result> => {
   if (metaError) {
     return {
       type: "error",
-      message: "Avatar updated but failed to sync user metadata."
+      message: "Failed to update avatar."
     };
   }
 
