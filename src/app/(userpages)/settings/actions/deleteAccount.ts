@@ -1,33 +1,33 @@
-"use server";
+'use server';
 
-import { createClient } from "@/utils/supabase/createClient";
-import { createAdminClient } from "@/utils/supabase/createAdminClient";
-import { deleteAvatarFolder } from "@/utils/supabase/deleteAvatarFolder";
-import { redirect } from "next/navigation";
+import { createAdminClient } from '@/utils/supabase/createAdminClient';
+import { createClient } from '@/utils/supabase/server';
+import { deleteAvatarFolder } from '@/utils/supabase/deleteAvatarFolder';
+import { redirect } from 'next/navigation';
 
 const deleteAccount = async () => {
   const supabase = await createClient();
   const {
-    data: { session },
-    error: sessionError
-  } = await supabase.auth.getSession();
+    data: { user },
+    error
+  } = await supabase.auth.getUser();
 
-  if (sessionError || !session?.user) {
-    throw new Error("Not authenticated");
+  if (!user || error) {
+    throw new Error('User not found or unauthorized.');
   }
 
-  const userId = session.user.id;
-  // Delete avatar folder from storage
-  await deleteAvatarFolder(userId);
+  await deleteAvatarFolder(user.id);
 
-  // Delete user from auth (which cascades to DB)
   const admin = createAdminClient();
-  const { error: deleteError } = await admin.auth.admin.deleteUser(userId);
+  const { error: deleteError } = await admin.auth.admin.deleteUser(user.id);
 
   if (deleteError) {
-    console.error("Delete error:", deleteError);
-    throw new Error("Failed to delete user account.");
+    throw new Error('Failed to delete user: ' + deleteError.message);
   }
 
-  redirect("/auth/signup");
+  // Sign out and clear session
+  await supabase.auth.signOut();
+  redirect('/auth/signin');
 };
+
+export default deleteAccount;
