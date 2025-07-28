@@ -28,6 +28,8 @@ const SecuritySettings = () => {
       toast.error(changePswState.message);
     } else {
       toast.success(changePswState.message);
+      setCurrentPassword("");
+      setNewPassword("");
     }
   }, [changePswState]);
 

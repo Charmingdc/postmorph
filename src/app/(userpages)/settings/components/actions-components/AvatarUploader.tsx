@@ -5,8 +5,8 @@ import { toast } from "sonner";
 import { createClient } from "@/utils/supabase/client";
 import changeDp from "../../actions/changeDp";
 
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 import type { ActionState } from "@/types/index";
 
@@ -91,7 +91,6 @@ const AvatarUploader = ({ fullName, avatarUrl }: Props) => {
 
     const form = new FormData();
     form.append("filePath", path);
-
     startTransition(() => {
       formAction(form);
     });
@@ -128,32 +127,33 @@ const AvatarUploader = ({ fullName, avatarUrl }: Props) => {
           isUploading || (isPending && "opacity-50 pointer-events-none")
         }`}
       >
-        <Image
-          src={preview || fallback}
-          width='120'
-          height='120'
-          alt={`${fullName}'s avatar`}
-          className='w-32 h-32 rounded-full object-cover mt-2'
-          priority
-        />
+        <Avatar className='w-32 h-32 border border-border rounded-full mt-2'>
+          <AvatarImage
+            src={preview || fallback}
+            alt={`${fullName}'s avatar`}
+            className='w-32 h-32 object-cover'
+          />
+          <AvatarFallback className='text-lg font-bold uppercase'>
+            {fullName.slice(0, 2)}
+          </AvatarFallback>
+        </Avatar>
       </label>
 
       {preview && (
         <div className='flex flex-row gap-3 items-center mt-2'>
-          {isUploading ||
-            (isPending && (
-              <Button
-                variant='outline'
-                type='button'
-                onClick={() => {
-                  setPreview(null);
-                  setFile(null);
-                  setFilePath(null);
-                }}
-              >
-                Cancel
-              </Button>
-            ))}
+          {!isUploading && !isPending && (
+            <Button
+              variant='outline'
+              type='button'
+              onClick={() => {
+                setPreview(null);
+                setFile(null);
+                setFilePath(null);
+              }}
+            >
+              Cancel
+            </Button>
+          )}
           <Button
             type='button'
             className='w-fit'

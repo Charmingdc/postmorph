@@ -4,7 +4,10 @@ import { revalidatePath } from "next/cache";
 import { createClient } from "@/utils/supabase/server";
 import type { ActionState } from "@/types/index.ts";
 
-const updatePassword = async (formData: FormData): Promise<ActionState> => {
+const updatePassword = async (
+  prevState: { type: "success"; message: string },
+  formData: FormData
+): Promise<ActionState> => {
   const currentPassword = formData.get("currentPassword") as string;
   const newPassword = formData.get("newPassword") as string;
 
