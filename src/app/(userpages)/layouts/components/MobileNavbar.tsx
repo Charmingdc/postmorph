@@ -1,23 +1,18 @@
-'use client';
+"use client";
 
-import { toast } from 'sonner';
-import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { toast } from "sonner";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 
-import {
-  LayoutDashboard,
-  Receipt,
-  CircleUserRound,
-  LogOut
-} from 'lucide-react';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { LayoutDashboard, CircleUserRound, LogOut } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger
-} from '@/components/ui/popover';
+} from "@/components/ui/popover";
 
-import signout from '@/app/auth/actions/signout';
+import signout from "@/app/auth/actions/signout";
 
 type CleanUser = {
   id: string;
@@ -27,31 +22,31 @@ type CleanUser = {
 } | null;
 
 const formatPageName = (name: string | undefined) => {
-  if (!name) return '';
-  return name.replace(/-/g, ' ');
+  if (!name) return "";
+  return name.replace(/-/g, " ");
 };
 
 const MobileNavbar = ({ currentUser }: { currentUser: CleanUser }) => {
   const router = useRouter();
   const pathname: string = usePathname();
   const pageName: string | undefined = pathname
-    .split('/')
+    .split("/")
     .filter(Boolean)
     .pop();
 
   const handleSignout = async () => {
     try {
-      const toastId = toast.loading('Signing out...');
+      const toastId = toast.loading("Signing out...");
       await signout();
       toast.dismiss(toastId);
-      router.push('/auth/signin');
+      router.push("/auth/signin");
     } catch (err: unknown) {
       if (err instanceof Error) {
-        toast.error('Error signing out', {
+        toast.error("Error signing out", {
           description: err.message
         });
       } else {
-        toast.error('An unknown error as occured');
+        toast.error("An unknown error as occured");
       }
     }
   };
@@ -60,7 +55,7 @@ const MobileNavbar = ({ currentUser }: { currentUser: CleanUser }) => {
     <nav>
       <ul className="w-full min-h-12 flex items-center justify-between p-4 pt-2">
         <li className="font-bold text-2xl capitalize">
-          {pageName === 'dashboard' && currentUser ? (
+          {pageName === "dashboard" && currentUser ? (
             <h2>
               Hey, <br /> {currentUser.name}
             </h2>
@@ -114,12 +109,6 @@ const MobileNavbar = ({ currentUser }: { currentUser: CleanUser }) => {
                     <LayoutDashboard size={20} /> Dashboard
                   </Link>
 
-                  <Link
-                    href="/billings"
-                    className="w-full flex items-center gap-2 p-2 rounded-lg hover:bg-card hover:text-primary"
-                  >
-                    <Receipt size={20} /> Billings & Usage
-                  </Link>
                   <Link
                     href="/settings"
                     className="w-full flex items-center gap-2 p-2 rounded-lg hover:bg-card hover:text-primary"

@@ -4,7 +4,7 @@ import DraftController from "@/components/drafts/DraftController";
 import DraftLoader from "@/components/drafts/DraftLoader";
 import Spinner from "@/components/ui/spinner";
 
-import usePaginatedDrafts from "../hooks/usePaginatedDrafts";
+import usePaginatedDrafts from "@/app/hooks/usePaginatedDrafts";
 
 const DraftsList = ({ currentUserId }: { currentUserId: string }) => {
   const { drafts, isInitialLoading, isFetching, isDone, fetchMore } =
@@ -22,7 +22,7 @@ const DraftsList = ({ currentUserId }: { currentUserId: string }) => {
             <button
               onClick={fetchMore}
               disabled={isFetching}
-              className='mt-4 px-4 py-2 bg-black text-white rounded'
+              className="mt-4 px-4 py-2 bg-black text-white rounded"
             >
               {isFetching ? <Spinner /> : "Load More"}
             </button>
