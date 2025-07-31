@@ -48,7 +48,7 @@ const DraftBox = ({ drafts, onDelete, isDeleting }: Props) => {
             {draft.type}
           </div>
 
-          <div className="prose prose-sm text-sm whitespace-pre-wrap line-clamp-8">
+          <div className="prose prose-sm text-sm whitespace-pre-wrap line-clamp-[12]">
             {draft.content}
           </div>
 

@@ -7,6 +7,7 @@ import { createClient } from "@/utils/supabse/client";
 import useClipboard from "@/hooks/useClipboard";
 import useConfirmDelete from "@/app/hooks/useConfirmDelete";
 import updateDraft from "../actions/updateDraft";
+import deleteDraft from "../actions/deleteDraft";
 import type { DraftType } from "@/types/index";
 
 import { Trash } from "lucide-react";
@@ -104,14 +105,23 @@ const ContentEditor = ({ user_id, draft }: PageProps) => {
       <textarea
         value={content}
         onChange={e => setContent(e.target.value)}
-        className="h-56 max-h-72 w-full resize-none rounded-lg border border-border bg-background px-4 py-2 text-sm text-foreground shadow-inner focus:outline-none focus:ring-1 focus:ring-primary focus:border-transparent transition-all duration-200 whitespace-pre-wrap"
+        className="h-80 w-full resize-none bg-card border border-transparent px-4 py-2 text-sm text-foreground shadow-inner focus:outline-none focus:border-t transition-all duration-200 whitespace-pre-wrap"
       />
 
       <form
         ref={formRef}
-        onSubmit={e => e.preventDefault()}
+        action={deleteDraft}
         className="flex justify-end items-center gap-4 mt-4"
       >
+        {/* Hidden input to pass the draft ID */}
+        <input
+          type="text"
+          name="draft_id"
+          value={draft.id}
+          className="hidden"
+          readOnly
+        />
+
         {draft.type === "tweet" && (
           <p className={`${lengthClass} transition-all duration-300`}>
             {content.length} / <strong>280</strong>
