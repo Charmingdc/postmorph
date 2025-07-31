@@ -9,12 +9,10 @@ const getCurrentUserId = async () => {
   const {
     data: { user },
     error
-  } = await supbase.auth.getUser();
+  } = await supabase.auth.getUser();
 
+  if (error) throw new Error(error.message);
   if (!user) redirect("/auth/signin");
-  if (error) {
-    throw new Error(error.message);
-  }
 
   return user.id;
 };

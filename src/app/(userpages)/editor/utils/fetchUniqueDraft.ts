@@ -13,18 +13,19 @@ const fetchUniqueDraft = async (
     .from("drafts")
     .select("*")
     .eq("user_id", userId)
-    .eq("id", draftId);
+    .eq("id", draftId)
+    .single();
 
   if (error || !data) {
     throw new Error(error.message);
   }
 
-  return data.map(draft => ({
-    id: draft.id,
-    type: draft.type,
-    content: draft.content,
-    createdAt: draft.created_at
-  }));
+  return {
+    id: data.id,
+    type: data.type,
+    content: data.content,
+    createdAt: data.created_at
+  };
 };
 
 export default fetchUniqueDraft;

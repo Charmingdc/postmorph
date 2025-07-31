@@ -20,18 +20,20 @@ const updateDraft = async (
   }
 
   const supabase = await createClient();
-  const { data, error } = await supabase
+  const { error } = await supabase
     .from("drafts")
+    .update({ content: new_content })
     .eq("user_id", user_id)
-    .eq("id", "draft_id")
-    .update({ content: new_content });
+    .eq("id", draft_id);
 
   if (error) {
-    return { type: "error", message: error.message || "Error updating draft" };
+    return {
+      type: "error",
+      message: error.message || "Error updating draft"
+    };
   }
 
   redirect("/editor");
-  return { type: "success", message: "Draft updated successfully" };
 };
 
 export default updateDraft;

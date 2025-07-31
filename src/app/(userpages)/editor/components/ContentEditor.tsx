@@ -72,22 +72,29 @@ const ContentEditor = ({ user_id, draft }: PageProps) => {
           {draft.type}
         </div>
 
-        <input type="text" name="user_id" value={user_id} className="hidden" />
+        <input
+          type="text"
+          name="user_id"
+          value={user_id}
+          className="hidden"
+          readOnly
+        />
         <input
           type="text"
           name="draft_id"
           value={draft.id}
           className="hidden"
+          readOnly
         />
-        <input
-          type="text"
+        <textarea
           name="new_content"
           value={content}
           className="hidden"
+          readOnly
         />
 
         <Button
-          disabaled={draft.content === content || isUpdatingDraft}
+          disabled={draft.content === content || isUpdatingDraft}
           className="rounded-full px-4 py-1.5 h-auto"
         >
           {isUpdatingDraft ? "Saving..." : "Save"}

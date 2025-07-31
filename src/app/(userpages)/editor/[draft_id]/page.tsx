@@ -3,6 +3,7 @@ import fetchUniqueDraft from "../utils/fetchUniqueDraft";
 import ContentEditor from "../components/ContentEditor";
 
 import type { DraftType } from "@/types/index";
+
 type PageProps = {
   params: {
     draft_id: string;
@@ -10,24 +11,25 @@ type PageProps = {
 };
 
 const Page = async ({ params }: PageProps) => {
-  const runFuncs = async () => {
-    try {
-      const user_id = await getCurrentUserId();
+  try {
+    const user_id = await getCurrentUserId();
+    const draft = await fetchUniqueDraft(user_id, params.draft_id);
 
-      const draft: DraftType = await fetchUniqueDraft(user_id, params.draft_id);
-    } catch (err: unknown) {
-      if (err instanceof Error) {
-        console.log(error.message);
-      }
+    return (
+      <main className="w-full flex flex-col items-center">
+        <ContentEditor user_id={user_id} draft={draft} />
+      </main>
+    );
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.log("Error loading draft:", err.message);
     }
-  };
-  await runFuncs();
-
-  return (
-    <main className="w-full flex flex-col items-center">
-      <ContentEditor user_id={user_id} draft={draft} />
-    </main>
-  );
+    return (
+      <main className="text-center p-8">
+        Something went wrong loading the draft.
+      </main>
+    );
+  }
 };
 
 export default Page;

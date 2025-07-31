@@ -29,10 +29,8 @@ const formatPageName = (name: string | undefined) => {
 const MobileNavbar = ({ currentUser }: { currentUser: CleanUser }) => {
   const router = useRouter();
   const pathname: string = usePathname();
-  const pageName: string | undefined = pathname
-    .split("/")
-    .filter(Boolean)
-    .pop();
+  const segments = pathname.split("/").filter(Boolean);
+  const pageName: string | undefined = segments[0];
 
   const handleSignout = async () => {
     try {
