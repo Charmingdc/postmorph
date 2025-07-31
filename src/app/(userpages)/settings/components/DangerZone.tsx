@@ -1,37 +1,25 @@
-'use client';
+"use client";
 
-import { useState, useRef } from 'react';
-import { toast } from 'sonner';
-import deleteAccount from '../actions/deleteAccount';
+import { useRef } from "react";
+import deleteAccount from "../actions/deleteAccount";
 
-import SectionWrapper from './SectionWrapper';
-import { Button } from '@/components/ui/button';
-import { LoadingScreen } from '@/components/ui/loading-screen';
+import SectionWrapper from "./SectionWrapper";
+import { Button } from "@/components/ui/button";
+import { LoadingScreen } from "@/components/ui/loading-screen";
+import useConfirmDelete from "@/app/hooks/useConfirmDelete";
 
 const DangerZone = () => {
-  const [deleting, setDeleting] = useState<boolean>(false);
   const formRef = useRef<HTMLFormElement>(null);
 
-  const confirmBeforeSubmit = () => {
-    toast('Are you sure you want to delete your account?', {
-      description: 'This action cannot be undone.',
-      duration: 5000,
-      action: (
-        <Button
-          variant="destructive"
-          className="text-sm py-1 px-3"
-          onClick={() => {
-            toast.dismiss();
-
-            setDeleting(true);
-            formRef.current?.requestSubmit();
-          }}
-        >
-          Proceed
-        </Button>
-      )
-    });
-  };
+  const [deleting, confirmBeforeSubmit] = useConfirmDelete(
+    () => {
+      formRef.current?.requestSubmit();
+    },
+    {
+      message: "Are you sure you want to delete your account?",
+      description: "This action cannot be undone."
+    }
+  );
 
   return (
     <SectionWrapper>

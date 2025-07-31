@@ -87,6 +87,7 @@ const MobileNavbar = ({ currentUser }: { currentUser: CleanUser }) => {
                     <AvatarImage
                       src={currentUser.avatar_url}
                       alt={currentUser.name}
+                      className="w-10 h-10 object-cover"
                     />
                     <AvatarFallback className="font-bold uppercase">
                       {currentUser.name.slice(0, 2)}
