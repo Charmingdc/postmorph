@@ -2,7 +2,6 @@
 
 import { useState, useRef, useEffect, useActionState } from "react";
 import { toast } from "sonner";
-import { createClient } from "@/utils/supabse/client";
 
 import useClipboard from "@/hooks/useClipboard";
 import useConfirmDelete from "@/app/hooks/useConfirmDelete";
@@ -128,7 +127,11 @@ const ContentEditor = ({ user_id, draft }: PageProps) => {
           </p>
         )}
 
-        <PromptPopover prompt={prompt} setPrompt={setPrompt} />
+        <PromptPopover
+          prompt={prompt}
+          setPrompt={setPrompt}
+          setContent={setContent}
+        />
         <CopyButton copied={copied} onCopy={() => copy(content)} />
 
         <button

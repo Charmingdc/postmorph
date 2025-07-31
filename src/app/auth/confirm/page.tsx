@@ -46,9 +46,12 @@ const Page = () => {
 
         // Redirect after success
         setTimeout(() => router.push("/settings"), 2000);
-      } catch (err) {
+      } catch (err: unknown) {
         setStatus("error");
-        setMessage("Something went wrong.");
+
+        if (err instanceof Error) {
+          setMessage("Something went wrong." || err.message);
+        }
       }
     };
 
@@ -56,18 +59,18 @@ const Page = () => {
   }, [router]);
 
   return (
-    <main className='flex flex-col items-center justify-center min-h-screen text-center px-4'>
+    <main className="flex flex-col items-center justify-center min-h-screen text-center px-4">
       {status === "loading" && (
-        <div className='flex flex-col items-center justify-center gap-3 text-muted-foreground'>
+        <div className="flex flex-col items-center justify-center gap-3 text-muted-foreground">
           <p> {message} </p>
           <Spinner />
         </div>
       )}
       {status === "success" && (
-        <p className='text-green-600 font-semibold'>{message}</p>
+        <p className="text-green-600 font-semibold">{message}</p>
       )}
       {status === "error" && (
-        <p className='text-red-500 font-semibold'>{message}</p>
+        <p className="text-red-500 font-semibold">{message}</p>
       )}
     </main>
   );

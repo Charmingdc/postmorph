@@ -2,8 +2,6 @@ import getCurrentUserId from "../utils/getCurrentUserId";
 import fetchUniqueDraft from "../utils/fetchUniqueDraft";
 import ContentEditor from "../components/ContentEditor";
 
-import type { DraftType } from "@/types/index";
-
 type PageProps = {
   params: {
     draft_id: string;

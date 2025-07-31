@@ -31,8 +31,8 @@ const DangerZone = () => {
         className="flex flex-col gap-2 -mt-3"
       >
         <p className="text-sm text-muted-foreground mb-1">
-          Deleting your account will erase all related data and cannot be
-          recovered. Only proceed if you're sure.
+          {`Deleting your account will erase all related data and cannot be
+          recovered. Only proceed if you're sure.`}
         </p>
 
         <Button

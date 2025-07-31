@@ -1,10 +1,9 @@
 "use client";
 
-import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent
-} from "@/components/ui/popover";
+import { useEffect, useActionState } from "react";
+import { toast } from "sonner";
+import modifyDraft from "../actions/modifyDraft";
+
 import {
   Wand,
   Sparkles,
@@ -15,8 +14,14 @@ import {
   RefreshCw,
   ListChecks
 } from "lucide-react";
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent
+} from "@/components/ui/popover";
+import Spinner from "@/components/ui/spinner";
 
-const ACTIONS = [
+const ACTIONS: { action: string; icon: React.ReactNode }[] = [
   { action: "Add Hook", icon: Wand },
   { action: "Fix Grammar", icon: SpellCheck },
   { action: "Condense", icon: AlignCenterVertical },
@@ -28,9 +33,26 @@ const ACTIONS = [
 type Props = {
   prompt: string;
   setPrompt: (val: string) => void;
+  setContent: (val: string) => void;
 };
 
 const PromptPopover = ({ prompt, setPrompt }: Props) => {
+  const [state, formAction, isPending] = useActionState(modifyDraft, {
+    type: "",
+    message: ""
+  });
+
+  useEffect(() => {
+    if (!state.message) return;
+
+    if (state.type === "error") {
+      toast.error(state.message);
+    } else {
+      setContent(state.messagw);
+      setPrompt("");
+    }
+  }, [state, setPrompt]);
+
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -43,18 +65,26 @@ const PromptPopover = ({ prompt, setPrompt }: Props) => {
       </PopoverTrigger>
       <PopoverContent className="w-fit p-2 rounded-lg mr-16">
         <div className="w-72 flex flex-col p-1 border rounded-lg">
-          <form className="grid grid-cols-[82%_18%] gap-3 p-1 pb-2 border-b">
+          <form
+            action={formAction}
+            className="grid grid-cols-[82%_18%] gap-3 p-1 pb-2 border-b"
+          >
             <input
               placeholder="Enter custom prompt"
+              name="prompt"
               value={prompt}
               onChange={e => setPrompt(e.target.value)}
               className="bg-input text-sm text-input-foreground p-2 border rounded-lg"
             />
             <button className="h-9 w-9 flex items-center justify-center p-1.5 border-l">
-              <WandSparkles
-                size={18}
-                className="transition-all duration-300 hover:text-primary"
-              />
+              {isPending ? (
+                <Spinner width="w-4" height="h-4" />
+              ) : (
+                <WandSparkles
+                  size={18}
+                  className="transition-all duration-300 hover:text-primary"
+                />
+              )}
             </button>
           </form>
 

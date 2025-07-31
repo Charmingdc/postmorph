@@ -21,7 +21,6 @@ const initialState = { type: "success" as const, message: "" };
 const AvatarUploader = ({ fullName, avatarUrl }: Props) => {
   const [preview, setPreview] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
-  const [filePath, setFilePath] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState<boolean>(false);
 
   const [changeDpState, formAction, isPending] = useActionState<
@@ -38,7 +37,6 @@ const AvatarUploader = ({ fullName, avatarUrl }: Props) => {
     } else {
       toast.success(changeDpState.message);
       setPreview(null);
-      setFilePath(null);
       setFile(null);
     }
   }, [changeDpState]);
@@ -86,7 +84,6 @@ const AvatarUploader = ({ fullName, avatarUrl }: Props) => {
       return;
     }
 
-    setFilePath(path);
     setIsUploading(false);
 
     const form = new FormData();
@@ -104,19 +101,19 @@ const AvatarUploader = ({ fullName, avatarUrl }: Props) => {
 
   return (
     <form
-      className='w-full flex flex-col gap-2 pb-6 border-b-[.060rem]'
+      className="w-full flex flex-col gap-2 pb-6 border-b-[.060rem]"
       onSubmit={e => e.preventDefault()}
     >
       <input
-        type='file'
-        accept='image/*'
-        id='fileSelector'
+        type="file"
+        accept="image/*"
+        id="fileSelector"
         onChange={handleSelect}
-        className='hidden'
+        className="hidden"
       />
 
-      <h2 className='font-bold text-lg'>Change Avatar</h2>
-      <p className='text-sm text-muted-foreground'>
+      <h2 className="font-bold text-lg">Change Avatar</h2>
+      <p className="text-sm text-muted-foreground">
         To change your avatar, click the picture below and select a file to
         upload.
       </p>
@@ -127,24 +124,24 @@ const AvatarUploader = ({ fullName, avatarUrl }: Props) => {
           isUploading || (isPending && "opacity-50 pointer-events-none")
         }`}
       >
-        <Avatar className='w-32 h-32 border border-border rounded-full mt-2'>
+        <Avatar className="w-32 h-32 border border-border rounded-full mt-2">
           <AvatarImage
             src={preview || fallback}
             alt={`${fullName}'s avatar`}
-            className='w-32 h-32 object-cover'
+            className="w-32 h-32 object-cover"
           />
-          <AvatarFallback className='text-lg font-bold uppercase'>
+          <AvatarFallback className="text-lg font-bold uppercase">
             {fullName.slice(0, 2)}
           </AvatarFallback>
         </Avatar>
       </label>
 
       {preview && (
-        <div className='flex flex-row gap-3 items-center mt-2'>
+        <div className="flex flex-row gap-3 items-center mt-2">
           {!isUploading && !isPending && (
             <Button
-              variant='outline'
-              type='button'
+              variant="outline"
+              type="button"
               onClick={() => {
                 setPreview(null);
                 setFile(null);
@@ -155,8 +152,8 @@ const AvatarUploader = ({ fullName, avatarUrl }: Props) => {
             </Button>
           )}
           <Button
-            type='button'
-            className='w-fit'
+            type="button"
+            className="w-fit"
             disabled={isUploading || isPending}
             onClick={handleUpload}
           >
