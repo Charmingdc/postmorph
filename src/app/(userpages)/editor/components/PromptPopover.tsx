@@ -9,7 +9,6 @@ import {
   Wand,
   Sparkles,
   WandSparkles,
-  
   SpellCheck,
   AlignCenterVertical,
   Expand,
@@ -36,7 +35,10 @@ const PromptPopover = ({ prompt, setPrompt }: Props) => {
     <Popover>
       <PopoverTrigger asChild>
         <button type="button">
-          <Sparkles size={18} className="text-muted-foreground" />
+          <Sparkles
+            size={18}
+            className="text-muted-foreground transition-all duration-300 hover:text-primary"
+          />
         </button>
       </PopoverTrigger>
       <PopoverContent className="w-fit p-2 rounded-lg mr-16">

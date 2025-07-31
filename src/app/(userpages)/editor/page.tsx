@@ -1,9 +1,13 @@
-import ContentEditor from "./components/ContentEditor";
+import getProfile from "@/lib/user/server";
+import type { Profile } from "@/types/index";
+import DraftsList from "@/components/drafts/DraftsList";
 
-const EditorPage = () => {
+const EditorPage = async () => {
+  const profile: Profile = await getProfile();
+
   return (
-    <main className="w-full flex flex-col items-center">
-      <ContentEditor />
+    <main className="w-full">
+      <DraftsList currentUserId={profile.user_id} />
     </main>
   );
 };
