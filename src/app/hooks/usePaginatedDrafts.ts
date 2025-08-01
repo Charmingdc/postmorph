@@ -13,7 +13,7 @@ const usePaginatedDrafts = (userId: string) => {
   const fetchDrafts = useCallback(
     async (from: number, to: number) => {
       const res = await fetch(
-        `/api/drafts?userId=${userId}&from=${from}&to=${to}`
+        `/api/getDrafts?userId=${userId}&from=${from}&to=${to}`
       );
       const json = await res.json();
       return json.drafts as DraftType[];

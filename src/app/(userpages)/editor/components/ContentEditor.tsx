@@ -130,6 +130,7 @@ const ContentEditor = ({ user_id, draft }: PageProps) => {
         <PromptPopover
           prompt={prompt}
           setPrompt={setPrompt}
+          content={content}
           setContent={setContent}
         />
         <CopyButton copied={copied} onCopy={() => copy(content)} />
