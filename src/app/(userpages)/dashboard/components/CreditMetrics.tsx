@@ -49,7 +49,7 @@ const DialogClose = dynamic(
 
 const CreditMetrics = async ({ currentUserId }: { currentUserId: string }) => {
   try {
-    const { isUnlimited, total_credits, used_credits }: CreditInfo =
+    const { is_unlimited, total_credits, used_credits }: CreditInfo =
       await fetchUserCredits(currentUserId);
 
     if (isUnlimited) {

@@ -8,7 +8,7 @@ const fetchUserCredits = async (userId: string): Promise<CreditInfo> => {
 
   const { data: profile, error } = await supabase
     .from("Profiles")
-    .select("isUnlimited, total_credits, used_credits")
+    .select("is_unlimited, total_credits, used_credits")
     .eq("user_id", userId)
     .single();
 
@@ -16,10 +16,10 @@ const fetchUserCredits = async (userId: string): Promise<CreditInfo> => {
     throw new Error(error?.message || "Unable to fetch user credits.");
   }
 
-  const { isUnlimited = false, total_credits = 0, used_credits = 0 } = profile;
+  const { is_unlimited = false, total_credits = 0, used_credits = 0 } = profile;
 
   return {
-    isUnlimited,
+    is_unlimited,
     total_credits,
     used_credits
   };

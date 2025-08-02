@@ -12,11 +12,11 @@ type Profile = {
   plan: string;
   total_credits: number;
   used_credits: number;
-  isUnlimited: boolean;
+  is_unlimited: boolean;
 };
 
 type CreditInfo = {
-  isUnlimited: boolean;
+  is_unlimited: boolean;
   total_credits: number;
   used_credits: number;
 };

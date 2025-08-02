@@ -27,11 +27,10 @@ export async function POST(req: Request) {
     }
 
     // Fetch user credit info
-    const { isUnlimited, used_credits, total_credits } = await fetchUserCredits(
-      user.id
-    );
+    const { is_unlimited, used_credits, total_credits } =
+      await fetchUserCredits(user.id);
 
-    if (!isUnlimited && used_credits + CREDIT_COST > total_credits) {
+    if (!is_unlimited && used_credits + CREDIT_COST > total_credits) {
       return apiError("Insufficient credits", 403);
     }
 
@@ -49,7 +48,7 @@ export async function POST(req: Request) {
     if (!result.text) return apiError("No text was generated", 500);
 
     // Deduct credits if not unlimited
-    if (!isUnlimited) {
+    if (!is_unlimited) {
       const { error: updateError } = await supabase
         .from("Profiles")
         .update({ used_credits: used_credits + CREDIT_COST })
