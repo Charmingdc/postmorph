@@ -5,6 +5,8 @@ import { toast } from "sonner";
 import modifyDraftRequest from "../lib/modifyDraftRequest";
 
 import {
+  Check,
+  X,
   Wand,
   Sparkles,
   WandSparkles,
@@ -19,6 +21,7 @@ import {
   PopoverTrigger,
   PopoverContent
 } from "@/components/ui/popover";
+import { Skeleton } from "@/components/ui/skeleton";
 import Spinner from "@/components/ui/spinner";
 
 const ACTIONS: { action: string; icon: React.ReactNode }[] = [
@@ -39,6 +42,7 @@ type Props = {
 
 const PromptPopover = ({ prompt, setPrompt, content, setContent }: Props) => {
   const [finalPrompt, setFinalPrompt] = useState<string>("");
+  const [reqOutput, setReqOutput] = useState<string | null>(null);
   const [isPending, setIsPending] = useState(false);
 
   useEffect(() => {
@@ -53,18 +57,14 @@ const PromptPopover = ({ prompt, setPrompt, content, setContent }: Props) => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsPending(true);
-    let result = "";
 
     try {
-      await modifyDraftRequest(finalPrompt, (chunk: string) => {
-        result += chunk;
-        setContent(result);
-      });
-
+      const output = await modifyDraftRequest(finalPrompt);
+      setReqOutput(output);
       setPrompt("");
     } catch (err: any) {
       toast.error(err.message || "Error processing request");
-      console.log(err);
+      console.error(err);
     } finally {
       setIsPending(false);
     }
@@ -77,6 +77,7 @@ const PromptPopover = ({ prompt, setPrompt, content, setContent }: Props) => {
           <Sparkles
             size={18}
             className="text-muted-foreground transition-all duration-300 hover:text-primary"
+            aria-label="Modify Content"
           />
         </button>
       </PopoverTrigger>
@@ -107,13 +108,45 @@ const PromptPopover = ({ prompt, setPrompt, content, setContent }: Props) => {
                 <WandSparkles
                   size={18}
                   className="transition-all duration-300 hover:text-primary"
+                  aria-label="Apply Prompt"
                 />
               )}
             </button>
           </form>
 
           {isPending ? (
-            <p> Working... </p>
+            <Skeleton className="w-full h-64 rounded-lg" />
+          ) : reqOutput ? (
+            <div className="w-full flex flex-col p-2 mt-2">
+              <ul className="flex items-center justify-between p-2 border-b mb-2">
+                <li>
+                  <h4 className="text-sm font-medium text-muted-foreground">
+                    Use this as new content?
+                  </h4>
+                </li>
+
+                <li className="flex gap-2">
+                  <button
+                    onClick={() => setReqOutput(null)}
+                    className="p-2 rounded hover:bg-red-100 text-red-600"
+                    aria-label="Cancel"
+                  >
+                    <X />
+                  </button>
+
+                  <button
+                    onClick={() => setContent(reqOutput)}
+                    className="p-2 rounded hover:bg-green-100 text-green-600"
+                    aria-label="Confirm"
+                  >
+                    <Check />
+                  </button>
+                </li>
+              </ul>
+              <p className="prose prose-sm text-sm whitespace-pre-wrap">
+                {reqOutput}
+              </p>
+            </div>
           ) : (
             <ul className="flex flex-col gap-2 p-2 mt-2">
               {ACTIONS.map(({ action, icon: Icon }, i) => (

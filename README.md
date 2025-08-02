@@ -1,162 +1,88 @@
-# Postmorph: Elevate Your Content Workflow 🚀
+# Postmorph: Intelligent Content Repurposing ✨
 
-Postmorph is a cutting-edge Next.js application designed to streamline and supercharge your content repurposing efforts. 🚀 Transform your existing long-form content like blogs and videos into engaging social media posts, threads, and more, all with an intuitive user experience and powerful AI-driven insights. It's built for creators who value speed, consistency, and impact across all their platforms. ✨
+Postmorph is a cutting-edge web application built with **Next.js** and **React** that empowers creators to effortlessly transform and repurpose their content across various formats and tones. Leveraging the power of **Google's Generative AI** and **Supabase** for robust backend services, Postmorph streamlines your content workflow, making it faster and more efficient to adapt your message for any platform.
 
-## 🛠️ Installation
+## Features
 
-Follow these steps to get Postmorph up and running on your local machine.
+*   **AI-Powered Content Repurposing**: Transform long-form articles, videos, or social threads into new, engaging content optimized for different platforms.
+*   **Flexible Input/Output Formats**: Repurpose content from blogs, YouTube videos, Instagram reels, X threads, or LinkedIn posts into tweets, X threads, LinkedIn posts, or Reddit posts.
+*   **Customizable Tones**: Adjust the generated content's tone to professional, casual, funny, or motivational.
+*   **Intuitive Content Editor**: Edit, refine, copy, and save your repurposed drafts with a seamless in-app editor.
+*   **Draft Management**: Keep track of all your generated content drafts, with options to view, edit, and delete them.
+*   **User Authentication**: Secure user management with email/password and Google OAuth authentication, powered by Supabase Auth.
+*   **Credit System**: Monitor your content generation usage with an integrated credit tracking system.
+*   **Personalized Brand Voice**: Define and save custom brand voices to ensure consistent AI-generated content that aligns with your unique style.
+*   **Responsive User Interface**: A modern and adaptive design, ensuring a smooth experience across desktop and mobile devices.
 
-### Prerequisites
+## Usage
 
-Before you begin, ensure you have the following installed:
+1.  **Account Creation & Login**:
+    *   Navigate to the `/auth/signup` page to create a new account using your email and password, or sign up instantly with your Google account.
+    *   If you already have an account, head to `/auth/signin` to log in.
+2.  **Repurpose Content**:
+    *   Once logged in, navigate to the "Repurpose New" section from the sidebar or mobile footer.
+    *   Select your **Input Format** (e.g., "blog", "youtube video").
+    *   Choose your desired **Output Format** (e.g., "tweet", "x thread").
+    *   Select a **Tone** for the generated content (e.g., "professional", "casual").
+    *   Paste your content or link into the input area.
+    *   Click the "Repurpose Now" button to generate new content.
+3.  **Edit and Manage Drafts**:
+    *   Generated content will be saved as drafts, accessible from the "Drafts" section.
+    *   Click the "Pencil Line" icon next to any draft to open it in the editor.
+    *   Within the editor, you can modify the content, use AI prompts to refine it further (e.g., "Add Hook", "Fix Grammar"), copy the content, or delete the draft.
+    *   Don't forget to "Save" any changes you make in the editor!
+4.  **Manage Brand Voices**:
+    *   Visit the "Brand Voice" section to add or manage your custom writing styles. These help the AI understand and mimic your preferred tone and style.
+5.  **Settings and Profile**:
+    *   In "Account Settings", you can update your full name, change your avatar, and manage your password (if using email/password authentication).
 
-*   **Node.js**: v18.x or higher
-*   **npm** or **Yarn**: Latest stable version
+## Technologies Used
 
-### Step-by-Step Guide
+| Category         | Technology                 | Description                                    |
+| :--------------- | :------------------------- | :--------------------------------------------- |
+| **Framework**    | [Next.js](https://nextjs.org/)             | React framework for production.                |
+| **UI Library**   | [React](https://react.dev/)                | JavaScript library for building user interfaces. |
+| **Styling**      | [Tailwind CSS](https://tailwindcss.com/)   | Utility-first CSS framework.                   |
+| **Database/Auth**| [Supabase](https://supabase.com/)          | Open-source Firebase alternative (PostgreSQL DB, Auth). |
+| **AI Integration**| [Google Gemini](https://ai.google.dev/models/gemini) | Generative AI model for content transformation. |
+| **Data Fetching**| [Tanstack Query](https://tanstack.com/query/latest) | Powerful asynchronous state management.        |
+| **UI Components**| [shadcn/ui](https://ui.shadcn.com/)        | Reusable UI components built with Radix UI and Tailwind CSS. |
+| **Form Validation**| [Zod](https://zod.dev/)                  | TypeScript-first schema declaration and validation. |
+| **Notifications**| [Sonner](https://sonner.emilkowalski.to/) | Opinionated toast component for React.         |
+| **Icons**        | [Lucide React](https://lucide.dev/)        | Beautifully simple and human-friendly open-source icons. |
 
-1.  **Clone the Repository**:
-    First, clone the project repository to your local machine:
+## Contributing
 
-    ```bash
-    git clone git@github.com:Charmingdc/postmorph
-    cd postmorph
-    ```
+We welcome contributions to Postmorph! If you have suggestions for improvements or new features, please follow these guidelines:
 
-2.  **Install Dependencies**:
-    Navigate into the project directory and install the necessary dependencies:
+*   💡 **Fork the Repository**: Start by forking the project repository.
+*   🌿 **Create a Branch**: Create a new branch for your feature or bug fix: `git checkout -b feature/your-feature-name`.
+*   💻 **Implement Changes**: Write your code, ensuring it adheres to the existing coding style.
+*   🧪 **Test Your Changes**: Make sure your changes are fully tested and do not introduce new bugs.
+*   ➕ **Commit Your Changes**: Write clear and concise commit messages.
+*   ⬆️ **Push to Your Fork**: Push your branch to your forked repository.
+*   📝 **Open a Pull Request**: Submit a pull request to the `main` branch of the original repository, describing your changes in detail.
 
-    ```bash
-    npm install
-    # or
-    yarn install
-    ```
+## License
 
-3.  **Configure Environment Variables**:
-    Create a `.env.local` file in the root of your project and add the following environment variables. You'll need to obtain these from your Supabase project.
+This project is not currently licensed. Please contact the author for licensing information.
 
-    ```local
-    NEXT_PUBLIC_SUPABASE_URL=YOUR_SUPABASE_URL
-    NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY
-    NEXT_PUBLIC_APP_URL=http://localhost:3000
-    ```
+## Author
 
-    _Note: The `NEXT_PUBLIC_APP_URL` should be `http://localhost:3000` for local development._
+**[Your Name]**
 
-4.  **Run the Development Server**:
-    Start the Next.js development server:
-
-    ```bash
-    npm run dev
-    # or
-    yarn dev
-    ```
-
-    The application will now be accessible at `http://localhost:3000`.
-
-## 🚀 Usage
-
-Postmorph offers a seamless experience for content creators. Here's how to make the most of it:
-
-### Authentication
-
-Upon launching the application, you'll be greeted by the authentication pages. You can easily create a new account or sign in using your email and password, or leverage the convenience of Google OAuth for quick access. The robust authentication system, powered by Supabase, ensures your data remains secure.
-
-_Here's a glimpse of the simplified workflow we offer:_
-
-![Postmorph Workflow](https://github.com/Charmingdc/postmorph/blob/main/src/app/auth/assets/postmorph-workflow.png?raw=true)
-
-### Dashboard Overview
-
-Once logged in, the dashboard provides a quick summary of your content activity:
-
-*   **Credit Metrics**: Keep track of your remaining content generation credits and monitor your usage. This section clearly shows how many credits you have left and your consumption rate.
-*   **Recent Drafts**: Access your most recently created repurposed content. This allows for quick review and iteration on your latest work.
-
-### Content Repurposing
-
-Navigate to the "Repurpose New" section to begin transforming your content:
-
-1.  **Select Input Format**: Choose the original format of your content (e.g., Blog, YouTube Video, Instagram Reel).
-2.  **Select Output Format**: Pick the desired format for your repurposed content (e.g., Tweet, X Thread, LinkedIn Post).
-3.  **Define Tone**: Set the desired tone for your output (e.g., Professional, Casual, Funny, Motivational) to match your brand's voice.
-4.  **Paste Content/Link**: Provide the source content by pasting text directly or providing a link if the input format is a video or reel.
-5.  **Generate**: Click "Repurpose Now" to let our AI work its magic, transforming your content into new, engaging formats.
-
-### Draft Management
-
-All your generated content is automatically saved as drafts. In the "Drafts" section, you can:
-
-*   **View Drafts**: Browse through all your past repurposed content.
-*   **Copy to Clipboard**: Easily copy any draft content with a single click for immediate use.
-*   **Delete Drafts**: Remove drafts you no longer need.
-
-### Brand Voice
-
-The "Brand Voice" feature allows you to refine the AI's output to perfectly match your brand's unique style:
-
-*   **Add Custom Voices**: Define specific writing styles and tones. You can provide descriptions or even link to existing posts for the AI to learn from.
-*   **Manage Voices**: Organize and refine your custom brand voices to ensure consistency across all your repurposed content.
-
-### Account Settings
-
-In the "Settings" section, you have full control over your profile:
-
-*   **General Settings**: Update your full name and change your avatar.
-*   **Security Settings**: Modify your email address and password, or view your connection details if using social authentication like Google.
-*   **Danger Zone**: Options for account management (e.g., account deletion), handled with a confirmation prompt for safety.
-
-## ✨ Features
-
-*   **Intelligent Content Repurposing**: Seamlessly convert content from various sources (blog posts, YouTube videos, Instagram reels, X threads, LinkedIn posts) into diverse social media formats.
-*   **Customizable Output**: Choose from a range of output formats including Tweets, X Threads, LinkedIn Posts, and Reddit Posts.
-*   **AI-Driven Tone Control**: Adjust the output's tone to professional, casual, funny, or motivational to align with your content strategy.
-*   **Personalized Brand Voice**: Create and manage custom brand voices, allowing the AI to generate content that truly reflects your unique style.
-*   **Draft Management**: Save, review, edit, copy, and delete all your repurposed content drafts with ease.
-*   **Robust User Authentication**: Secure sign-up and sign-in capabilities, supporting both email/password and Google OAuth, powered by Supabase Auth.
-*   **Credit-Based System**: A clear system to track and manage content generation credits.
-*   **Fully Responsive UI**: A fluid and intuitive user interface that adapts seamlessly across all devices, from desktop to mobile.
-*   **Modern Tech Stack**: Built with Next.js, React 19, Tailwind CSS, and Shadcn/ui for a high-performance and visually appealing experience.
-*   **Efficient State Management**: Utilizes React Query for effective data fetching and caching, ensuring a smooth user experience.
-
-## 💻 Technologies Used
-
-| Technology       | Description                                                                 | Link                                                 |
-| :--------------- | :-------------------------------------------------------------------------- | :--------------------------------------------------- |
-| **Next.js 15**   | React framework for building full-stack web applications.                   | [nextjs.org](https://nextjs.org/)                    |
-| **React 19**     | JavaScript library for building user interfaces.                            | [react.dev](https://react.dev/)                      |
-| **TypeScript**   | Typed superset of JavaScript that compiles to plain JavaScript.             | [typescriptlang.org](https://www.typescriptlang.org/) |
-| **Tailwind CSS** | A utility-first CSS framework for rapidly building custom designs.           | [tailwindcss.com](https://tailwindcss.com/)          |
-| **Shadcn/ui**    | Reusable components built with Radix UI and Tailwind CSS.                   | [ui.shadcn.com](https://ui.shadcn.com/)              |
-| **Supabase**     | Open-source Firebase alternative providing auth, database, and storage.     | [supabase.com](https://supabase.com/)                |
-| **React Query**  | A powerful data-fetching library for React applications.                    | [tanstack.com/query](https://tanstack.com/query)   |
-| **Zod**          | TypeScript-first schema declaration and validation library.                 | [zod.dev](https://zod.dev/)                          |
-| **Sonner**       | An opinionated toast component for React.                                   | [sonner.emilkowal.ski](https://sonner.emilkowal.ski/) |
-| **Lucide React** | A collection of beautiful, customizable, and open-source icons.             | [lucide.dev](https://lucide.dev/)                    |
-
-## 🤝 Contributing
-
-We welcome contributions from the community! If you'd like to contribute, please follow these guidelines:
-
-*   ✨ **Fork the repository**: Start by forking the Postmorph repository to your GitHub account.
-*   🌿 **Create a new branch**: Create a branch for your feature or bug fix: `git checkout -b feature/your-feature-name` or `bugfix/your-bug-name`.
-*   🚀 **Implement your changes**: Write clear, concise code that adheres to the project's coding style.
-*   🧪 **Write tests**: Ensure your changes are well-tested (if applicable).
-*   📚 **Update documentation**: If your changes affect functionality, update the relevant documentation.
-*   ✅ **Commit your changes**: Write descriptive commit messages.
-*   ⬆️ **Push your branch**: `git push origin your-branch-name`.
-*   ➡️ **Open a Pull Request**: Submit a pull request to the `main` branch, explaining your changes and their benefits.
-
-## 📝 License
-
-Currently, no specific license file is included. Please contact the author for licensing details.
-
-## ✍️ Author
-
-*   **Your Name**
-    *   LinkedIn: [Your LinkedIn Profile](https://linkedin.com/in/yourprofile)
-    *   X (Twitter): [@YourTwitterHandle](https://x.com/YourTwitterHandle)
+*   LinkedIn: [Your LinkedIn Profile URL]
+*   Twitter: [Your Twitter Profile URL]
+*   Portfolio: [Your Portfolio URL]
 
 ---
+
+[![Next.js](https://img.shields.io/badge/Next.js-Black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Supabase](https://img.shields.io/badge/Supabase-181818?style=for-the-badge&logo=supabase&logoColor=white)](https://supabase.com/)
+[![Google AI](https://img.shields.io/badge/Google_AI-4285F4?style=for-the-badge&logo=google&logoColor=white)](https://ai.google.dev/)
+[![React Query](https://img.shields.io/badge/React_Query-FF4154?style=for-the-badge&logo=reactquery&logoColor=white)](https://tanstack.com/query/latest)
+[![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen?style=for-the-badge)](https://example.com/build-status)
 
 [![Readme was generated by Dokugen](https://img.shields.io/badge/Readme%20was%20generated%20by-Dokugen-brightgreen)](https://www.npmjs.com/package/dokugen)

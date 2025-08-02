@@ -1,7 +1,4 @@
-const modifyDraftRequest = async (
-  prompt: string,
-  onData: (chunk: string) => void
-) => {
+const modifyDraftRequest = async (prompt: string): Promise<string> => {
   const res = await fetch("/api/modifyDraft", {
     method: "POST",
     body: JSON.stringify({ prompt }),
@@ -13,17 +10,8 @@ const modifyDraftRequest = async (
     throw new Error(message || "Something went wrong");
   }
 
-  const reader = res.body?.getReader();
-  const decoder = new TextDecoder("utf-8");
-
-  if (!reader) throw new Error("No stream found");
-
-  while (true) {
-    const { done, value } = await reader.read();
-    if (done) break;
-    const chunk = decoder.decode(value, { stream: true });
-    onData(chunk);
-  }
+  const { text } = await res.json();
+  return text;
 };
 
 export default modifyDraftRequest;

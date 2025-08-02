@@ -8,7 +8,7 @@ const RecentDrafts = async ({ currentUserId }: { currentUserId: string }) => {
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL;
 
   const res = await fetch(
-    `${baseUrl}/api/drafts?userId=${currentUserId}&from=0&to=2`,
+    `${baseUrl}/api/getDrafts?userId=${currentUserId}&from=0&to=2`,
     {
       headers: {
         Cookie: cookieStr
@@ -21,12 +21,12 @@ const RecentDrafts = async ({ currentUserId }: { currentUserId: string }) => {
   const drafts = json.drafts || [];
 
   return (
-    <div className='w-full my-12'>
-      <h3 className='text-2xl font-bold mb-2'> Recent Drafts </h3>
+    <div className="w-full my-12">
+      <h3 className="text-2xl font-bold mb-2"> Recent Drafts </h3>
       <DraftController drafts={drafts} />
 
-      <div className='w-full flex items-center justify-center mt-8'>
-        <Link href='/drafts'>View all</Link>
+      <div className="w-full flex items-center justify-center mt-8">
+        <Link href="/drafts">View all</Link>
       </div>
     </div>
   );
