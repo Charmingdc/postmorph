@@ -16,23 +16,26 @@ export async function POST(req: Request) {
 
     const supabase = await createClient();
 
-    // Authenticate user
+    // Authenticate user via Supabase session
     const {
       data: { user },
       error: userError
     } = await supabase.auth.getUser();
 
-    if (!user || userError)
+    if (!user || userError) {
       return apiError(userError?.message || "User authentication failed", 401);
+    }
 
-    // Fetch and check credits
-    const { used_credits, total_credits } = await fetchUserCredits(user.id);
+    // Fetch user credit info
+    const { isUnlimited, used_credits, total_credits } = await fetchUserCredits(
+      user.id
+    );
 
-    if (used_credits + CREDIT_COST > total_credits) {
+    if (!isUnlimited && used_credits + CREDIT_COST > total_credits) {
       return apiError("Insufficient credits", 403);
     }
 
-    // Generate text using Gemini
+    // Generate text using Gemini (Google AI)
     const result = await generateText({
       model: google("gemini-1.5-pro"),
       system:
@@ -45,22 +48,25 @@ export async function POST(req: Request) {
 
     if (!result.text) return apiError("No text was generated", 500);
 
-    // Update used credits
-    const { error: profileUpdateError } = await supabase
-      .from("Profiles")
-      .update({ used_credits: used_credits + CREDIT_COST })
-      .eq("user_id", user.id);
+    // Deduct credits if not unlimited
+    if (!isUnlimited) {
+      const { error: updateError } = await supabase
+        .from("Profiles")
+        .update({ used_credits: used_credits + CREDIT_COST })
+        .eq("user_id", user.id);
 
-    if (profileUpdateError) {
-      return apiError("Failed to update user credits", 500);
+      if (updateError) {
+        return apiError("Failed to update user credits", 500);
+      }
     }
 
     // Return generated content
     return NextResponse.json({ text: result.text });
   } catch (err: unknown) {
     console.error("API Error:", err);
-    if (err instanceof Error)
+    if (err instanceof Error) {
       return apiError(err.message || "Internal server error", 500);
+    }
     return apiError("Unknown server error", 500);
   }
 }

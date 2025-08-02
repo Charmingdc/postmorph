@@ -12,6 +12,13 @@ type Profile = {
   plan: string;
   total_credits: number;
   used_credits: number;
+  isUnlimited: boolean;
+};
+
+type CreditInfo = {
+  isUnlimited: boolean;
+  total_credits: number;
+  used_credits: number;
 };
 
 type DraftType = {
@@ -21,4 +28,4 @@ type DraftType = {
   createdAt: string;
 };
 
-export type { ActionState, Profile, DraftType };
+export type { ActionState, Profile, CreditInfo, DraftType };
