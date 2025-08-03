@@ -132,15 +132,14 @@ const ContentEditor = ({ user_id, draft }: PageProps) => {
           </p>
         )}
 
-        {modifyCount < 3 && (
-          <PromptPopover
-            draftId={draft.id}
-            prompt={prompt}
-            setPrompt={setPrompt}
-            content={content}
-            setContent={setContent}
-          />
-        )}
+        <PromptPopover
+          draftId={draft.id}
+          prompt={prompt}
+          setPrompt={setPrompt}
+          content={content}
+          setContent={setContent}
+          setModifyCount={setModifyCount}
+        />
 
         <CopyButton copied={copied} onCopy={() => copy(content)} />
 

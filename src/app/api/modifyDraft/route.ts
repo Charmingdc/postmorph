@@ -5,7 +5,6 @@ import { createClient } from "@/utils/supabase/server";
 import { apiError } from "@/lib/apiError";
 
 const MAX_REFINEMENT = 3;
-
 export async function POST(req: Request) {
   try {
     const body = await req.json();
@@ -50,9 +49,11 @@ export async function POST(req: Request) {
       model: google("gemini-2.0-flash-lite"),
       system:
         "You are a content repurposing expert who transforms content based on user instructions. " +
-        "You may be asked to rephrase, condense, expand, add a hook, change tone, or adjust the structure. " +
-        "Always preserve the original meaning and respect the format and tone unless instructed otherwise. " +
-        "Be concise and intentional in your edits.",
+        "Tasks may include rephrasing, condensing, expanding, adding hooks, changing tone, or restructuring. " +
+        "Always preserve the original meaning and respect the existing tone and format unless explicitly instructed otherwise. " +
+        "Be concise and purposeful in your edits. " +
+        "Format your response with proper spacing, paragraphs, and line breaks as needed, but avoid using markdown syntax such as **, ##, etc. " +
+        "Always return only the modified content — do not include any introductory phrases like 'Here is your output.'",
       prompt
     });
 
