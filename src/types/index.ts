@@ -26,7 +26,16 @@ type DraftType = {
   type: "thread" | "tweet" | "linkedln post" | "reddit post";
   modify_count: number;
   content: string;
-  createdAt: string;
+  createdAt: string | Date;
 };
 
-export type { ActionState, Profile, CreditInfo, DraftType };
+type CustomVoice = {
+  id: string;
+  user_id: string;
+  name: string;
+  description: string;
+  instruction: string;
+  createdAt: string | Date;
+};
+
+export type { ActionState, Profile, CreditInfo, DraftType, CustomVoice };

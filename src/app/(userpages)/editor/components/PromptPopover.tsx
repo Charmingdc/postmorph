@@ -145,8 +145,8 @@ content: ${content}`);
           </form>
 
           {isPending ? (
-            <div className="w-full flex flex-col justify-center p-2 gap-2 h-64">
-              {[...Array(5)].map((_, i) => {
+            <div className="w-full flex flex-col justify-center p-2 gap-2">
+              {[...Array(4)].map((_, i) => {
                 const width = 100 - (i + i) * 5;
 
                 return (

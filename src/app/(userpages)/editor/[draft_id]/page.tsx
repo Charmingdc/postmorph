@@ -1,6 +1,7 @@
 import getCurrentUserId from "../utils/getCurrentUserId";
 import fetchUniqueDraft from "../lib/fetchUniqueDraft";
 import ContentEditor from "../components/ContentEditor";
+import { ErrorBox } from "@/components/ui/errorbox";
 
 type PageProps = {
   params: {
@@ -23,8 +24,8 @@ const Page = async ({ params }: PageProps) => {
       console.log("Error loading draft:", err.message);
     }
     return (
-      <main className="text-center p-8">
-        Something went wrong loading the draft.
+      <main className="w-full flex flex-col items-center">
+        <ErrorBox message="Something went wrong loading the draft." />
       </main>
     );
   }
