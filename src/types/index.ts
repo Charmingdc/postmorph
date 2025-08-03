@@ -24,6 +24,7 @@ type CreditInfo = {
 type DraftType = {
   id: string;
   type: "thread" | "tweet" | "linkedln post" | "reddit post";
+  modify_count: number;
   content: string;
   createdAt: string;
 };

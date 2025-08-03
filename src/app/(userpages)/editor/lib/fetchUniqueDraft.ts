@@ -23,6 +23,7 @@ const fetchUniqueDraft = async (
   return {
     id: data.id,
     type: data.type,
+    modify_count: data.modify_count,
     content: data.content,
     createdAt: data.created_at
   };

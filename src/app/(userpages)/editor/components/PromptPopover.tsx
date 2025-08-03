@@ -16,11 +16,13 @@ import {
   RefreshCw,
   ListChecks
 } from "lucide-react";
+
 import {
   Popover,
   PopoverTrigger,
   PopoverContent
 } from "@/components/ui/popover";
+
 import { Skeleton } from "@/components/ui/skeleton";
 import Spinner from "@/components/ui/spinner";
 
@@ -34,44 +36,67 @@ const ACTIONS: { action: string; icon: React.ReactNode }[] = [
 ];
 
 type Props = {
+  draftId: string;
   prompt: string;
   setPrompt: (val: string) => void;
   content: string;
   setContent: (val: string) => void;
+  setModifyCount: (val: number) => void;
 };
 
-const PromptPopover = ({ prompt, setPrompt, content, setContent }: Props) => {
+const PromptPopover = ({
+  draftId,
+  prompt,
+  setPrompt,
+  content,
+  setContent,
+  setModifyCount
+}: Props) => {
   const [finalPrompt, setFinalPrompt] = useState<string>("");
   const [reqOutput, setReqOutput] = useState<string | null>(null);
-  const [isPending, setIsPending] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isPending, setIsPending] = useState<boolean>(false);
 
   useEffect(() => {
     if (!prompt.trim()) return;
 
     setFinalPrompt(`
-    Instruction: ${prompt}
-    ----------------------
-    content: ${content}`);
-  }, [prompt]);
+Instruction: ${prompt}
+----------------------
+content: ${content}`);
+  }, [prompt, content]);
+
+  useEffect(() => {
+    if (!isOpen) {
+      setReqOutput(null);
+      setPrompt("");
+    }
+  }, [isOpen]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsPending(true);
 
     try {
-      const output = await modifyDraftRequest(finalPrompt);
+      const { text: output, modifyCount } = await modifyDraftRequest(
+        finalPrompt,
+        draftId
+      );
       setReqOutput(output);
-      setPrompt("");
-    } catch (err: any) {
-      toast.error(err.message || "Error processing request");
-      console.error(err);
+      setModifyCount(modifyCount);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        toast.error(err.message);
+      } else {
+        toast.error("Error processing request");
+      }
     } finally {
       setIsPending(false);
     }
   };
 
   return (
-    <Popover>
+    <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>
         <button type="button">
           <Sparkles
@@ -81,6 +106,7 @@ const PromptPopover = ({ prompt, setPrompt, content, setContent }: Props) => {
           />
         </button>
       </PopoverTrigger>
+
       <PopoverContent className="w-fit p-2 rounded-lg mr-16">
         <div className="w-72 flex flex-col p-1 border rounded-lg">
           <form
@@ -92,7 +118,8 @@ const PromptPopover = ({ prompt, setPrompt, content, setContent }: Props) => {
               value={prompt}
               placeholder="Enter custom prompt"
               onChange={e => setPrompt(e.target.value)}
-              className="bg-input text-sm text-input-foreground p-2 border rounded-lg"
+              disabled={isPending}
+              className="bg-input text-sm text-input-foreground p-2 border rounded-lg disabled:opacity-50"
             />
 
             <input
@@ -101,7 +128,10 @@ const PromptPopover = ({ prompt, setPrompt, content, setContent }: Props) => {
               className="hidden"
               readOnly
             />
-            <button className="h-9 w-9 flex items-center justify-center p-1.5 border-l">
+            <button
+              disabled={isPending || !prompt.trim()}
+              className="h-9 w-9 flex items-center justify-center p-1.5 border-l disabled:opacity-50"
+            >
               {isPending ? (
                 <Spinner width="w-4" height="h-4" />
               ) : (
@@ -115,17 +145,21 @@ const PromptPopover = ({ prompt, setPrompt, content, setContent }: Props) => {
           </form>
 
           {isPending ? (
-            <Skeleton className="w-full h-64 rounded-lg" />
+            <div className="w-full flex flex-col items-center justify-center py-2 gap-2 h-64">
+              {[...Array(5)].map((_, i) => (
+                <Skeleton key={i} className="w-full h-10 rounded-lg" />
+              ))}
+            </div>
           ) : reqOutput ? (
             <div className="w-full flex flex-col p-2 mt-2">
-              <ul className="flex items-center justify-between p-2 border-b mb-2">
+              <ul className="flex items-center justify-between py-1 border-b mb-2">
                 <li>
                   <h4 className="text-sm font-medium text-muted-foreground">
                     Use this as new content?
                   </h4>
                 </li>
 
-                <li className="flex gap-2">
+                <li className="flex gap-1">
                   <button
                     onClick={() => setReqOutput(null)}
                     className="p-2 rounded hover:bg-red-100 text-red-600"
@@ -135,7 +169,10 @@ const PromptPopover = ({ prompt, setPrompt, content, setContent }: Props) => {
                   </button>
 
                   <button
-                    onClick={() => setContent(reqOutput)}
+                    onClick={() => {
+                      setContent(reqOutput);
+                      setIsOpen(false);
+                    }}
                     className="p-2 rounded hover:bg-green-100 text-green-600"
                     aria-label="Confirm"
                   >
@@ -143,7 +180,7 @@ const PromptPopover = ({ prompt, setPrompt, content, setContent }: Props) => {
                   </button>
                 </li>
               </ul>
-              <p className="prose prose-sm text-sm whitespace-pre-wrap">
+              <p className="w-full h-64 prose prose-sm text-sm whitespace-pre-wrap overflow-y-auto">
                 {reqOutput}
               </p>
             </div>
@@ -155,7 +192,7 @@ const PromptPopover = ({ prompt, setPrompt, content, setContent }: Props) => {
                   onClick={() => setPrompt(action)}
                   className={`w-full flex flex-row gap-2 text-sm text-muted-foreground p-1.5 cursor-pointer ${
                     i === ACTIONS.length - 1 ? "border-none" : "border-b"
-                  }`}
+                  } hover:bg-muted/50 rounded-md`}
                 >
                   <Icon size={18} /> {action}
                 </li>

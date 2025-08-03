@@ -11,9 +11,11 @@ import type { DraftType } from "@/types/index";
 
 import { Trash } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import Spinner from "@/components/ui/spinner";
+
+import ModifyCountBadge from "./ModifyCountBadge";
 import PromptPopover from "./PromptPopover";
 import CopyButton from "./CopyButton";
+import Spinner from "@/components/ui/spinner";
 
 type PageProps = {
   user_id: string;
@@ -26,6 +28,8 @@ const ContentEditor = ({ user_id, draft }: PageProps) => {
 
   const [prompt, setPrompt] = useState<string>("");
   const [content, setContent] = useState<string>(draft.content);
+  const [modifyCount, setModifyCount] = useState<number>(draft.modify_count);
+
   const [updateDraftState, updateDraftAction, isUpdatingDraft] = useActionState(
     updateDraft,
     { type: "", message: "" }
@@ -107,12 +111,13 @@ const ContentEditor = ({ user_id, draft }: PageProps) => {
         className="h-80 w-full resize-none bg-card border border-transparent px-4 py-2 text-sm text-foreground shadow-inner focus:outline-none focus:border-t transition-all duration-200 whitespace-pre-wrap"
       />
 
+      <ModifyCountBadge modifyCount={modifyCount} />
+
       <form
         ref={formRef}
         action={deleteDraft}
         className="flex justify-end items-center gap-4 mt-4"
       >
-        {/* Hidden input to pass the draft ID */}
         <input
           type="text"
           name="draft_id"
@@ -127,12 +132,16 @@ const ContentEditor = ({ user_id, draft }: PageProps) => {
           </p>
         )}
 
-        <PromptPopover
-          prompt={prompt}
-          setPrompt={setPrompt}
-          content={content}
-          setContent={setContent}
-        />
+        {modifyCount < 3 && (
+          <PromptPopover
+            draftId={draft.id}
+            prompt={prompt}
+            setPrompt={setPrompt}
+            content={content}
+            setContent={setContent}
+          />
+        )}
+
         <CopyButton copied={copied} onCopy={() => copy(content)} />
 
         <button

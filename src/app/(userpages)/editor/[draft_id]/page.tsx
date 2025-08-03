@@ -1,5 +1,5 @@
 import getCurrentUserId from "../utils/getCurrentUserId";
-import fetchUniqueDraft from "../utils/fetchUniqueDraft";
+import fetchUniqueDraft from "../lib/fetchUniqueDraft";
 import ContentEditor from "../components/ContentEditor";
 
 type PageProps = {

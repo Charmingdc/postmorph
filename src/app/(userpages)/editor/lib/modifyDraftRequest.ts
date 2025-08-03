@@ -1,7 +1,10 @@
-const modifyDraftRequest = async (prompt: string): Promise<string> => {
+const modifyDraftRequest = async (
+  prompt: string,
+  draftId: string
+): Promise<{ text: string; modifyCount: number }> => {
   const res = await fetch("/api/modifyDraft", {
     method: "POST",
-    body: JSON.stringify({ prompt }),
+    body: JSON.stringify({ prompt, draftId }),
     headers: { "Content-Type": "application/json" }
   });
 
@@ -10,8 +13,8 @@ const modifyDraftRequest = async (prompt: string): Promise<string> => {
     throw new Error(message || "Something went wrong");
   }
 
-  const { text } = await res.json();
-  return text;
+  const { text, modifyCount } = await res.json();
+  return { text, modifyCount };
 };
 
 export default modifyDraftRequest;

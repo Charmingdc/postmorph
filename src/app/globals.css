@@ -6,13 +6,13 @@
   :root {
     --background: 235, 240, 255;
     --foreground: 50, 55, 65;
-    --card: 245, 247, 255;
+    --card: 240, 242, 250;
     --card-foreground: 45, 50, 60;
     --popover: 250, 252, 255;
     --popover-foreground: 45, 50, 60;
     --primary: 59, 100, 246;
     --primary-foreground: 255, 255, 255;
-    --secondary: 245, 248, 255;
+    --secondary: 246, 248, 255;
     --secondary-foreground: 70, 75, 85;
     --muted: 240, 245, 255;
     --muted-foreground: 120, 130, 140;

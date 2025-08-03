@@ -3,20 +3,21 @@ import { google } from "@ai-sdk/google";
 import { generateText } from "ai";
 import { createClient } from "@/utils/supabase/server";
 import { apiError } from "@/lib/apiError";
-import fetchUserCredits from "@/lib/fetchUserCredits";
 
-const CREDIT_COST = 2;
+const MAX_REFINEMENT = 3;
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { prompt } = body;
+    const { prompt, draftId } = body;
 
-    if (!prompt) return apiError("Missing prompt", 400);
+    if (!prompt || !draftId) {
+      return apiError("Missing prompt or draft Id", 400);
+    }
 
     const supabase = await createClient();
 
-    // Authenticate user via Supabase session
+    // Authenticate user
     const {
       data: { user },
       error: userError
@@ -26,17 +27,27 @@ export async function POST(req: Request) {
       return apiError(userError?.message || "User authentication failed", 401);
     }
 
-    // Fetch user credit info
-    const { is_unlimited, used_credits, total_credits } =
-      await fetchUserCredits(user.id);
+    // Fetch draft with modify_count
+    const { data: draft, error: modifyCountError } = await supabase
+      .from("drafts")
+      .select("modify_count")
+      .eq("id", draftId)
+      .eq("user_id", user.id)
+      .single();
 
-    if (!is_unlimited && used_credits + CREDIT_COST > total_credits) {
-      return apiError("Insufficient credits", 403);
+    if (modifyCountError) {
+      return apiError("Draft not found or unauthorized", 404);
     }
 
-    // Generate text using Gemini (Google AI)
+    const currentCount = draft.modify_count ?? 0;
+
+    if (currentCount >= MAX_REFINEMENT) {
+      return apiError("Max refinement reached for this draft", 403);
+    }
+
+    // Generate refined text
     const result = await generateText({
-      model: google("gemini-1.5-pro"),
+      model: google("gemini-2.0-flash-lite"),
       system:
         "You are a content repurposing expert who transforms content based on user instructions. " +
         "You may be asked to rephrase, condense, expand, add a hook, change tone, or adjust the structure. " +
@@ -45,22 +56,26 @@ export async function POST(req: Request) {
       prompt
     });
 
-    if (!result.text) return apiError("No text was generated", 500);
-
-    // Deduct credits if not unlimited
-    if (!is_unlimited) {
-      const { error: updateError } = await supabase
-        .from("Profiles")
-        .update({ used_credits: used_credits + CREDIT_COST })
-        .eq("user_id", user.id);
-
-      if (updateError) {
-        return apiError("Failed to update user credits", 500);
-      }
+    if (!result.text) {
+      return apiError("No text was generated", 500);
     }
 
-    // Return generated content
-    return NextResponse.json({ text: result.text });
+    // Update modify count
+    const { error: updateError } = await supabase
+      .from("drafts")
+      .update({ modify_count: currentCount + 1 })
+      .eq("id", draftId)
+      .eq("user_id", user.id);
+
+    if (updateError) {
+      return apiError("Failed to update draft modify count", 500);
+    }
+
+    // Return generated result
+    return NextResponse.json({
+      text: result.text,
+      modifyCount: currentCount + 1
+    });
   } catch (err: unknown) {
     console.error("API Error:", err);
     if (err instanceof Error) {
