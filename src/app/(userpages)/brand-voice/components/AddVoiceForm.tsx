@@ -61,8 +61,17 @@ const AddVoiceForm = ({ userId }: { userId: string }) => {
             when you're done.`}
           </DialogDescription>
         </DialogHeader>
-        <form className="w-full flex flex-col items-center py-4">
-          <input name="user_id" value={userId} readOnly />
+        <form
+          action={formAction}
+          className="w-full flex flex-col items-center py-4"
+        >
+          <input
+            type="text"
+            name="user_id"
+            value={userId}
+            className="hidden"
+            readOnly
+          />
 
           <input
             type="text"
@@ -70,7 +79,8 @@ const AddVoiceForm = ({ userId }: { userId: string }) => {
             name="voice_name"
             value={voiceName}
             onChange={e => setVoiceName(e.target.value)}
-            className="w-full h-12 bg-input text-xs border border-border p-2 rounded-lg transition-all duration-500 hover:border-primary md:text-md"
+            disabled={isPending}
+            className="w-full h-12 bg-input text-xs border border-border p-2 rounded-lg transition-all duration-500 hover:border-primary disabled:opacity-40 md:text-md"
           />
 
           <textarea
@@ -82,12 +92,12 @@ const AddVoiceForm = ({ userId }: { userId: string }) => {
             name="voice_description"
             value={voiceDescription}
             onChange={e => setVoiceDescription(e.target.value)}
-            disabled={generateWithPost}
+            disabled={generateWithPost || isPending}
             className={`w-full min-h-20 bg-input text-xs border border-border p-2 rounded-lg mt-4 ${
               generateWithPost
                 ? "opacity-40"
                 : "transition-all duration-500 hover:border-primary"
-            } md:text-md`}
+            } disabled:opacity-40 md:text-md`}
           />
 
           <textarea
@@ -99,7 +109,7 @@ const AddVoiceForm = ({ userId }: { userId: string }) => {
             name="voice_instruction"
             value={voiceInstruction}
             onChange={e => setVoiceInstruction(e.target.value)}
-            disabled={generateWithPost}
+            disabled={generateWithPost || isPending}
             className={`w-full min-h-20 bg-input text-xs border border-border p-2 rounded-lg mt-4 ${
               generateWithPost
                 ? "opacity-40"
@@ -111,8 +121,10 @@ const AddVoiceForm = ({ userId }: { userId: string }) => {
 
           <Button
             variant="outline"
+            type="button"
+            disabled={isPending}
             onClick={() => setGenerateWithPost(!generateWithPost)}
-            className="w-full capitalize py-6"
+            className="w-full capitalize py-6 disabled:opacity-40"
           >
             {generateWithPost
               ? "Set voice details manually"
@@ -135,7 +147,7 @@ const AddVoiceForm = ({ userId }: { userId: string }) => {
           )}
         </form>
         <DialogFooter>
-          <Button type="submit">
+          <Button type="submit" disabled={isPending}>
             {isPending ? "Saving Changes..." : "Save changes"}
           </Button>
         </DialogFooter>
