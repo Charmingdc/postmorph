@@ -37,12 +37,12 @@ const changeEmail = async (
     };
   }
 
+  revalidatePath("/settings", "layout");
   return {
     type: "success",
     message:
       "Email update initiated. Please confirm via the email link to complete the  process."
   };
-  revalidatePath("/settings", "layout");
 };
 
 export default changeEmail;

@@ -14,7 +14,7 @@ const BrandVoicePage = async () => {
 
       <VoiceCountBar userId={userProfile.user_id} />
       <AddVoiceForm />
-      <VoiceList />
+      <VoiceList userId={userProfile.user_id} />
     </main>
   );
 };

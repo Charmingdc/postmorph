@@ -14,8 +14,9 @@ const VoiceList = ({ userId }: { userId: string }) => {
     isLoading,
     isError
   } = useQuery({
-    queryKey: ["customVoicesList", userId],
-    queryFn: () => fetchUserCustomVoices(userId)
+    queryKey: ["customVoices", userId],
+    queryFn: () => fetchUserCustomVoices(userId),
+    enabled: !!userId
   });
 
   return (
