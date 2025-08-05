@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { createClient } from "@/utils/supabase/server";
 import type { ActionState } from "@/types/index";
 
-const deleleteVoice = async (
+const deleteVoice = async (
   prev: ActionState,
   formData: FormData
 ): Promise<ActionState> => {

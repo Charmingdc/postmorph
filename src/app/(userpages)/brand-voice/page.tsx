@@ -13,7 +13,7 @@ const BrandVoicePage = async () => {
       <p> Add custom voices that reflects your brand. </p>
 
       <VoiceCountBar userId={userProfile.user_id} />
-      <AddVoiceForm />
+      <AddVoiceForm userId={userProfile.user_id} />
       <VoiceList userId={userProfile.user_id} />
     </main>
   );

@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useActionState } from "react";
+import { toast } from "sonner";
+
 import { WandSparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,17 +15,41 @@ import {
   DialogTrigger
 } from "@/components/ui/dialog";
 
-const AddVoiceForm = () => {
+import addNewVoice from "../actions/addNewVoice";
+
+const AddVoiceForm = ({ userId }: { userId: string }) => {
   const [voiceName, setVoiceName] = useState<string>("");
   const [voiceDescription, setVoiceDescription] = useState<string>("");
   const [voiceInstruction, setVoiceInstruction] = useState<string>("");
   const [postLink, setPostLink] = useState<string>("");
   const [generateWithPost, setGenerateWithPost] = useState<boolean>(false);
+  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
+
+  const [formState, formAction, isPending] = useActionState(addNewVoice, {
+    type: "",
+    message: ""
+  });
+
+  useEffect(() => {
+    if (!formState.message) return;
+    if (formState.type === "error") {
+      toast.error(formState.message);
+    } else {
+      toast.success(formState.message);
+      setIsDialogOpen(false);
+      setVoiceName("");
+      setVoiDescription("");
+      setVoiceInstruction("");
+    }
+  }, [formState]);
 
   return (
-    <Dialog>
+    <Dialog open={isDialogOpen}>
       <DialogTrigger asChild>
-        <Button className="h-14 capitalize rounded-xl my-4">
+        <Button
+          onClick={() => setIsDialogOpen(true)}
+          className="h-14 capitalize rounded-xl my-4"
+        >
           <WandSparkles /> Add new custom voice
         </Button>
       </DialogTrigger>
@@ -35,10 +61,13 @@ const AddVoiceForm = () => {
             when you're done.`}
           </DialogDescription>
         </DialogHeader>
-        <div className="w-full flex flex-col items-center py-4">
+        <form className="w-full flex flex-col items-center py-4">
+          <input name="user_id" value={userId} readOnly />
+
           <input
             type="text"
             placeholder="Give your custom voice a name"
+            name="voice_name"
             value={voiceName}
             onChange={e => setVoiceName(e.target.value)}
             className="w-full h-12 bg-input text-xs border border-border p-2 rounded-lg transition-all duration-500 hover:border-primary md:text-md"
@@ -50,6 +79,7 @@ const AddVoiceForm = () => {
                 ? "Will automatically generate voice description"
                 : "Describe the voice or add notes"
             }
+            name="voice_description"
             value={voiceDescription}
             onChange={e => setVoiceDescription(e.target.value)}
             disabled={generateWithPost}
@@ -66,6 +96,7 @@ const AddVoiceForm = () => {
                 ? "Will automatically generate voice instruction"
                 : "Provide custom instruction to use when writing with this voie"
             }
+            name="voice_instruction"
             value={voiceInstruction}
             onChange={e => setVoiceInstruction(e.target.value)}
             disabled={generateWithPost}
@@ -102,9 +133,11 @@ const AddVoiceForm = () => {
               </Button>
             </div>
           )}
-        </div>
+        </form>
         <DialogFooter>
-          <Button type="submit"> Save changes </Button>
+          <Button type="submit">
+            {isPending ? "Saving Changes..." : "Save changes"}
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

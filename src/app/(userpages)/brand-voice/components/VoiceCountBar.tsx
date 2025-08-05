@@ -26,7 +26,7 @@ const VoiceCountBar = ({ userId }: { userId: string }) => {
           <Skeleton className="w-full h-4 rounded-lg" />
         </div>
       ) : isError ? (
-        <ErrorBox message="Failed to load voices" />
+        <ErrorBox message="Failed to load voices count" />
       ) : (
         <>
           <p>
