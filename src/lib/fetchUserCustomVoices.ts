@@ -12,7 +12,8 @@ const fetchUserCustomVoices = async (
     const { data, error } = await supabase
       .from("custom_voices")
       .select("*")
-      .eq("user_id", userId);
+      .eq("user_id", userId)
+      .order("created_at", { ascending: false });
 
     if (error || !data) {
       throw new Error(error?.message || "Failed to fetch user custom voices");

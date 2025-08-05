@@ -38,7 +38,7 @@ const AddVoiceForm = ({ userId }: { userId: string }) => {
       toast.success(formState.message);
       setIsDialogOpen(false);
       setVoiceName("");
-      setVoiDescription("");
+      setVoiceDescription("");
       setVoiceInstruction("");
     }
   }, [formState]);
@@ -145,10 +145,14 @@ const AddVoiceForm = ({ userId }: { userId: string }) => {
               </Button>
             </div>
           )}
+
+          <Button type="submit" className="w-full mt-2" disabled={isPending}>
+            {isPending ? "Saving Changes..." : "Save changes"}
+          </Button>
         </form>
         <DialogFooter>
-          <Button type="submit" disabled={isPending}>
-            {isPending ? "Saving Changes..." : "Save changes"}
+          <Button variant="outline" type="button" disabled={isPending}>
+            Close
           </Button>
         </DialogFooter>
       </DialogContent>

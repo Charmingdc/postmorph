@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import fetchUserCustomVoices from "@/lib/fetchUserCustomVoices";
 
@@ -9,12 +10,14 @@ import NoDataCard from "@/components/ui/no-data-card";
 import { ErrorBox } from "@/components/ui/errorbox";
 
 const VoiceList = ({ userId }: { userId: string }) => {
+  const [refreshToken, setRefreshToken] = useState<number>(0);
+
   const {
     data: voices = [],
     isLoading,
     isError
   } = useQuery({
-    queryKey: ["customVoices", userId],
+    queryKey: ["customVoices", userId, refreshToken],
     queryFn: () => fetchUserCustomVoices(userId),
     enabled: !!userId
   });
@@ -27,7 +30,12 @@ const VoiceList = ({ userId }: { userId: string }) => {
         <ErrorBox message="Failed to load voices" />
       ) : voices.length > 0 ? (
         voices.map((voice, index) => (
-          <VoiceBox key={voice.id} index={index} voice={voice} />
+          <VoiceBox
+            key={voice.id}
+            index={index}
+            voice={voice}
+            onDataUpdate={() => setRefreshToken(t => t + 1)}
+          />
         ))
       ) : (
         <NoDataCard

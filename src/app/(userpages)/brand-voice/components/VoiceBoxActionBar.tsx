@@ -22,11 +22,12 @@ import { Button } from "@/components/ui/button";
 
 type PageProps = {
   voice: CustomVoice;
+  onDataUpdate: () => void;
 };
 
 const initialState = { type: "", message: "" };
 
-const VoiceBoxActionBar = ({ voice }: PageProps) => {
+const VoiceBoxActionBar = ({ voice, onDataUpdate }: PageProps) => {
   const [voiceName, setVoiceName] = useState<string>(voice.name);
   const [voiceDescription, setVoiceDescription] = useState<string>(
     voice.description
@@ -66,6 +67,7 @@ const VoiceBoxActionBar = ({ voice }: PageProps) => {
       } else {
         toast.success(state.message);
         setIsDialogOpen(false);
+        onDataUpdate();
       }
     } else if (deleteVoiceState.message) {
       const state = deleteVoiceState;
@@ -73,6 +75,7 @@ const VoiceBoxActionBar = ({ voice }: PageProps) => {
         toast.error(state.message);
       } else {
         toast.success(state.message);
+        onDataUpdate();
       }
     }
   }, [updateVoiceState, deleteVoiceState]);
@@ -150,7 +153,7 @@ const VoiceBoxActionBar = ({ voice }: PageProps) => {
         readOnly
       />
 
-      {isDeletingVoice && <LoadingScreen />}
+      {deleting && <LoadingScreen />}
     </form>
   );
 };
