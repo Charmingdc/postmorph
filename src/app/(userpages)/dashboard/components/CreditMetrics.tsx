@@ -1,5 +1,3 @@
-import { Suspense } from "react";
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import { Plus, ChevronsUpDown } from "lucide-react";
 

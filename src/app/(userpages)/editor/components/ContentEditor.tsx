@@ -9,7 +9,7 @@ import updateDraft from "../actions/updateDraft";
 import deleteDraft from "../actions/deleteDraft";
 import type { DraftType } from "@/types/index";
 
-import { Trash } from "lucide-react";
+import { Trash, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 import ModifyCountBadge from "./ModifyCountBadge";
@@ -21,6 +21,8 @@ type PageProps = {
   user_id: string;
   draft: DraftType;
 };
+
+const TWEET_BREAK = "--tweet break--";
 
 const ContentEditor = ({ user_id, draft }: PageProps) => {
   const { copied, copy } = useClipboard();
@@ -35,22 +37,34 @@ const ContentEditor = ({ user_id, draft }: PageProps) => {
     { type: "", message: "" }
   );
 
-  const lengthClass =
-    content.length >= 260
-      ? "text-red-500"
-      : content.length >= 240
-      ? "text-yellow-500"
-      : "text-muted-foreground";
-
   const [deleting, confirmBeforeDelete] = useConfirmDelete(
-    () => {
-      formRef.current?.requestSubmit();
-    },
+    () => formRef.current?.requestSubmit(),
     {
       message: "Are you sure you want to delete this content?",
       description: "This action cannot be undone."
     }
   );
+
+  const isThread = draft.type === "x thread";
+  const tweetArray = isThread ? content.split(TWEET_BREAK) : [content];
+
+  const updateTweet = (index: number, value: string) => {
+    const updated = [...tweetArray];
+    updated[index] = value;
+    setContent(updated.join(TWEET_BREAK));
+  };
+
+  const addNewTweet = () => {
+    const updated = [...tweetArray, ""];
+    setContent(updated.join(TWEET_BREAK));
+  };
+
+  const lengthClass = (text: string) =>
+    text.length >= 280
+      ? "text-red-500"
+      : text.length >= 240
+      ? "text-yellow-500"
+      : "text-muted-foreground";
 
   useEffect(() => {
     if (copied) toast.success("Copied to clipboard successfully");
@@ -58,12 +72,9 @@ const ContentEditor = ({ user_id, draft }: PageProps) => {
 
   useEffect(() => {
     if (!updateDraftState.message) return;
-
-    if (updateDraftState.type === "error") {
+    if (updateDraftState.type === "error")
       toast.error(updateDraftState.message);
-    } else {
-      toast.success(updateDraftState.message);
-    }
+    else toast.success(updateDraftState.message);
   }, [updateDraftState]);
 
   return (
@@ -105,11 +116,42 @@ const ContentEditor = ({ user_id, draft }: PageProps) => {
         </Button>
       </form>
 
-      <textarea
-        value={content}
-        onChange={e => setContent(e.target.value)}
-        className="h-80 w-full resize-none bg-card border border-transparent px-4 py-2 text-sm text-foreground shadow-inner focus:outline-none focus:border-t transition-all duration-200 whitespace-pre-wrap"
-      />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {tweetArray.map((tweet, index) => (
+          <div key={index} className="relative">
+            <textarea
+              value={tweet}
+              onChange={e => updateTweet(index, e.target.value)}
+              className="h-40 w-full resize-none bg-card border border-transparent px-4 py-2 text-sm text-foreground shadow-inner focus:outline-none focus:border-t transition-all duration-200 whitespace-pre-wrap mb-2"
+              placeholder={`Tweet ${index + 1}`}
+            />
+            {(draft.type === "x thread" || draft.type === "tweet") && (
+              <p
+                className={`${lengthClass(
+                  tweet
+                )} text-xs absolute bottom-1 right-3`}
+              >
+                {tweet.length} / <strong>280</strong>
+              </p>
+            )}
+            {isThread && index < tweetArray.length - 1 && (
+              <hr className="mt-4 border-t border-muted" />
+            )}
+          </div>
+        ))}
+      </div>
+
+      {isThread && (
+        <Button
+          type="button"
+          onClick={addNewTweet}
+          variant="outline"
+          size="sm"
+          className="w-fit flex items-center gap-2 text-xs"
+        >
+          <Plus size={14} /> Add Tweet
+        </Button>
+      )}
 
       <ModifyCountBadge modifyCount={modifyCount} />
 
@@ -125,12 +167,6 @@ const ContentEditor = ({ user_id, draft }: PageProps) => {
           className="hidden"
           readOnly
         />
-
-        {draft.type === "tweet" && (
-          <p className={`${lengthClass} transition-all duration-300`}>
-            {content.length} / <strong>280</strong>
-          </p>
-        )}
 
         <PromptPopover
           draftId={draft.id}

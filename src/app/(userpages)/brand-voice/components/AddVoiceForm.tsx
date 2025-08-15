@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useActionState } from "react";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 import { WandSparkles } from "lucide-react";
@@ -18,6 +19,8 @@ import {
 import addNewVoice from "../actions/addNewVoice";
 
 const AddVoiceForm = ({ userId }: { userId: string }) => {
+  const router = useRouter();
+
   const [voiceName, setVoiceName] = useState<string>("");
   const [voiceDescription, setVoiceDescription] = useState<string>("");
   const [voiceInstruction, setVoiceInstruction] = useState<string>("");
@@ -40,6 +43,7 @@ const AddVoiceForm = ({ userId }: { userId: string }) => {
       setVoiceName("");
       setVoiceDescription("");
       setVoiceInstruction("");
+      router.refresh();
     }
   }, [formState]);
 
@@ -151,7 +155,12 @@ const AddVoiceForm = ({ userId }: { userId: string }) => {
           </Button>
         </form>
         <DialogFooter>
-          <Button variant="outline" type="button" disabled={isPending}>
+          <Button
+            variant="outline"
+            type="button"
+            onClick={() => setIsDialogOpen(false)}
+            disabled={isPending}
+          >
             Close
           </Button>
         </DialogFooter>

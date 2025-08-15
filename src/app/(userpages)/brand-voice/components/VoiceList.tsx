@@ -25,7 +25,7 @@ const VoiceList = ({ userId }: { userId: string }) => {
   return (
     <div className="w-full h-full flex flex-col gap-3 items-center mt-4">
       {isLoading ? (
-        [...Array(6)].map((_, i) => <VoiceListLoader key={i} />)
+        [...Array(3)].map((_, i) => <VoiceListLoader key={i} />)
       ) : isError ? (
         <ErrorBox message="Failed to load voices" />
       ) : voices.length > 0 ? (

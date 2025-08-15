@@ -11,7 +11,7 @@ type VoiceBoxProps = {
 const iconMap = [WandSparkles, Feather, Mic];
 
 const VoiceBox = ({ index, voice, onDataUpdate }: VoiceBoxProps) => {
-  const { id, name, description, instruction } = voice;
+  const { name, description } = voice;
   const Icon = iconMap[index % iconMap.length];
 
   return (

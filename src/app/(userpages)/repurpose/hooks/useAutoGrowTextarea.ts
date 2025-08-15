@@ -7,8 +7,11 @@ export default function useAutoGrowTextarea(
   useEffect(() => {
     const el = ref.current;
     if (el) {
+      const maxHeight = 340;
+
       el.style.height = "auto";
-      el.style.height = `${el.scrollHeight}px`;
+      const newHeight = Math.min(el.scrollHeight, maxHeight);
+      el.style.height = `${newHeight}px`;
     }
   }, [ref, value]);
 }

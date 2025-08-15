@@ -64,7 +64,7 @@ const PromptPopover = ({
 Instruction: ${prompt}
 ----------------------
 content: ${content}`);
-  }, [prompt, content]);
+  }, [prompt, content, setPrompt]);
 
   useEffect(() => {
     if (!isOpen) {

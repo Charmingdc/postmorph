@@ -52,6 +52,7 @@ const VoiceBoxActionBar = ({ voice, onDataUpdate }: PageProps) => {
   const [deleting, confirmBeforeSubmit] = useConfirmDelete(
     () => {
       formRef.current?.requestSubmit(deleteButtonRef.current);
+      onDataUpdate();
     },
     {
       message: "Are you sure you want to delete this voice?",
@@ -78,7 +79,7 @@ const VoiceBoxActionBar = ({ voice, onDataUpdate }: PageProps) => {
         onDataUpdate();
       }
     }
-  }, [updateVoiceState, deleteVoiceState]);
+  }, [updateVoiceState, deleteVoiceState, onDataUpdate]);
 
   return (
     <form ref={formRef} className="flex items-center justify-between gap-4">
@@ -153,7 +154,7 @@ const VoiceBoxActionBar = ({ voice, onDataUpdate }: PageProps) => {
         readOnly
       />
 
-      {deleting && <LoadingScreen />}
+      {deleting && isDeletingVoice && <LoadingScreen />}
     </form>
   );
 };
