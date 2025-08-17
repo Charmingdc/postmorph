@@ -58,16 +58,20 @@ const DraftBox = ({ drafts, onDelete, isDeleting }: Props) => {
               {draft.type}
             </div>
 
-            {/* Content Renderer with Tweet Numbers */}
+            {/* Content Renderer */}
             <div className="prose prose-sm text-sm whitespace-pre-wrap">
-              {parts.map((part, i) => (
-                <div key={i}>
-                  <div className="my-4 text-center text-xs uppercase tracking-wide text-muted-foreground">
-                    / Tweet {i + 1}
+              {draft.type === "x thread" ? (
+                parts.map((part, i) => (
+                  <div key={i}>
+                    <div className="my-4 text-xs uppercase tracking-wide text-muted-foreground">
+                      / {i + 1}
+                    </div>
+                    <div>{part.trim()}</div>
                   </div>
-                  <div>{part.trim()}</div>
-                </div>
-              ))}
+                ))
+              ) : (
+                <div>{draft.content}</div>
+              )}
             </div>
 
             {/* Action Buttons */}

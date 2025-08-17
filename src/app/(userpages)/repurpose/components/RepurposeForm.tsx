@@ -56,6 +56,7 @@ const RepurposeForm = ({ userId }: { userId: string }) => {
     } catch (err: unknown) {
       if (err instanceof Error) {
         toast.error(err.message);
+        console.log(err)
       } else {
         toast.error("Error processing request");
       }
