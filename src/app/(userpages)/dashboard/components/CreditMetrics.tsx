@@ -28,7 +28,7 @@ const CreditMetrics = async ({ currentUserId }: { currentUserId: string }) => {
       return <PowerUserBox />;
     }
 
-    const remaining = total_credits - used_credits;
+    const remaining = Math.max(0, total_credits - used_credits);
     const progress =
       total_credits === 0 ? 0 : (used_credits / total_credits) * 100;
 
@@ -42,7 +42,26 @@ const CreditMetrics = async ({ currentUserId }: { currentUserId: string }) => {
           <strong>{`${progress.toFixed(1)}%`}</strong> of credits used
         </p>
 
-        <Progress value={progress} />
+        <Progress
+          value={progress}
+          className={`
+            [&>div]:transition-colors [&>div]:duration-500
+            ${
+              progress >= 80
+                ? "[&>div]:bg-red-500"
+                : progress >= 50
+                ? "[&>div]:bg-yellow-500"
+                : "[&>div]:bg-green-500"
+            }
+          `}
+        />
+
+        {/* Low credits warning */}
+        {progress >= 80 && (
+          <p className="mt-2 text-sm text-red-500 font-medium">
+            ⚠️ Running low on credits! Consider topping up.
+          </p>
+        )}
 
         <div className="w-full flex items-center justify-between gap-2 mt-6">
           <Link
@@ -67,11 +86,48 @@ const CreditMetrics = async ({ currentUserId }: { currentUserId: string }) => {
                 </DialogDescription>
               </DialogHeader>
 
-              <ul className="flex flex-col items-start">
-                <li>
-                  Blog → X thread – <strong>2</strong> credits
-                </li>
-              </ul>
+              <div className="flex flex-col gap-4">
+                <div>
+                  <h4 className="font-semibold mb-2">✍️ Text-based Formats</h4>
+                  <ul className="flex flex-col items-start gap-1">
+                    <li>
+                      Tweet → Other Formats – <strong>2</strong> credits
+                    </li>
+                    <li>
+                      LinkedIn Post → Other Formats – <strong>2</strong> credits
+                    </li>
+                    <li>
+                      Reddit Post → Other Formats – <strong>2</strong> credits
+                    </li>
+                    <li>
+                      X Thread → Other Formats – <strong>4</strong> credits
+                    </li>
+                    <li>
+                      Blog → Other Formats – <strong>4</strong> credits
+                    </li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="font-semibold mb-2">
+                    🎥 Media Formats (Coming Soon 🚀)
+                  </h4>
+                  <ul className="flex flex-col items-start gap-1">
+                    <li>
+                      YouTube Video → Other Formats – <strong>6</strong> credits
+                    </li>
+                    <li>
+                      Instagram Reel → Other Formats – <strong>8</strong>{" "}
+                      credits
+                    </li>
+                  </ul>
+                </div>
+
+                <p className="text-sm text-muted-foreground mt-2">
+                  ⚖️ Credit costs are based on complexity and may be adjusted as
+                  we add more formats to keep things fair.
+                </p>
+              </div>
 
               <DialogFooter>
                 <DialogClose asChild>

@@ -54,8 +54,19 @@ const ContentEditor = ({ user_id, draft }: PageProps) => {
     setContent(updated.join(TWEET_BREAK));
   };
 
-  const addNewTweet = () => {
-    const updated = [...tweetArray, ""];
+  const addNewTweetAt = (index: number) => {
+    const updated = [
+      ...tweetArray.slice(0, index + 1),
+      "",
+      ...tweetArray.slice(index + 1)
+    ];
+    setContent(updated.join(TWEET_BREAK));
+  };
+
+  const removeTweet = (index: number) => {
+    if (tweetArray.length === 1) return;
+
+    const updated = tweetArray.filter((_, i) => i !== index);
     setContent(updated.join(TWEET_BREAK));
   };
 
@@ -116,45 +127,65 @@ const ContentEditor = ({ user_id, draft }: PageProps) => {
         </Button>
       </form>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {/* Tweets Editor */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
         {tweetArray.map((tweet, index) => (
-          <div key={index} className="relative">
+          <div
+            key={index}
+            className="relative flex flex-col bg-muted/40 border border-border rounded-xl p-3 gap-2"
+          >
+            {/* Tweet Identifier + Remove */}
+            <div className="flex justify-between items-center">
+              <span className="text-xs font-medium text-muted-foreground uppercase">
+                Tweet {index + 1}
+              </span>
+
+              {isThread && tweetArray.length > 1 && (
+                <button
+                  type="button"
+                  onClick={() => removeTweet(index)}
+                  className="text-muted-foreground hover:text-red-500 transition-colors"
+                >
+                  <Trash size={16} />
+                </button>
+              )}
+            </div>
+
+            {/* Editor */}
             <textarea
               value={tweet}
               onChange={e => updateTweet(index, e.target.value)}
-              className="h-40 w-full resize-none bg-card border border-transparent px-4 py-2 text-sm text-foreground shadow-inner focus:outline-none focus:border-t transition-all duration-200 whitespace-pre-wrap mb-2"
-              placeholder={`Tweet ${index + 1}`}
+              className="h-72 w-full resize-none bg-card border border-transparent px-4 py-2 text-sm text-foreground shadow-inner focus:outline-none focus:border-t transition-all duration-200 whitespace-pre-wrap"
+              placeholder="Write something..."
             />
-            {(draft.type === "x thread" || draft.type === "tweet") && (
-              <p
-                className={`${lengthClass(
-                  tweet
-                )} text-xs absolute bottom-1 right-3`}
-              >
-                {tweet.length} / <strong>280</strong>
-              </p>
-            )}
-            {isThread && index < tweetArray.length - 1 && (
-              <hr className="mt-4 border-t border-muted" />
-            )}
+
+            {/* Footer: Counter + Add button */}
+            <div className="flex justify-between items-center">
+              {(draft.type === "x thread" || draft.type === "tweet") && (
+                <p className={`${lengthClass(tweet)} text-xs`}>
+                  {tweet.length} / <strong>280</strong>
+                </p>
+              )}
+
+              {isThread && (
+                <Button
+                  type="button"
+                  onClick={() => addNewTweetAt(index)}
+                  variant="outline"
+                  size="sm"
+                  className="flex items-center gap-2 text-xs"
+                >
+                  <Plus size={14} /> Add Tweet
+                </Button>
+              )}
+            </div>
           </div>
         ))}
       </div>
 
-      {isThread && (
-        <Button
-          type="button"
-          onClick={addNewTweet}
-          variant="outline"
-          size="sm"
-          className="w-fit flex items-center gap-2 text-xs"
-        >
-          <Plus size={14} /> Add Tweet
-        </Button>
-      )}
-
       <ModifyCountBadge modifyCount={modifyCount} />
 
+      {/* Delete Draft */}
       <form
         ref={formRef}
         action={deleteDraft}

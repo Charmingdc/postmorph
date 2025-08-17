@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 import DropdownField from "./DropdownField";
@@ -19,8 +20,9 @@ import {
   formatIcons
 } from "../utils/formatConfig";
 import repurpose from "../lib/repurpose";
+import fetchUserCustomVoices from "@/lib/fetchUserCustomVoices";
 
-const RepurposeForm = () => {
+const RepurposeForm = ({ userId }: { userId: string }) => {
   const [inputFormat, setInputFormat] =
     useState<(typeof inputFormats)[number]>("blog");
   const [outputFormat, setOutputFormat] = useState<string>("tweet");
@@ -30,31 +32,27 @@ const RepurposeForm = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
 
-  const [customTones, setCustomTones] = useState<string[]>([
-    ...defaultTones,
-    "inspirational",
-    "edgy"
-  ]);
+  const [customTones, setCustomTones] = useState<string[]>([...defaultTones]);
 
-  const validOutputFormats = outputOptionsMap[inputFormat];
-  useEffect(() => {
-    if (!validOutputFormats.includes(outputFormat)) {
-      setOutputFormat(validOutputFormats[0]);
-    }
-  }, [inputFormat, outputFormat, validOutputFormats]);
+  const { data: userTones } = useQuery({
+    queryKey: ["tones"],
+    enabled: !!userId,
+    queryFn: () => fetchUserCustomVoices(),
+    onSucess: () => setCustomTones(...defaultTones, ...userTones)
+  });
 
   const handleSubmit = async () => {
     setLoading(true);
 
     try {
-      const { text: output } = await repurpose(
+      const draft = await repurpose(
         inputFormat,
         outputFormat,
         inputValue,
         tone
       );
       setInputValue("");
-      setRepurposedResult([output]);
+      setRepurposedResult([draft]);
     } catch (err: unknown) {
       if (err instanceof Error) {
         toast.error(err.message);
@@ -67,6 +65,13 @@ const RepurposeForm = () => {
   };
 
   const handleDelete = () => {};
+
+  const validOutputFormats = outputOptionsMap[inputFormat];
+  useEffect(() => {
+    if (!validOutputFormats.includes(outputFormat)) {
+      setOutputFormat(validOutputFormats[0]);
+    }
+  }, [inputFormat, outputFormat, validOutputFormats]);
 
   return (
     <>
@@ -112,6 +117,7 @@ const RepurposeForm = () => {
             inputFormat={inputFormat}
             value={inputValue}
             onChange={setInputValue}
+            disabled={loading}
           />
 
           <Button
@@ -122,17 +128,6 @@ const RepurposeForm = () => {
           </Button>
         </form>
       </div>
-
-      {/** loading && (
-        <div className="w-full flex flex-col gap-4 items-center mt-10">
-          <h2 className="text-3xl font-bold"> Generating Result </h2>
-          <div className="w-full flex flex-col items-center gap-4 md:grid grid-cols-3">
-            {[...Array(1)].map((_, i) => (
-              <Skeleton key={i} className="w-full h-80 rounded-2xl" />
-             ))}
-          </div>
-        </div>
-      ) **/}
 
       {repurposedResult.length > 0 && (
         <DraftBox

@@ -7,9 +7,10 @@ type Props = {
   inputFormat: string;
   value: string;
   onChange: (val: string) => void;
+  disabled: boolean;
 };
 
-const InputArea = ({ inputFormat, value, onChange }: Props) => {
+const InputArea = ({ inputFormat, value, onChange, disabled }: Props) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   useAutoGrowTextarea(textareaRef, value);
 
@@ -19,11 +20,13 @@ const InputArea = ({ inputFormat, value, onChange }: Props) => {
   if (isLinkInput) {
     return (
       <input
-        type='url'
+        type="url"
         placeholder={`Paste ${inputFormat} link here`}
         value={value}
         onChange={e => onChange(e.target.value)}
-        className='w-full h-14 bg-transparent p-3 border border-border rounded-xl text-sm transition-all duration-500 hover:border-primary'
+        disabled={disabled}
+        className={`w-full h-14 bg-transparent p-3 border border-border rounded-xl text-sm transition-all duration-500 hover:border-primary
+        ${disabled ? "opacity-50" : ""}`}
       />
     );
   }
@@ -31,10 +34,17 @@ const InputArea = ({ inputFormat, value, onChange }: Props) => {
   return (
     <textarea
       ref={textareaRef}
-      placeholder={`Paste ${inputFormat} content here`}
+      placeholder={`${
+        inputFormat === "blog"
+          ? "Paste blog link or content here"
+          : `Paste ${inputFormat} content here`
+      }`}
       value={value}
       onChange={e => onChange(e.target.value)}
-      className='w-full min-h-[3.5rem] bg-transparent p-3 border border-border rounded-xl text-sm transition-all duration-500 hover:border-primary resize-none overflow-hidden'
+      disabled={disabled}
+      className={`w-full min-h-[3.5rem] bg-transparent p-3 border border-border rounded-xl text-sm transition-all duration-500 hover:border-primary resize-none overflow-hidden ${
+        disabled ? "opacity-50" : ""
+      }`}
     />
   );
 };

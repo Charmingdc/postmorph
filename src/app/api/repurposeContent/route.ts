@@ -16,7 +16,7 @@ export async function POST(req: Request) {
       return apiError("Incomplete request body", 400);
     }
 
-    // Determine prompt style for threads
+    // Determine if the target is an X thread
     const isThread = targetPlatform.toLowerCase() === "x thread";
 
     const prompt = isThread
@@ -24,18 +24,20 @@ export async function POST(req: Request) {
 
 ${content}
 
-Format the result as a series of tweets that make up a thread. Separate each tweet with the delimiter: --tweet break--.
-
-Each tweet must:
-- Be under 280 characters.
-- Flow logically from one to the next.
-- Follow the tone and formatting typical for ${targetPlatform} (like emoji frequency and line breaks).`
+Format the result as a series of tweets that make up a thread.
+- Separate each tweet ONLY with the delimiter: --tweet break--
+- Each tweet must be under 280 characters
+- Ensure tweets flow logically
+- Use line breaks and spacing natural to ${targetPlatform}`
       : `Repurpose the following ${sourcePlatform} post into a native ${targetPlatform} post using a ${preferredTone} tone:
 
 ${content}
 
-Ensure the output aligns with the ${targetPlatform}'s natural writing style.`;
+Ensure the output aligns with the ${targetPlatform}'s natural writing style and formatting conventions (line breaks, spacing, emojis, hashtags, call-to-actions, etc.).
+- If ${targetPlatform} is "tweet", the ENTIRE output must fit within 280 characters.
+- Do NOT use --tweet break-- in this case.`;
 
+    console.log("Prompt:", prompt);
     const supabase = await createClient();
 
     // Authenticate user
@@ -74,14 +76,14 @@ Ensure the output aligns with the ${targetPlatform}'s natural writing style.`;
       model: google("gemini-2.0-flash-lite"),
       system:
         "You are a content repurposing expert who transforms content based on user instructions. " +
-        "Tasks may include converting a blog article into a LinkedIn post, X thread, Instagram Reel caption, and more. " +
-        "Always preserve the original meaning and respect the existing tone and structure unless explicitly told otherwise. " +
-        "Be concise and purposeful in your edits. " +
-        "Adapt your output to match the conventions of the target platform — this includes tone, common line break usage, emojis, hashtags, and call-to-action styles. " +
-        "If the target platform is 'tweet', ensure the entire response is within 280 characters. " +
-        "If the target platform is 'x thread', output a series of tweets separated by --tweet break--, each under 280 characters. " +
-        "Format your response with proper spacing, paragraphs, and line breaks where appropriate, but avoid using markdown syntax such as **, ##, etc. " +
-        "Always return only the modified content — do not include any introductory phrases like 'Here is your output.'",
+        "You may need to adapt content into formats like LinkedIn posts, tweets, X threads, Instagram captions, etc. " +
+        "Always preserve the original meaning and follow the requested tone. " +
+        "Be concise and adapt your style to the target platform’s conventions — tone, emojis, hashtags, call-to-actions, and spacing. " +
+        "If the target platform is 'tweet', the ENTIRE response must be under 280 characters and contain NO --tweet break-- delimiter. " +
+        "If the target platform is 'x thread', generate multiple tweets under 280 characters each, separated ONLY by the delimiter --tweet break--. " +
+        "Format using natural text conventions such as line breaks and paragraphs. " +
+        "Do NOT use markdown syntax (no **bold**, ## headings, backticks, etc.). " +
+        "Always return ONLY the repurposed content — no commentary or prefaces.",
       prompt
     });
 
@@ -117,7 +119,7 @@ Ensure the output aligns with the ${targetPlatform}'s natural writing style.`;
       return apiError("Failed to save generated content as draft", 500);
     }
 
-    return NextResponse.json({ draft });
+    return NextResponse.json(draft);
   } catch (err: unknown) {
     if (err instanceof Error) {
       return apiError(err.message || "Internal server error", 500);

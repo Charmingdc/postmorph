@@ -7,7 +7,7 @@ export default function useAutoGrowTextarea(
   useEffect(() => {
     const el = ref.current;
     if (el) {
-      const maxHeight = 340;
+      const maxHeight = 450;
 
       el.style.height = "auto";
       const newHeight = Math.min(el.scrollHeight, maxHeight);
