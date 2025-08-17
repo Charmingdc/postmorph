@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useActionState } from "react";
 import { toast } from "sonner";
+import { startTransition } from "react";
 import type { CustomVoice } from "@/types/index";
 
 import useConfirmDelete from "@/app/hooks/useConfirmDelete";
@@ -37,49 +38,45 @@ const VoiceBoxActionBar = ({ voice, onDataUpdate }: PageProps) => {
   );
 
   const formRef = useRef<HTMLFormElement>(null);
-  const deleteButtonRef = useRef<HTMLButtonElement>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const [updateVoiceState, updateVoiceAction, isUpdatingVoice] = useActionState(
     updateVoice,
     initialState
   );
-  const [deleteVoiceState, deleteVoiceAction, isDeletingVoice] = useActionState(
+  const [deleteVoiceState, , isDeletingVoice] = useActionState(
     deleteVoice,
     initialState
   );
 
-  const [deleting, confirmBeforeSubmit] = useConfirmDelete(
-    () => {
-      formRef.current?.requestSubmit(deleteButtonRef.current);
-      onDataUpdate();
-    },
-    {
-      message: "Are you sure you want to delete this voice?",
-      description: "This action cannot be undone."
-    }
-  );
+  const [deleting, confirmBeforeSubmit] = useConfirmDelete();
 
   useEffect(() => {
     if (updateVoiceState.message) {
       const state = updateVoiceState;
-      if (state.type === "error") {
-        toast.error(state.message);
-      } else {
+      if (state.type === "error") toast.error(state.message);
+      else {
         toast.success(state.message);
         setIsDialogOpen(false);
         onDataUpdate();
       }
     } else if (deleteVoiceState.message) {
       const state = deleteVoiceState;
-      if (state.type === "error") {
-        toast.error(state.message);
-      } else {
+      if (state.type === "error") toast.error(state.message);
+      else {
         toast.success(state.message);
         onDataUpdate();
       }
     }
   }, [updateVoiceState, deleteVoiceState, onDataUpdate]);
+
+  const handleDelete = () => {
+    confirmBeforeSubmit(() => {
+      startTransition(() => {
+        deleteVoice({ voice_id: voice.id });
+      });
+    });
+  };
 
   return (
     <form ref={formRef} className="flex items-center justify-between gap-4">
@@ -97,7 +94,8 @@ const VoiceBoxActionBar = ({ voice, onDataUpdate }: PageProps) => {
           <DialogHeader>
             <DialogTitle>Update Voice Details</DialogTitle>
             <DialogDescription>
-              {`Fill the form below to update the details for this custom writing style. Click save when you're done.`}
+              Fill the form below to update the details for this custom writing
+              style. Click save when you're done.
             </DialogDescription>
           </DialogHeader>
 
@@ -137,22 +135,12 @@ const VoiceBoxActionBar = ({ voice, onDataUpdate }: PageProps) => {
       </Dialog>
 
       <button
-        ref={deleteButtonRef}
-        formAction={deleteVoiceAction}
-        onClick={confirmBeforeSubmit}
+        onClick={handleDelete}
         className="text-sm text-destructive hover:underline focus:outline-none"
         aria-label="Delete voice"
       >
         Delete
       </button>
-
-      <input
-        type="text"
-        name="voice_id"
-        value={voice.id}
-        className="hidden"
-        readOnly
-      />
 
       {deleting && isDeletingVoice && <LoadingScreen />}
     </form>
