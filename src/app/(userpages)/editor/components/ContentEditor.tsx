@@ -127,33 +127,35 @@ const ContentEditor = ({ user_id, draft }: PageProps) => {
         </Button>
       </form>
 
-      {/* Tweets Editor */}
+      {/* Content Editor */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-        {tweetArray.map((tweet, index) => (
+        {tweetArray.map((item, index) => (
           <div
             key={index}
             className="relative flex flex-col bg-muted/40 border border-border rounded-xl p-3 gap-2"
           >
-            {/* Tweet Identifier + Remove */}
-            <div className="flex justify-between items-center">
-              <span className="text-xs font-medium text-muted-foreground uppercase">
-                Tweet {index + 1}
-              </span>
+            {/* Only show Tweet label + remove button if it's a thread */}
+            {isThread && (
+              <div className="flex justify-between items-center">
+                <span className="text-xs font-medium text-muted-foreground uppercase">
+                  Tweet {index + 1}
+                </span>
 
-              {isThread && tweetArray.length > 1 && (
-                <button
-                  type="button"
-                  onClick={() => removeTweet(index)}
-                  className="text-muted-foreground hover:text-red-500 transition-colors"
-                >
-                  <Trash size={16} />
-                </button>
-              )}
-            </div>
+                {tweetArray.length > 1 && (
+                  <button
+                    type="button"
+                    onClick={() => removeTweet(index)}
+                    className="text-muted-foreground hover:text-red-500 transition-colors"
+                  >
+                    <Trash size={16} />
+                  </button>
+                )}
+              </div>
+            )}
 
             {/* Editor */}
             <textarea
-              value={tweet}
+              value={item}
               onChange={e => updateTweet(index, e.target.value)}
               className="h-72 w-full resize-none bg-card border border-transparent px-4 py-2 text-sm text-foreground shadow-inner focus:outline-none focus:border-t transition-all duration-200 whitespace-pre-wrap"
               placeholder="Write something..."
@@ -161,12 +163,14 @@ const ContentEditor = ({ user_id, draft }: PageProps) => {
 
             {/* Footer: Counter + Add button */}
             <div className="flex justify-between items-center">
-              {(draft.type === "x thread" || draft.type === "tweet") && (
-                <p className={`${lengthClass(tweet)} text-xs`}>
-                  {tweet.length} / <strong>280</strong>
+              {/* Only show character count for tweets or threads */}
+              {(draft.type === "tweet" || isThread) && (
+                <p className={`${lengthClass(item)} text-xs`}>
+                  {item.length} / <strong>280</strong>
                 </p>
               )}
 
+              {/* Only allow adding tweets for threads */}
               {isThread && (
                 <Button
                   type="button"

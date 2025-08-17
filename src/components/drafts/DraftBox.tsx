@@ -51,32 +51,43 @@ const DraftBox = ({ drafts, onDelete, isDeleting }: Props) => {
         return (
           <div
             key={draft.id}
-            className="w-full flex flex-col gap-2 bg-card text-card-foreground p-4 border mb-3 rounded-xl transition-all duration-500 hover:border-primary"
+            className="w-full flex flex-col gap-3 bg-card text-card-foreground p-4 border rounded-xl mb-3 hover:border-primary transition-all duration-300"
           >
             {/* Type Badge */}
-            <div className="w-fit bg-background text-sm capitalize py-2 px-4 rounded-lg mb-3">
+            <div className="w-fit bg-background text-sm capitalize py-1 px-3 rounded-full">
               {draft.type}
             </div>
 
-            {/* Content Renderer */}
-            <div className="prose prose-sm text-sm whitespace-pre-wrap">
+            {/* Content Box */}
+            <div className="bg-muted/20 p-3 rounded-lg text-sm">
               {draft.type === "x thread" ? (
-                parts.map((part, i) => (
-                  <div key={i}>
-                    <div className="my-4 text-xs uppercase tracking-wide text-muted-foreground">
-                      / {i + 1}
+                <>
+                  {parts.slice(0, 2).map((part, i) => (
+                    <div key={i} className="mb-4">
+                      <div className="text-xs uppercase text-muted-foreground mb-1">
+                        Tweet {i + 1}
+                      </div>
+                      <div className="whitespace-pre-wrap line-clamp-[5]">
+                        {part.trim()}
+                      </div>
                     </div>
-                    <div>{part.trim()}</div>
-                  </div>
-                ))
+                  ))}
+                  {parts.length > 2 && (
+                    <div className="text-sm font-semibold text-muted-foreground">
+                      ...and {parts.length - 2} more tweet
+                      {parts.length - 2 > 1 ? "s" : ""}
+                    </div>
+                  )}
+                </>
               ) : (
-                <div>{draft.content}</div>
+                <div className="whitespace-pre-wrap line-clamp-[10]">
+                  {draft.content}
+                </div>
               )}
             </div>
 
             {/* Action Buttons */}
-            <div className="w-full flex items-center gap-4 mt-4">
-              {/* Copy */}
+            <div className="flex items-center gap-3">
               <Button
                 variant="outline"
                 onClick={() => {
@@ -91,15 +102,13 @@ const DraftBox = ({ drafts, onDelete, isDeleting }: Props) => {
                 )}
               </Button>
 
-              {/* Edit */}
               <Link
                 href={`/editor/${draft.id}`}
-                className="flex items-center gap-4 p-2 px-3 border border-border rounded-lg transition-all duration-300 hover:bg-accent"
+                className="flex items-center gap-2 p-2 border border-border rounded-lg hover:bg-accent transition-all duration-200"
               >
                 <PencilLine />
               </Link>
 
-              {/* Delete */}
               <Button
                 variant="destructive"
                 onClick={() => {

@@ -12,7 +12,7 @@ const prepareContent = async (sourcePlatform: string, content: string) => {
   return content;
 };
 
-const buildPrompt = async (
+const buildPrompt = (
   sourcePlatform: string,
   targetPlatform: string,
   tone: string,
@@ -28,7 +28,7 @@ ${content}
 Format the result as a series of tweets that make up a thread.
 - Separate each tweet ONLY with the delimiter: --tweet break--
 - Each tweet must be under 280 characters
-- Ensure tweets flow logically
+- Ensure tweets flow logically and feels connected
 - Use line breaks and spacing natural to ${targetPlatform}`;
   }
 
