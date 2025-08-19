@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect, useRef, useActionState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { toast } from "sonner";
-import { startTransition } from "react";
+import { useActionState } from "react";
 import type { CustomVoice } from "@/types/index";
 
 import useConfirmDelete from "@/app/hooks/useConfirmDelete";
@@ -23,69 +23,65 @@ import { Button } from "@/components/ui/button";
 
 type PageProps = {
   voice: CustomVoice;
-  onDataUpdate: () => void;
 };
 
 const initialState = { type: "", message: "" };
 
-const VoiceBoxActionBar = ({ voice, onDataUpdate }: PageProps) => {
-  const [voiceName, setVoiceName] = useState<string>(voice.name);
-  const [voiceDescription, setVoiceDescription] = useState<string>(
-    voice.description
-  );
-  const [voiceInstruction, setVoiceInstruction] = useState<string>(
-    voice.instruction
+const VoiceBoxActionBar = ({ voice }: PageProps) => {
+  const formRef = useRef<HTMLFormElement>(null);
+
+  const [deleting, confirmBeforeSubmit] = useConfirmDelete(
+    () => {
+      formRef.current?.requestSubmit();
+    },
+    {
+      message: "Are you sure you want to delete this voice?",
+      description: "This action cannot be undone."
+    }
   );
 
-  const formRef = useRef<HTMLFormElement>(null);
+  const [voiceName, setVoiceName] = useState(voice.name);
+  const [voiceDescription, setVoiceDescription] = useState(voice.description);
+  const [voiceInstruction, setVoiceInstruction] = useState(voice.instruction);
+
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const [updateVoiceState, updateVoiceAction, isUpdatingVoice] = useActionState(
     updateVoice,
     initialState
   );
-  const [deleteVoiceState, , isDeletingVoice] = useActionState(
+  const [deleteVoiceState, deleteVoiceAction, isDeletingVoice] = useActionState(
     deleteVoice,
     initialState
   );
 
-  const [deleting, confirmBeforeSubmit] = useConfirmDelete();
-
   useEffect(() => {
     if (updateVoiceState.message) {
-      const state = updateVoiceState;
-      if (state.type === "error") toast.error(state.message);
+      if (updateVoiceState.type === "error")
+        toast.error(updateVoiceState.message);
       else {
-        toast.success(state.message);
+        toast.success(updateVoiceState.message);
         setIsDialogOpen(false);
-        onDataUpdate();
-      }
-    } else if (deleteVoiceState.message) {
-      const state = deleteVoiceState;
-      if (state.type === "error") toast.error(state.message);
-      else {
-        toast.success(state.message);
-        onDataUpdate();
       }
     }
-  }, [updateVoiceState, deleteVoiceState, onDataUpdate]);
+  }, [updateVoiceState]);
 
-  const handleDelete = () => {
-    confirmBeforeSubmit(() => {
-      startTransition(() => {
-        deleteVoice({ voice_id: voice.id });
-      });
-    });
-  };
+  useEffect(() => {
+    if (deleteVoiceState.message) {
+      if (deleteVoiceState.type === "error")
+        toast.error(deleteVoiceState.message);
+      else toast.success(deleteVoiceState.message);
+    }
+  }, [deleteVoiceState]);
 
   return (
-    <form ref={formRef} className="flex items-center justify-between gap-4">
+    <div className="flex items-center justify-between gap-4">
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogTrigger asChild>
           <button
+            type="button"
             className="text-sm text-primary hover:underline focus:outline-none"
             aria-label="Edit voice"
-            onClick={() => setIsDialogOpen(true)}
           >
             Edit
           </button>
@@ -99,51 +95,59 @@ const VoiceBoxActionBar = ({ voice, onDataUpdate }: PageProps) => {
             </DialogDescription>
           </DialogHeader>
 
-          <div className="w-full flex flex-col items-center py-4">
-            <input
-              type="text"
-              name="voice_name"
-              value={voiceName}
-              onChange={e => setVoiceName(e.target.value)}
-              disabled={isUpdatingVoice}
-              className="w-full h-12 bg-input text-xs border border-border p-2 rounded-lg transition-all duration-500 hover:border-primary md:text-md disabled:opacity-40"
-            />
+          <form action={updateVoiceAction}>
+            <div className="w-full flex flex-col items-center py-4">
+              <input type="hidden" name="voice_id" value={voice.id} />
 
-            <textarea
-              name="voice_description"
-              value={voiceDescription}
-              onChange={e => setVoiceDescription(e.target.value)}
-              disabled={isUpdatingVoice}
-              className="w-full min-h-20 bg-input text-xs border border-border p-2 rounded-lg mt-4 disabled:opacity-40"
-            />
+              <input
+                type="text"
+                name="voice_name"
+                value={voiceName}
+                onChange={e => setVoiceName(e.target.value)}
+                disabled={isUpdatingVoice}
+                className="w-full h-12 bg-input text-xs border border-border p-2 rounded-lg transition-all duration-500 hover:border-primary md:text-md disabled:opacity-40"
+              />
 
-            <textarea
-              name="voice_instruction"
-              value={voiceInstruction}
-              onChange={e => setVoiceInstruction(e.target.value)}
-              disabled={isUpdatingVoice}
-              className="w-full min-h-20 bg-input text-xs border border-border p-2 rounded-lg mt-4 disabled:opacity-40"
-            />
-          </div>
+              <textarea
+                name="voice_description"
+                value={voiceDescription}
+                onChange={e => setVoiceDescription(e.target.value)}
+                disabled={isUpdatingVoice}
+                className="w-full min-h-20 bg-input text-xs border border-border p-2 rounded-lg mt-4 disabled:opacity-40"
+              />
 
-          <DialogFooter>
-            <Button formAction={updateVoiceAction} disabled={isUpdatingVoice}>
-              {isUpdatingVoice ? "Saving Changes..." : "Save Changes"}
-            </Button>
-          </DialogFooter>
+              <textarea
+                name="voice_instruction"
+                value={voiceInstruction}
+                onChange={e => setVoiceInstruction(e.target.value)}
+                disabled={isUpdatingVoice}
+                className="w-full min-h-20 bg-input text-xs border border-border p-2 rounded-lg mt-4 disabled:opacity-40"
+              />
+            </div>
+
+            <DialogFooter>
+              <Button type="submit" disabled={isUpdatingVoice}>
+                {isUpdatingVoice ? "Saving Changes..." : "Save Changes"}
+              </Button>
+            </DialogFooter>
+          </form>
         </DialogContent>
       </Dialog>
 
-      <button
-        onClick={handleDelete}
-        className="text-sm text-destructive hover:underline focus:outline-none"
-        aria-label="Delete voice"
-      >
-        Delete
-      </button>
+      <form ref={formRef} action={deleteVoiceAction}>
+        <input type="hidden" name="voice_id" value={voice.id} />
+        <button
+          type="submit"
+          onClick={confirmBeforeSubmit}
+          className="text-sm text-destructive hover:underline focus:outline-none"
+          aria-label="Delete voice"
+        >
+          Delete
+        </button>
+      </form>
 
-      {deleting && isDeletingVoice && <LoadingScreen />}
-    </form>
+      {isDeletingVoice && deleting && <LoadingScreen />}
+    </div>
   );
 };
 

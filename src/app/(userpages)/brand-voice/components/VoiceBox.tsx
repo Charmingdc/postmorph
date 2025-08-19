@@ -5,12 +5,11 @@ import type { CustomVoice } from "@/types/index";
 type VoiceBoxProps = {
   index: number;
   voice: CustomVoice;
-  onDataUpdate: () => void;
 };
 
 const iconMap = [WandSparkles, Feather, Mic];
 
-const VoiceBox = ({ index, voice, onDataUpdate }: VoiceBoxProps) => {
+const VoiceBox = ({ index, voice }: VoiceBoxProps) => {
   const { name, description } = voice;
   const Icon = iconMap[index % iconMap.length];
 
@@ -27,7 +26,7 @@ const VoiceBox = ({ index, voice, onDataUpdate }: VoiceBoxProps) => {
         </p>
       </div>
 
-      <VoiceBoxActionBar voice={voice} onDataUpdate={onDataUpdate} />
+      <VoiceBoxActionBar voice={voice} />
     </div>
   );
 };

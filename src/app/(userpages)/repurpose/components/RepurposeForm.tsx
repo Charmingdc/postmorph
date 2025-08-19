@@ -32,19 +32,29 @@ const RepurposeForm = ({ userId }: { userId: string }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
 
-  const [customTones, setCustomTones] = useState<string[]>([...defaultTones]);
-
-  const { data: userTones } = useQuery({
-    queryKey: ["tones"],
-    enabled: !!userId,
-    queryFn: () => fetchUserCustomVoices(),
-    onSucess: () => setCustomTones(...defaultTones, ...userTones)
+  const [customTones, setCustomTones] = useState<string[]>([
+    ...defaultTones,
+    "Fetching custom tones..."
+  ]);
+  useQuery({
+    queryKey: ["tones", userId],
+    queryFn: async ({ queryKey }) => {
+      const [, userId] = queryKey;
+      const userTones = await fetchUserCustomVoices(userId as string);
+      setCustomTones([...defaultTones, ...userTones]);
+      return userTones;
+    }
   });
 
   const handleSubmit = async () => {
     setLoading(true);
 
     try {
+      if (!inputValue || inputValue.trim() === "") {
+        toast.error("Input value is required");
+        return;
+      }
+
       const draft = await repurpose(
         inputFormat,
         outputFormat,
@@ -56,7 +66,6 @@ const RepurposeForm = ({ userId }: { userId: string }) => {
     } catch (err: unknown) {
       if (err instanceof Error) {
         toast.error(err.message);
-        console.log(err)
       } else {
         toast.error("Error processing request");
       }
@@ -123,7 +132,9 @@ const RepurposeForm = ({ userId }: { userId: string }) => {
 
           <Button
             type="submit"
-            className="w-[60%] h-12 p-4 rounded-xl transition-all duration-500 hover:opacity-70"
+            className={`w-[60%] h-12 p-4 rounded-xl transition-all duration-500 ${
+              loading ? "hover:opacity-70" : ""
+            }`}
           >
             {loading ? "Transforming..." : "Repurpose Now"}
           </Button>

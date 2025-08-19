@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { createClient } from "@/utils/supabase/client";
 import fetchUserCustomVoices from "@/lib/fetchUserCustomVoices";
 
 import VoiceListLoader from "./VoiceListLoader";
@@ -10,17 +11,37 @@ import NoDataCard from "@/components/ui/no-data-card";
 import { ErrorBox } from "@/components/ui/errorbox";
 
 const VoiceList = ({ userId }: { userId: string }) => {
-  const [refreshToken, setRefreshToken] = useState<number>(0);
+  const queryClient = useQueryClient();
+  const supabase = createClient();
 
   const {
-    data: voices = [],
+    data: voices,
     isLoading,
     isError
   } = useQuery({
-    queryKey: ["customVoices", userId, refreshToken],
+    queryKey: ["customVoices", userId],
     queryFn: () => fetchUserCustomVoices(userId),
     enabled: !!userId
   });
+
+  useEffect(() => {
+    if (!userId) return;
+
+    const channel = supabase
+      .channel("table-db-changes")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "custom_voices" },
+        () => {
+          queryClient.invalidateQueries(["customVoices", userId]);
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [supabase, queryClient, userId]);
 
   return (
     <div className="w-full h-full flex flex-col gap-3 items-center mt-4">
@@ -28,14 +49,9 @@ const VoiceList = ({ userId }: { userId: string }) => {
         [...Array(3)].map((_, i) => <VoiceListLoader key={i} />)
       ) : isError ? (
         <ErrorBox message="Failed to load voices" />
-      ) : voices.length > 0 ? (
+      ) : voices && voices.length > 0 ? (
         voices.map((voice, index) => (
-          <VoiceBox
-            key={voice.id}
-            index={index}
-            voice={voice}
-            onDataUpdate={() => setRefreshToken(t => t + 1)}
-          />
+          <VoiceBox key={voice.id} index={index} voice={voice} />
         ))
       ) : (
         <NoDataCard

@@ -1,5 +1,15 @@
 import Link from "next/link";
-import { Plus, ChevronsUpDown } from "lucide-react";
+import {
+  Plus,
+  ChevronsUpDown,
+  Twitter,
+  Linkedin,
+  FileText,
+  ListOrdered,
+  FilePen,
+  Youtube,
+  Instagram
+} from "lucide-react";
 
 import PowerUserBox from "./PowerUserBox";
 import { ErrorBox } from "@/components/ui/errorbox";
@@ -78,7 +88,7 @@ const CreditMetrics = async ({ currentUserId }: { currentUserId: string }) => {
               </button>
             </DialogTrigger>
 
-            <DialogContent className="w-[85%] rounded-2xl md:w-[60%]">
+            <DialogContent className="w-[90%] rounded-2xl md:w-[65%]">
               <DialogHeader>
                 <DialogTitle>Credits Cost</DialogTitle>
                 <DialogDescription>
@@ -86,39 +96,68 @@ const CreditMetrics = async ({ currentUserId }: { currentUserId: string }) => {
                 </DialogDescription>
               </DialogHeader>
 
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-6">
                 <div>
-                  <h4 className="font-semibold mb-2">✍️ Text-based Formats</h4>
-                  <ul className="flex flex-col items-start gap-1">
-                    <li>
-                      Tweet → Other Formats – <strong>2</strong> credits
+                  <h4 className="font-semibold mb-3 border-b pb-2">
+                    ✍️ Text-based Formats
+                  </h4>
+                  <ul className="flex flex-col items-start text-sm divide-y divide-border rounded-lg border overflow-hidden">
+                    <li className="w-full py-2 px-3 flex justify-between items-center hover:bg-muted/50 transition-colors">
+                      <span className="flex items-center gap-2 text-xs">
+                        <Twitter className="w-4 h-4 text-muted-foreground" />
+                        Tweet → Other Formats
+                      </span>
+                      <strong>4 credits</strong>
                     </li>
-                    <li>
-                      LinkedIn Post → Other Formats – <strong>2</strong> credits
+                    <li className="w-full py-2 px-3 flex justify-between items-center hover:bg-muted/50 transition-colors">
+                      <span className="flex items-center gap-2 text-xs">
+                        <Linkedin className="w-4 h-4 text-muted-foreground" />
+                        LinkedIn Post → Other Formats
+                      </span>
+                      <strong>4 credits</strong>
                     </li>
-                    <li>
-                      Reddit Post → Other Formats – <strong>2</strong> credits
+                    <li className="w-full py-2 px-3 flex justify-between items-center hover:bg-muted/50 transition-colors">
+                      <span className="flex items-center gap-2 text-xs">
+                        <FileText className="w-4 h-4 text-muted-foreground" />
+                        Reddit Post → Other Formats
+                      </span>
+                      <strong>4 credits</strong>
                     </li>
-                    <li>
-                      X Thread → Other Formats – <strong>4</strong> credits
+                    <li className="w-full py-2 px-3 flex justify-between items-center hover:bg-muted/50 transition-colors">
+                      <span className="flex items-center gap-2 text-xs">
+                        <ListOrdered className="w-4 h-4 text-muted-foreground" />
+                        X Thread → Other Formats
+                      </span>
+                      <strong>4 credits</strong>
                     </li>
-                    <li>
-                      Blog → Other Formats – <strong>4</strong> credits
+                    <li className="w-full py-2 px-3 flex justify-between items-center hover:bg-muted/50 transition-colors">
+                      <span className="flex items-center gap-2 text-xs">
+                        <FilePen className="w-4 h-4 text-muted-foreground" />
+                        Blog → Other Formats
+                      </span>
+                      <strong>5 credits</strong>
                     </li>
                   </ul>
                 </div>
 
                 <div>
-                  <h4 className="font-semibold mb-2">
+                  <h4 className="font-semibold mb-3 border-b pb-2">
                     🎥 Media Formats (Coming Soon 🚀)
                   </h4>
-                  <ul className="flex flex-col items-start gap-1">
-                    <li>
-                      YouTube Video → Other Formats – <strong>6</strong> credits
+                  <ul className="flex flex-col items-start text-sm divide-y divide-border rounded-lg border overflow-hidden">
+                    <li className="w-full py-2 px-3 flex justify-between items-center hover:bg-muted/50 transition-colors">
+                      <span className="flex items-center gap-2 text-xs">
+                        <Youtube className="w-4 h-4 text-muted-foreground" />
+                        YouTube Video → Other Formats
+                      </span>
+                      <strong>6 credits</strong>
                     </li>
-                    <li>
-                      Instagram Reel → Other Formats – <strong>8</strong>{" "}
-                      credits
+                    <li className="w-full py-2 px-3 flex justify-between items-center hover:bg-muted/50 transition-colors">
+                      <span className="flex items-center gap-2 text-xs">
+                        <Instagram className="w-4 h-4 text-muted-foreground" />
+                        Instagram Reel → Other Formats
+                      </span>
+                      <strong>8 credits</strong>
                     </li>
                   </ul>
                 </div>

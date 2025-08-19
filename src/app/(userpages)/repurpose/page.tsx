@@ -1,9 +1,13 @@
+import getProfile from "@/lib/user/server";
 import RepurposeForm from "./components/RepurposeForm";
+import type { Profile } from "@/types/index";
 
-const RepurposePage = () => {
+const RepurposePage = async () => {
+  const userProfile: Profile = await getProfile();
+
   return (
-    <main className='w-full'>
-      <RepurposeForm />
+    <main className="w-full">
+      <RepurposeForm userId={userProfile.user_id} />
     </main>
   );
 };

@@ -145,7 +145,6 @@ const AvatarUploader = ({ fullName, avatarUrl }: Props) => {
               onClick={() => {
                 setPreview(null);
                 setFile(null);
-                setFilePath(null);
               }}
             >
               Cancel
