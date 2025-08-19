@@ -11,9 +11,9 @@ const CREDIT_COST = 4;
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { sourcePlatform, targetPlatform, content, preferredTone } = body;
+    const { sourcePlatform, targetPlatform, content, toneInstruction } = body;
 
-    if (!sourcePlatform || !targetPlatform || !content || !preferredTone) {
+    if (!sourcePlatform || !targetPlatform || !content || !toneInstruction) {
       return apiError("Incomplete request body", 400);
     }
 
@@ -21,7 +21,7 @@ export async function POST(req: Request) {
     const prompt = buildPrompt(
       sourcePlatform,
       targetPlatform,
-      preferredTone,
+      toneInstruction,
       finalContent
     );
 
@@ -50,9 +50,9 @@ export async function POST(req: Request) {
       system:
         "You are a content repurposing expert who transforms content based on user instructions. " +
         "Always preserve the original meaning and strictly follow the requested tone. " +
-        "Be concise and adapt your style to the target platform’s conventions — tone, emojis, hashtags, call-to-actions, and spacing. " +
+        "Be concise and adapt your style to the target platform’s conventions — tone, emojis, hashtags, call-to-actions, text formating convention and spacing. " +
         "Completely strip all markdown, HTML tags, or special formatting from the input and ensure the output contains NONE. " +
-        "Format using natural text conventions such as line breaks, paragraphs, and spacing. " +
+        "Format using natural text conventions such as line breaks, paragraphs, and spacing where appropriate. " +
         "Do NOT include markdown syntax (no **bold**, *italics*, # headings, `code`, links, or blockquotes). " +
         "Always return ONLY the repurposed content — no commentary, notes, or prefaces. " +
         "If the input contains markdown, remove it and adapt the content naturally to the target platform.",

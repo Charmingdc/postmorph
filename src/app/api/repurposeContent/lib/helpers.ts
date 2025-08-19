@@ -15,24 +15,30 @@ const prepareContent = async (sourcePlatform: string, content: string) => {
 const buildPrompt = (
   sourcePlatform: string,
   targetPlatform: string,
-  tone: string,
+  toneInstruction: string,
   content: string
 ) => {
   const isThread = targetPlatform.toLowerCase() === "x thread";
 
   if (isThread) {
-    return `Repurpose the following ${sourcePlatform} post into a native ${targetPlatform} using a ${tone} tone:
+    return `Repurpose the following ${sourcePlatform} post into a native ${targetPlatform}.
+
+Follow this tone guideline:
+${toneInstruction}
 
 ${content}
 
-Format the result as a series of tweets that make up a thread.
+Format the result as a series of tweets that make up a thread:
 - Separate each tweet ONLY with the delimiter: --tweet break--
 - Each tweet must be under 280 characters
-- Ensure tweets flow logically and feels connected
+- Ensure tweets flow logically and feel connected
 - Use line breaks and spacing natural to ${targetPlatform}`;
   }
 
-  return `Repurpose the following ${sourcePlatform} post into a native ${targetPlatform} post using a ${tone} tone:
+  return `Repurpose the following ${sourcePlatform} post into a native ${targetPlatform}.
+
+Follow this tone guideline:
+${toneInstruction}
 
 ${content}
 

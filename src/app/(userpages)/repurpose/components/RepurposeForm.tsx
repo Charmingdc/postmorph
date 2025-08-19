@@ -11,7 +11,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import DraftBox from "@/components/drafts/DraftBox";
 import { Sparkles, FileText } from "lucide-react";
 
-import type { DraftType } from "@/types/index";
+import type { DraftType, CustomVoice } from "@/types/index";
 
 import {
   inputFormats,
@@ -22,17 +22,19 @@ import {
 import repurpose from "../lib/repurpose";
 import fetchUserCustomVoices from "@/lib/fetchUserCustomVoices";
 
+type DefaultTone = { name: string; instruction: string };
+
 const RepurposeForm = ({ userId }: { userId: string }) => {
   const [inputFormat, setInputFormat] =
     useState<(typeof inputFormats)[number]>("blog");
   const [outputFormat, setOutputFormat] = useState<string>("tweet");
-  const [tone, setTone] = useState<string>("professional");
+  const [tone, setTone] = useState<DefaultTone | CustomVoice>(defaultTones[0]);
   const [inputValue, setInputValue] = useState<string>("");
   const [repurposedResult, setRepurposedResult] = useState<DraftType[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
 
-  const [customTones, setCustomTones] = useState<string[]>([
+  const [userTones, setUserTones] = useState<DefaultTone[] | CustomVoice[]>([
     ...defaultTones,
     "Fetching custom tones..."
   ]);
@@ -40,9 +42,9 @@ const RepurposeForm = ({ userId }: { userId: string }) => {
     queryKey: ["tones", userId],
     queryFn: async ({ queryKey }) => {
       const [, userId] = queryKey;
-      const userTones = await fetchUserCustomVoices(userId as string);
-      setCustomTones([...defaultTones, ...userTones]);
-      return userTones;
+      const customTones = await fetchUserCustomVoices(userId as string);
+      setUserTones([...defaultTones, ...customTones]);
+      return customTones;
     }
   });
 
@@ -55,11 +57,16 @@ const RepurposeForm = ({ userId }: { userId: string }) => {
         return;
       }
 
+      if (inputFormat === "youtube video" || inputFormat === "instagram reel") {
+        toast.warn("Media format not yet supported");
+        return;
+      }
+
       const draft = await repurpose(
         inputFormat,
         outputFormat,
         inputValue,
-        tone
+        tone.instruction
       );
       setInputValue("");
       setRepurposedResult([draft]);
@@ -117,7 +124,7 @@ const RepurposeForm = ({ userId }: { userId: string }) => {
             <DropdownField
               label="Tone"
               value={tone}
-              options={customTones}
+              options={userTones}
               icon={formatIcons[tone] || <Sparkles className="w-4 h-4" />}
               onChange={setTone}
             />

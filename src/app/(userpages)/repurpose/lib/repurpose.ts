@@ -4,7 +4,7 @@ const repurpose = async (
   sourcePlatform: string,
   targetPlatform: string,
   content: string,
-  preferredTone: string
+  toneInstruction: string
 ): Promise<DraftType> => {
   const res = await fetch("/api/repurposeContent", {
     method: "POST",
@@ -12,7 +12,7 @@ const repurpose = async (
       sourcePlatform,
       targetPlatform,
       content,
-      preferredTone
+      toneInstruction
     }),
     headers: { "Content-Type": "application/json" }
   });
@@ -23,7 +23,6 @@ const repurpose = async (
   }
 
   const draft = await res.json();
-  console.log(draft);
   return draft;
 };
 

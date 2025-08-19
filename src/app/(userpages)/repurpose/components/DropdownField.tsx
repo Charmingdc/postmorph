@@ -35,7 +35,7 @@ const DropdownField: React.FC<DropdownFieldProps> = ({
           className="w-full capitalize flex items-center justify-start"
         >
           {icon && <span className="mr-2">{icon}</span>}
-          {value}
+          {value?.name || value}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-full">
@@ -45,7 +45,7 @@ const DropdownField: React.FC<DropdownFieldProps> = ({
           {options.map(option => (
             <DropdownMenuRadioItem
               key={option?.name || option}
-              value={option?.name || option}
+              value={option}
               className="capitalize"
             >
               {option?.name || option}

@@ -16,7 +16,28 @@ export const inputFormats = [
   "linkedin post"
 ] as const;
 
-export const defaultTones = ["professional", "casual", "funny", "motivational"];
+export const defaultTones: { name: string; instruction: string }[] = [
+  {
+    name: "professional",
+    instruction:
+      "Respond with formal, concise, and respectful language. Use clear structure, avoid slang, and maintain a polished tone suitable for business or academic contexts."
+  },
+  {
+    name: "casual",
+    instruction:
+      "Respond in a relaxed and friendly way, as if chatting with a friend. Use simple language, light expressions, and an approachable tone."
+  },
+  {
+    name: "funny",
+    instruction:
+      "Respond with humor, witty remarks, or playful exaggeration while still keeping the answer clear. Use jokes, puns, or light sarcasm when appropriate."
+  },
+  {
+    name: "motivational",
+    instruction:
+      "Respond with encouragement, positivity, and uplifting language. Use inspiring phrases and supportive tone to boost confidence and motivation."
+  }
+];
 
 export const formatIcons: Record<string, JSX.Element> = {
   blog: <FileText className="w-4 h-4" />,
