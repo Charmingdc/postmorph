@@ -6,7 +6,7 @@ import { apiError } from "@/lib/apiError";
 import fetchUserCredits from "@/lib/fetchUserCredits";
 import { prepareContent, buildPrompt } from "./lib/helpers";
 
-const CREDIT_COST = 4;
+let CREDIT_COST = 4;
 
 export async function POST(req: Request) {
   try {
@@ -16,6 +16,8 @@ export async function POST(req: Request) {
     if (!sourcePlatform || !targetPlatform || !content || !toneInstruction) {
       return apiError("Incomplete request body", 400);
     }
+
+    if (sourcePlatform === "blog") CREDIT_COST = 5;
 
     const finalContent = await prepareContent(sourcePlatform, content);
     const prompt = buildPrompt(

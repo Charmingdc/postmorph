@@ -3,10 +3,10 @@
 import { useState, useEffect, useActionState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
-
 import { createClient } from "@/utils/supabase/client";
 import changeEmail from "../../actions/ChangeEmail";
 
+import { Skeleton } from "@/components/ui/skeleton";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
@@ -42,7 +42,8 @@ const EmailChanger = ({ email: initialEmail }: { email: string }) => {
     }
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading)
+    return <Skeleton className="h-32 p-3 border rounded-lg -mt-4" />;
 
   const usesPassword = user?.identities?.some(i => i.provider === "email");
   const currentEmail = user?.email ?? "";
