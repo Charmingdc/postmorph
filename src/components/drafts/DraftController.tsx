@@ -16,8 +16,9 @@ const DraftController = ({ drafts }: { drafts: DraftType[] }) => {
       try {
         await deleteDraft(id);
         router.refresh();
-      } catch (err) {
-        console.error("Error deleting draft:", err.message);
+      } catch (err: unknown) {
+        if (err instanceof Error)
+          console.error("Error deleting draft:", err.message);
       }
     });
   };

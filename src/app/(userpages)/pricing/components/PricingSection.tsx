@@ -1,3 +1,4 @@
+import BuyButton from "./BuyButton";
 import { Check } from "lucide-react";
 
 const PricingSection = () => {
@@ -7,7 +8,7 @@ const PricingSection = () => {
       tagline: "Perfect for testing the waters",
       price: "$5",
       credits: "30 Credits",
-      button: "Buy Credits",
+      link: "https://me.buy",
       features: [
         "One-time payment",
         "No subscription fees",
@@ -21,7 +22,7 @@ const PricingSection = () => {
       tagline: "Best for content creators",
       price: "$12",
       credits: "100 Credits",
-      button: "Buy Credits",
+      link: "https://me.buy",
       features: [
         "One-time payment",
         "No subscription fees",
@@ -30,14 +31,14 @@ const PricingSection = () => {
         "Pay only for what you use",
         "Email support"
       ],
-      highlight: true // Best Value
+      highlight: true
     },
     {
       name: "Pro 🍿🍿🍿",
       tagline: "For power users & teams",
       price: "$25",
       credits: "220 Credits",
-      button: "Buy Credits",
+      link: "https://me.buy",
       features: [
         "Everything in Creator",
         "Priority support",
@@ -49,14 +50,14 @@ const PricingSection = () => {
   ];
 
   return (
-    <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(20rem,1fr))] gap-6 pt-6">
+    <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(19rem,1fr))] gap-4 py-6">
       {plans.map((plan, i) => (
         <div
           key={i}
-          className={`relative w-full bg-card border rounded-2xl p-6 flex flex-col gap-4 transition-all duration-300 ${
+          className={`relative w-full bg-card border rounded-2xl py-6 px-4 flex flex-col gap-4 transition-all duration-300 ${
             plan.highlight
-              ? "border-blue-500 shadow-xl scale-105"
-              : "border-gray-200 shadow-md"
+              ? "border-blue-500 shadow-xl"
+              : "border border shadow-md"
           }`}
         >
           {/* Best Value badge */}
@@ -79,9 +80,7 @@ const PricingSection = () => {
           </div>
 
           {/* Button */}
-          <button className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-lg font-medium transition">
-            {plan.button}
-          </button>
+          <BuyButton purchaseLink={plan.link} />
 
           {/* Features */}
           <div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
 
@@ -20,11 +20,14 @@ import {
   formatIcons
 } from "../utils/formatConfig";
 import repurpose from "../lib/repurpose";
+import deleteDraft from "@/app/(userpages)/drafts/actions/deleteDraft";
 import fetchUserCustomVoices from "@/lib/fetchUserCustomVoices";
 
 type DefaultTone = { name: string; instruction: string };
 
 const RepurposeForm = ({ userId }: { userId: string }) => {
+  const [isDeleting, startTransition] = useTransition();
+
   const [inputFormat, setInputFormat] =
     useState<(typeof inputFormats)[number]>("blog");
   const [outputFormat, setOutputFormat] = useState<string>("tweet");
@@ -81,7 +84,17 @@ const RepurposeForm = ({ userId }: { userId: string }) => {
     }
   };
 
-  const handleDelete = () => {};
+  const handleDelete = async (id: string) => {
+    startTransition(async () => {
+      try {
+        await deleteDraft(id);
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          toast.error("Error deleting generated draft");
+        }
+      }
+    });
+  };
 
   const validOutputFormats = outputOptionsMap[inputFormat];
   useEffect(() => {

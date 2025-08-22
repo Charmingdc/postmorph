@@ -21,8 +21,7 @@ const AddVoiceForm = ({ userId }: { userId: string }) => {
   const [voiceName, setVoiceName] = useState<string>("");
   const [voiceDescription, setVoiceDescription] = useState<string>("");
   const [voiceInstruction, setVoiceInstruction] = useState<string>("");
-  const [postLink, setPostLink] = useState<string>("");
-  const [generateWithPost, setGenerateWithPost] = useState<boolean>(false);
+
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
 
   const [formState, formAction, isPending] = useActionState(addNewVoice, {
@@ -84,67 +83,24 @@ const AddVoiceForm = ({ userId }: { userId: string }) => {
           />
 
           <textarea
-            placeholder={
-              generateWithPost
-                ? "Will automatically generate voice description"
-                : "Describe the voice or add notes"
-            }
+            placeholder="Describe the voice or add notes"
             name="voice_description"
             value={voiceDescription}
             onChange={e => setVoiceDescription(e.target.value)}
-            disabled={generateWithPost || isPending}
-            className={`w-full min-h-20 bg-input text-xs border border-border p-2 rounded-lg mt-4 ${
-              generateWithPost
-                ? "opacity-40"
-                : "transition-all duration-500 hover:border-primary"
-            } disabled:opacity-40 md:text-md`}
+            disabled={isPending}
+            className="w-full min-h-20 bg-input text-xs border border-border p-2 rounded-lg mt-4 transition-all duration-500 hover:border-primary
+            disabled:opacity-40 md:text-md"
           />
 
           <textarea
-            placeholder={
-              generateWithPost
-                ? "Will automatically generate voice instruction"
-                : "Provide custom instruction to use when writing with this voie"
-            }
+            placeholder="Provide custom instruction to use when writing with this voice"
             name="voice_instruction"
             value={voiceInstruction}
             onChange={e => setVoiceInstruction(e.target.value)}
-            disabled={generateWithPost || isPending}
-            className={`w-full min-h-20 bg-input text-xs border border-border p-2 rounded-lg mt-4 ${
-              generateWithPost
-                ? "opacity-40"
-                : "transition-all duration-500 hover:border-primary"
-            } md:text-md`}
-          />
-
-          <p className="font-bold text-muted-foreground my-3"> OR </p>
-
-          <Button
-            variant="outline"
-            type="button"
             disabled={isPending}
-            onClick={() => setGenerateWithPost(!generateWithPost)}
-            className="w-full capitalize py-6 disabled:opacity-40"
-          >
-            {generateWithPost
-              ? "Set voice details manually"
-              : "Generate voice details with a post"}
-          </Button>
-
-          {generateWithPost && (
-            <div className="w-full flex flex-col items-center gap-2 mt-2">
-              <input
-                type="url"
-                placeholder="Paste post link here"
-                value={postLink}
-                onChange={e => setPostLink(e.target.value)}
-                className="w-full h-12 bg-input text-xs border border-border p-2 rounded-lg transition-all duration-500 hover:border-primary md:text-md"
-              />
-              <Button>
-                <WandSparkles /> Generate
-              </Button>
-            </div>
-          )}
+            className="w-full min-h-20 bg-input text-xs border border-border p-2 rounded-lg mt-4 transition-all duration-500 hover:border-primary
+            md:text-md"
+          />
 
           <Button type="submit" className="w-full mt-2" disabled={isPending}>
             {isPending ? "Saving Changes..." : "Save changes"}
