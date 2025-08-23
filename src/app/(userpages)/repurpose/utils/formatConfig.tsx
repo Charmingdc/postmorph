@@ -13,6 +13,7 @@ export const inputFormats = [
   "youtube video",
   "instagram reel",
   "x thread",
+  "reddit post",
   "linkedin post"
 ] as const;
 
@@ -59,5 +60,6 @@ export const outputOptionsMap: Record<(typeof inputFormats)[number], string[]> =
     "youtube video": ["tweet", "x thread", "linkedin post", "reddit post"],
     "instagram reel": ["tweet", "x thread", "linkedin post", "reddit post"],
     "x thread": ["linkedin post", "reddit post"],
-    "linkedin post": ["x thread", "tweet", "reddit post"]
+    "linkedin post": ["x thread", "tweet", "reddit post"],
+    "reddit post": ["tweet", "linkedin post"]
   };

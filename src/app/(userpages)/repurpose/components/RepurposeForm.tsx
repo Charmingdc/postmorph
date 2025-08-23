@@ -35,7 +35,6 @@ const RepurposeForm = ({ userId }: { userId: string }) => {
   const [inputValue, setInputValue] = useState<string>("");
   const [repurposedResult, setRepurposedResult] = useState<DraftType[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [isDeleting, setIsDeleting] = useState<boolean>(false);
 
   const [userTones, setUserTones] = useState<DefaultTone[] | CustomVoice[]>([
     ...defaultTones,
@@ -105,7 +104,7 @@ const RepurposeForm = ({ userId }: { userId: string }) => {
 
   return (
     <>
-      <div className="w-full flex flex-col gap-8 items-center bg-card p-4 rounded-xl">
+      <div className="w-full flex flex-col gap-8 items-center bg-card p-4 rounded-xl mb-4">
         <form
           onSubmit={e => {
             e.preventDefault();
