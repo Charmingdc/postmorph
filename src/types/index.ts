@@ -38,4 +38,16 @@ type CustomVoice = {
   createdAt: string | Date;
 };
 
+type UserLog = {
+  id: string;
+  user_id: string;
+  action_type: "repurpose" | "refine";
+  credit_cost: number;
+  credits_before: number;
+  credits_after: number;
+  status: "sucess" | "failure" | "pending";
+  err_message: "string" | null;
+  action_at: string | Date;
+};
+
 export type { ActionState, Profile, CreditInfo, DraftType, CustomVoice };

@@ -3,8 +3,10 @@ import { google } from "@ai-sdk/google";
 import { generateText } from "ai";
 import { createClient } from "@/utils/supabase/server";
 import { apiError } from "@/lib/apiError";
+import logUserAction from "@/lib/logUserAction";
 
 const MAX_REFINEMENT = 3;
+
 export async function POST(req: Request) {
   try {
     const body = await req.json();
@@ -23,6 +25,16 @@ export async function POST(req: Request) {
     } = await supabase.auth.getUser();
 
     if (!user || userError) {
+      if (user?.id) {
+        await logUserAction(supabase, {
+          user_id: user.id,
+          action_type: "refine",
+          status: "failed",
+          err_message: userError?.message || "User authentication failed",
+          user,
+          credit_cost: 0
+        });
+      }
       return apiError(userError?.message || "User authentication failed", 401);
     }
 
@@ -35,12 +47,28 @@ export async function POST(req: Request) {
       .single();
 
     if (modifyCountError) {
+      await logUserAction(supabase, {
+        user_id: user.id,
+        action_type: "refine",
+        status: "failed",
+        err_message: "Draft not found or unauthorized",
+        user,
+        credit_cost: 0
+      });
       return apiError("Draft not found or unauthorized", 404);
     }
 
     const currentCount = draft.modify_count ?? 0;
 
     if (currentCount >= MAX_REFINEMENT) {
+      await logUserAction(supabase, {
+        user_id: user.id,
+        action_type: "refine",
+        status: "failed",
+        err_message: "Max refinement reached for this draft",
+        user,
+        credit_cost: 0
+      });
       return apiError("Max refinement reached for this draft", 403);
     }
 
@@ -58,6 +86,14 @@ export async function POST(req: Request) {
     });
 
     if (!result.text) {
+      await logUserAction(supabase, {
+        user_id: user.id,
+        action_type: "refine",
+        status: "failed",
+        err_message: "No text was generated",
+        user,
+        credit_cost: 0
+      });
       return apiError("No text was generated", 500);
     }
 
@@ -69,8 +105,26 @@ export async function POST(req: Request) {
       .eq("user_id", user.id);
 
     if (updateError) {
+      await logUserAction(supabase, {
+        user_id: user.id,
+        action_type: "refine",
+        status: "failed",
+        err_message: "Failed to update draft modify count",
+        user,
+        credit_cost: 0
+      });
       return apiError("Failed to update draft modify count", 500);
     }
+
+    // Log success
+    await logUserAction(supabase, {
+      user_id: user.id,
+      action_type: "refine",
+      status: "success",
+      err_message: null,
+      user,
+      credit_cost: 0
+    });
 
     // Return generated result
     return NextResponse.json({

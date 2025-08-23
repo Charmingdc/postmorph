@@ -5,6 +5,7 @@ import { createClient } from "@/utils/supabase/server";
 import { apiError } from "@/lib/apiError";
 import fetchUserCredits from "@/lib/fetchUserCredits";
 import { prepareContent, buildPrompt } from "./lib/helpers";
+import logUserAction from "@/lib/logUserAction";
 
 let CREDIT_COST = 4;
 
@@ -34,6 +35,16 @@ export async function POST(req: Request) {
     } = await supabase.auth.getUser();
 
     if (!user || userError) {
+      if (user?.id) {
+        await logUserAction(supabase, {
+          user_id: user.id,
+          action_type: "repurpose",
+          status: "failed",
+          err_message: userError?.message || "User authentication failed",
+          user,
+          credit_cost: 0
+        });
+      }
       return apiError(userError?.message || "User authentication failed", 401);
     }
 
@@ -41,6 +52,14 @@ export async function POST(req: Request) {
       await fetchUserCredits(user.id);
 
     if (!is_unlimited && CREDIT_COST > total_credits - used_credits) {
+      await logUserAction(supabase, {
+        user_id: user.id,
+        action_type: "repurpose",
+        status: "failed",
+        err_message: "Not enough credits",
+        user,
+        credit_cost: 0
+      });
       return apiError(
         "You don't have enough credits to repurpose this content",
         403
@@ -61,14 +80,36 @@ export async function POST(req: Request) {
       prompt
     });
 
-    if (!result.text) return apiError("No text was generated", 500);
+    if (!result.text) {
+      await logUserAction(supabase, {
+        user_id: user.id,
+        action_type: "repurpose",
+        status: "failed",
+        err_message: "No text was generated",
+        user,
+        credit_cost: 0
+      });
+      return apiError("No text was generated", 500);
+    }
 
+    // Deduct credits here
     if (!is_unlimited) {
       const { error: updateError } = await supabase
         .from("Profiles")
         .update({ used_credits: used_credits + CREDIT_COST })
         .eq("user_id", user.id);
-      if (updateError) return apiError("Failed to update credits usage", 500);
+
+      if (updateError) {
+        await logUserAction(supabase, {
+          user_id: user.id,
+          action_type: "repurpose",
+          status: "failed",
+          err_message: "Failed to update credits usage",
+          user,
+          credit_cost: 0
+        });
+        return apiError("Failed to update credits usage", 500);
+      }
     }
 
     const { data: draft, error: draftError } = await supabase
@@ -82,8 +123,27 @@ export async function POST(req: Request) {
       .select("*")
       .single();
 
-    if (draftError)
+    if (draftError) {
+      await logUserAction(supabase, {
+        user_id: user.id,
+        action_type: "repurpose",
+        status: "failed",
+        err_message: "Failed to save generated content as draft",
+        user,
+        credit_cost: CREDIT_COST
+      });
       return apiError("Failed to save generated content as draft", 500);
+    }
+
+    // Success log, credits have been deducted
+    await logUserAction(supabase, {
+      user_id: user.id,
+      action_type: "repurpose",
+      status: "success",
+      err_message: null,
+      user,
+      credit_cost: CREDIT_COST
+    });
 
     return NextResponse.json(draft);
   } catch (err: unknown) {

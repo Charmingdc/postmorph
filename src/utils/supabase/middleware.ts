@@ -33,17 +33,14 @@ export async function updateSession(request: NextRequest) {
 
   const path = request.nextUrl.pathname;
 
-  // ❌ If no user and not in auth pages, block access and redirect to signin
-  if (!user && !path.startsWith("/auth")) {
+  if (!user && !path.startsWith("/auth") && !path === "/") {
     const url = request.nextUrl.clone();
     url.pathname = "/auth/signin";
     return NextResponse.redirect(url);
   }
 
-  // ✅ Allow /auth/confirm even if user is signed in (email change/sign up verification)
   const isConfirmRoute = path === "/auth/confirm";
 
-  // 🚫 If user is already logged in and trying to access /auth (but not /auth/confirm), redirect to dashboard
   if (user && path.startsWith("/auth") && !isConfirmRoute) {
     const url = request.nextUrl.clone();
     url.pathname = "/dashboard";
