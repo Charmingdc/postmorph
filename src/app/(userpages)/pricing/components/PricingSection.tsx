@@ -14,6 +14,7 @@ const PricingSection = () => {
         "No subscription fees",
         "Full access to all features",
         "Credits never expire",
+        "Up to 3 edits per draft",
         "Pay only for what you use"
       ]
     },
@@ -28,6 +29,7 @@ const PricingSection = () => {
         "No subscription fees",
         "Full access to all features",
         "Credits never expire",
+        "Up to 6 edits per draft",
         "Pay only for what you use",
         "Email support"
       ],
@@ -44,7 +46,7 @@ const PricingSection = () => {
         "Priority support",
         "Advanced analytics",
         "Early access to new features",
-        "Content refinement limits extended"
+        "Up to 10 edits per draft"
       ]
     }
   ];

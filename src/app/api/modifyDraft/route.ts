@@ -3,9 +3,10 @@ import { google } from "@ai-sdk/google";
 import { generateText } from "ai";
 import { createClient } from "@/utils/supabase/server";
 import { apiError } from "@/lib/apiError";
+import getProfile from "@/lib/user/server";
 import logUserAction from "@/lib/logUserAction";
 
-const MAX_REFINEMENT = 3;
+let MAX_REFINEMENT: string;
 
 export async function POST(req: Request) {
   try {
@@ -36,6 +37,16 @@ export async function POST(req: Request) {
         });
       }
       return apiError(userError?.message || "User authentication failed", 401);
+    }
+
+    // get current user plan
+    const profile = await getProfile();
+    if (profile.plan === "pro") {
+      MAX_REFINEMENT = 10;
+    } else if (profile.plan === "creator") {
+      MAX_REFINEMENT = 6;
+    } else if (profile.plan === "free" || profile.plan === "starter") {
+      MAX_REFINEMENT = 3;
     }
 
     // Fetch draft with modify_count
