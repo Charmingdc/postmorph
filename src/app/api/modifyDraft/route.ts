@@ -6,7 +6,7 @@ import { apiError } from "@/lib/apiError";
 import getProfile from "@/lib/user/server";
 import logUserAction from "@/lib/logUserAction";
 
-let MAX_REFINEMENT: string;
+let MAX_REFINEMENT: number;
 
 export async function POST(req: Request) {
   try {
@@ -31,16 +31,17 @@ export async function POST(req: Request) {
           user_id: user.id,
           action_type: "refine",
           status: "failed",
-          err_message: userError?.message || "User authentication failed",
-          user,
+          error_message: userError?.message || "User authentication failed",
           credit_cost: 0
         });
       }
       return apiError(userError?.message || "User authentication failed", 401);
     }
 
-    // get current user plan
+    // get current user profile
     const profile = await getProfile();
+
+    // get user plan
     if (profile.plan === "pro") {
       MAX_REFINEMENT = 10;
     } else if (profile.plan === "creator") {
@@ -62,8 +63,8 @@ export async function POST(req: Request) {
         user_id: user.id,
         action_type: "refine",
         status: "failed",
-        err_message: "Draft not found or unauthorized",
-        user,
+        error_message: "Draft not found or unauthorized",
+        user: profile,
         credit_cost: 0
       });
       return apiError("Draft not found or unauthorized", 404);
@@ -76,8 +77,8 @@ export async function POST(req: Request) {
         user_id: user.id,
         action_type: "refine",
         status: "failed",
-        err_message: "Max refinement reached for this draft",
-        user,
+        error_message: "Max refinement reached for this draft",
+        user: profile,
         credit_cost: 0
       });
       return apiError("Max refinement reached for this draft", 403);
@@ -101,8 +102,8 @@ export async function POST(req: Request) {
         user_id: user.id,
         action_type: "refine",
         status: "failed",
-        err_message: "No text was generated",
-        user,
+        error_message: "No text was generated",
+        user: profile,
         credit_cost: 0
       });
       return apiError("No text was generated", 500);
@@ -120,8 +121,8 @@ export async function POST(req: Request) {
         user_id: user.id,
         action_type: "refine",
         status: "failed",
-        err_message: "Failed to update draft modify count",
-        user,
+        error_message: "Failed to update draft modify count",
+        user: profile,
         credit_cost: 0
       });
       return apiError("Failed to update draft modify count", 500);
@@ -132,8 +133,8 @@ export async function POST(req: Request) {
       user_id: user.id,
       action_type: "refine",
       status: "success",
-      err_message: null,
-      user,
+      error_message: null,
+      user: profile,
       credit_cost: 0
     });
 

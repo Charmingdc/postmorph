@@ -5,6 +5,7 @@ import { toast } from "sonner";
 
 import useClipboard from "@/hooks/useClipboard";
 import useConfirmDelete from "@/app/hooks/useConfirmDelete";
+// import useProfile from "@/app/hooks/useProfile";
 import updateDraft from "../actions/updateDraft";
 import deleteDraft from "../actions/deleteDraft";
 import type { DraftType } from "@/types/index";
@@ -25,6 +26,7 @@ type PageProps = {
 const TWEET_BREAK = "--tweet break--";
 
 const ContentEditor = ({ user_id, draft }: PageProps) => {
+  //const profile = useProfile();
   const { copied, copy } = useClipboard();
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -187,7 +189,7 @@ const ContentEditor = ({ user_id, draft }: PageProps) => {
         ))}
       </div>
 
-      <ModifyCountBadge modifyCount={modifyCount} />
+      <ModifyCountBadge modifyCount={modifyCount} userPlan="pro" />
 
       {/* Delete Draft */}
       <form

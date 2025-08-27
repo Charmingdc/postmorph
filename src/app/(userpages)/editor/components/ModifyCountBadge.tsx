@@ -1,17 +1,18 @@
-import getProfile from "@/lib/user/server";
-import type { Profile } from "@/types/index";
-
 import { AlertTriangle, CheckCircle } from "lucide-react";
 
-const ModifyCountBadge = async ({ modifyCount }: { modifyCount: number }) => {
-  const profile: Profile = await getProfile();
+type PageProps = {
+  modifyCount: number;
+  userPlan: "free" | "starter" | "creator" | "pro";
+};
 
-  let modifyLimit: string;
-  if (profile.plan === "pro") {
+const ModifyCountBadge = ({ modifyCount, userPlan }: PageProps) => {
+  console.log("user plan:", userPlan);
+  let modifyLimit: number;
+  if (userPlan === "pro") {
     modifyLimit = 10;
-  } else if (profile.plan === "creator") {
+  } else if (userPlan === "creator") {
     modifyLimit = 6;
-  } else if (profile.plan === "free" || profile.plan === "starter") {
+  } else if (userPlan === "free" || userPlan === "starter") {
     modifyLimit = 3;
   }
 
@@ -28,8 +29,7 @@ const ModifyCountBadge = async ({ modifyCount }: { modifyCount: number }) => {
           <>
             <AlertTriangle className="w-3.5 h-3.5" />
             {modifyLimit - modifyCount} refinement
-            {modifyLimit - modifyCount !== 1 && "s"}
-            left
+            {modifyLimit - modifyCount !== 1 && "s"} left
           </>
         ) : (
           <>

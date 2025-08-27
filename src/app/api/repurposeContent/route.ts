@@ -5,6 +5,7 @@ import { createClient } from "@/utils/supabase/server";
 import { apiError } from "@/lib/apiError";
 import fetchUserCredits from "@/lib/fetchUserCredits";
 import { prepareContent, buildPrompt } from "./lib/helpers";
+import getProfile from "@/lib/user/server";
 import logUserAction from "@/lib/logUserAction";
 
 let CREDIT_COST = 4;
@@ -40,14 +41,17 @@ export async function POST(req: Request) {
           user_id: user.id,
           action_type: "repurpose",
           status: "failed",
-          err_message: userError?.message || "User authentication failed",
-          user,
+          error_message: userError?.message || "User authentication failed",
           credit_cost: 0
         });
       }
       return apiError(userError?.message || "User authentication failed", 401);
     }
 
+    // get current user profile
+    const profile = await getProfile();
+
+    // get user credit info
     const { used_credits, total_credits, is_unlimited } =
       await fetchUserCredits(user.id);
 
@@ -56,8 +60,8 @@ export async function POST(req: Request) {
         user_id: user.id,
         action_type: "repurpose",
         status: "failed",
-        err_message: "Not enough credits",
-        user,
+        error_message: "Not enough credits",
+        user: profile,
         credit_cost: 0
       });
       return apiError(
@@ -85,8 +89,8 @@ export async function POST(req: Request) {
         user_id: user.id,
         action_type: "repurpose",
         status: "failed",
-        err_message: "No text was generated",
-        user,
+        error_message: "No text was generated",
+        user: profile,
         credit_cost: 0
       });
       return apiError("No text was generated", 500);
@@ -104,8 +108,8 @@ export async function POST(req: Request) {
           user_id: user.id,
           action_type: "repurpose",
           status: "failed",
-          err_message: "Failed to update credits usage",
-          user,
+          error_message: "Failed to update credits usage",
+          user: profile,
           credit_cost: 0
         });
         return apiError("Failed to update credits usage", 500);
@@ -128,8 +132,8 @@ export async function POST(req: Request) {
         user_id: user.id,
         action_type: "repurpose",
         status: "failed",
-        err_message: "Failed to save generated content as draft",
-        user,
+        error_message: "Failed to save generated content as draft",
+        user: profile,
         credit_cost: CREDIT_COST
       });
       return apiError("Failed to save generated content as draft", 500);
@@ -140,8 +144,8 @@ export async function POST(req: Request) {
       user_id: user.id,
       action_type: "repurpose",
       status: "success",
-      err_message: null,
-      user,
+      error_message: null,
+      user: profile,
       credit_cost: CREDIT_COST
     });
 

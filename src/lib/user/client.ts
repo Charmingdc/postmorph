@@ -1,13 +1,11 @@
 import { createClient } from "@/utils/supabase/client";
-import type { Profile } from "@/types/index"
+import type { Profile } from "@/types";
 
 const getProfile = async (): Promise<Profile | null> => {
-  const supabase = await createClient();
-
+  const supabase = createClient();
   const {
     data: { user }
   } = await supabase.auth.getUser();
-
   if (!user) return null;
 
   const { data: profile, error } = await supabase

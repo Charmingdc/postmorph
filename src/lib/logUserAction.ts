@@ -1,44 +1,54 @@
-import type { UserLog } from "@/types";
 import type { SupabaseClient } from "@supabase/supabase-js";
+import type { UserLog } from "@/types";
+
+type UserProfile = {
+  total_credits: number;
+  used_credits: number;
+};
 
 export default async function logUserAction(
   supabase: SupabaseClient,
   log: Omit<UserLog, "credits_before" | "credits_after"> & {
-    user?: { total_credits: number; used_credits: number };
-    credit_cost?: number;
+    user?: UserProfile;
   }
 ) {
   try {
-    console.log("Supabase instanced passed:", supabase);
+    const userData = log.user;
 
+    // Compute credits_before and credits_after
     const creditsBefore =
-      log.user &&
-      log.user.total_credits != null &&
-      log.user.used_credits != null
-        ? log.user.total_credits - log.user.used_credits
+      userData &&
+      userData.total_credits != null &&
+      userData.used_credits != null
+        ? userData.total_credits - userData.used_credits
         : null;
-
-    console.log("Credits before:", creditsBefore);
 
     const creditsAfter =
       creditsBefore != null && log.credit_cost != null
         ? creditsBefore - log.credit_cost
         : creditsBefore;
 
-    console.log("credits after:", creditsAfter);
+    // Remove `user` before inserting
+    const { user, ...logData } = log;
 
-    const { error } = await supabase.from("user_logs").insert({
-      ...log,
-      credits_before: creditsBefore,
-      credits_after: creditsAfter ?? creditsBefore
-    });
+    // Final payload for DB
+    const insertPayload: UserLog = {
+      ...logData,
+      credits_before: creditsBefore ?? null,
+      credits_after: creditsAfter ?? creditsBefore ?? null
+      // action_at handled by DB default
+    };
 
-    if (error) throw new Error(error);
+    const { error } = await supabase.from("user_logs").insert(insertPayload);
+
+    if (error) {
+      throw new Error(error.message);
+    }
   } catch (err: unknown) {
     if (err instanceof Error) {
-      console.error("Error occured when logging user action:", error);
+      console.error("Error occurred when logging user action:", err.message);
     } else {
-      console.error("An unknown error occured when logging user action");
+      console.error("An unknown error occurred when logging user action");
     }
   }
 }
