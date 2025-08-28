@@ -1,28 +1,35 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import getProfile from "@/lib/user/client";
 import type { Profile } from "@/types";
 
-const useProfile = (): Profile | null => {
-  const router = useRouter();
+type UseProfileResult = {
+  profile: Profile | null;
+  loadingProfile: boolean;
+};
 
-  const { data: profile, isLoading } = useQuery<Profile | null>({
+const useProfile = (): UseProfileResult => {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const query = useQuery<Profile | null>({
     queryKey: ["user-profile"],
-    queryFn: getProfile,
-    staleTime: 1000 * 60 * 5
+    queryFn: getProfile
   });
 
   useEffect(() => {
-    if (!isLoading && !profile && router.pathname !== "/auth/signin") {
+    if (query.isSuccess && !query.data && pathname !== "/auth/signin") {
       router.push("/auth/signin");
     }
-  }, [isLoading, profile, router]);
+  }, [query.isSuccess, query.data, pathname, router]);
 
-  console.log("Profile hook value:", profile);
-  return profile ?? null;
+  return {
+    profile: query.data ?? null,
+    loadingProfile: query.isLoading
+  };
 };
 
 export default useProfile;

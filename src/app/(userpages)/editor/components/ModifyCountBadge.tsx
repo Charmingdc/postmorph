@@ -6,7 +6,6 @@ type PageProps = {
 };
 
 const ModifyCountBadge = ({ modifyCount, userPlan }: PageProps) => {
-  console.log("user plan:", userPlan);
   let modifyLimit: number;
   if (userPlan === "pro") {
     modifyLimit = 10;

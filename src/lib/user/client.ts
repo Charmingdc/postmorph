@@ -3,6 +3,7 @@ import type { Profile } from "@/types";
 
 const getProfile = async (): Promise<Profile | null> => {
   const supabase = createClient();
+
   const {
     data: { user }
   } = await supabase.auth.getUser();
@@ -15,7 +16,7 @@ const getProfile = async (): Promise<Profile | null> => {
     .single();
 
   if (error) {
-    console.error("Error fetching profile:", error.message);
+    throw new Error(error.message);
     return null;
   }
 
