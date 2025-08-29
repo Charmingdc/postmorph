@@ -1,5 +1,6 @@
 import Navbar from "@/components/landing-page/Navbar";
 import HeroSection from "@/components/landing-page/HeroSection";
+import FeaturesSection from "@/components/landing-page/FeaturesSection";
 
 const Page = () => {
   return (
@@ -8,10 +9,10 @@ const Page = () => {
         <Navbar />
       </nav>
 
-      <main className="w-screen flex flex-col items-center gap-y-20">
+      <main className="w-screen flex flex-col items-center gap-y-10">
         <HeroSection />
-        {/*
         <FeaturesSection />
+        {/*
         <HowItWorksSection />
         <PricingSection />
         <TestimonialsSection /> */}

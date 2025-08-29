@@ -15,6 +15,14 @@ type NavLinks = {
   url: string;
 };
 
+const navLinks: NavLinks[] = [
+  { text: "Features", url: "#features" },
+  { text: "How it Works", url: "#how-it-works" },
+  { text: "Pricing", url: "#pricing" },
+  { text: "Testimonials", url: "#testimonials" },
+  { text: "FAQ", url: "#faq" }
+];
+
 const Navbar = () => {
   const isMobile = useIsMobile();
   const router = useRouter();
@@ -36,14 +44,6 @@ const Navbar = () => {
 
     checkAuthStatus();
   }, []);
-
-  const navLinks: NavLinks[] = [
-    { text: "Features", url: "#features" },
-    { text: "How it Works", url: "#how-it-works" },
-    { text: "Pricing", url: "#pricing" },
-    { text: "Testimonials", url: "#testimonials" },
-    { text: "FAQ", url: "#faq" }
-  ];
 
   return (
     <div className="w-screen flex flex-col items-center justify-center gap-2">
