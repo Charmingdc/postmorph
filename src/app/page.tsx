@@ -1,13 +1,22 @@
+import Navbar from "@/components/landing-page/Navbar";
+import HeroSection from "@/components/landing-page/HeroSection";
+
 const Page = () => {
   return (
-    <main
-      className='w-screen h-[100vh] fixed top-0 bottom-0 bg-card flex
-    flex-col items-center justify-center text-center overflow-hidden px-8 m-0'
-    >
-      <h1 className='font-bold text-card-foreground text-3xl -mt-16'>
-        Home Page
-      </h1>
-    </main>
+    <div className="w-screen flex flex-col items-center justify-center text-center px-8">
+      <nav>
+        <Navbar />
+      </nav>
+
+      <main className="w-screen flex flex-col items-center gap-y-20">
+        <HeroSection />
+        {/*
+        <FeaturesSection />
+        <HowItWorksSection />
+        <PricingSection />
+        <TestimonialsSection /> */}
+      </main>
+    </div>
   );
 };
 
