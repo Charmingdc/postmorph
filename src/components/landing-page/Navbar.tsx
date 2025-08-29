@@ -72,7 +72,7 @@ const Navbar = () => {
 
       {/** menu **/}
       {isMenuOpen && (
-        <div className="w-[90%] flex flex-col justify-center bg-blue-900/10  backdrop-blur-md p-3 gap-4 rounded-lg mt-24">
+        <div className="w-[90%] fixed top-24 flex flex-col justify-center bg-blue-900/10  backdrop-blur-md p-3 gap-4 rounded-lg z-10">
           <ul className="w-full flex flex-col items-start justify-center gap-3">
             {navLinks.map((link, index) => (
               <li key={index}>

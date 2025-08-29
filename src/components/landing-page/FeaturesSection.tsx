@@ -90,7 +90,7 @@ const FeaturesSection = () => {
               <div
                 key={index}
                 ref={featureRef as any}
-                className={`bg-card rounded-xl p-6 shadow-sm border hover:blue-800/40 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${animationClass}`}
+                className={`bg-card rounded-xl p-6 shadow-sm hover:blue-800/40 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${animationClass}`}
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
                 <div className="mb-4 rounded-xl bg-secondary w-16 h-16 flex items-center justify-center">

@@ -114,47 +114,55 @@
   }
   
   /* Scroll animations */
-  .scroll-fade-in {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-  }
-  
-  .scroll-fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  
-  .scroll-fade-in-left {
-    opacity: 0;
-    transform: translateX(-20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-  }
-  
-  .scroll-fade-in-left.visible {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  
-  .scroll-fade-in-right {
-    opacity: 0;
-    transform: translateX(20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-  }
-  
-  .scroll-fade-in-right.visible {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  
-  .scroll-scale-in {
-    opacity: 0;
-    transform: scale(0.95);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-  }
-  
-  .scroll-scale-in.visible {
-    opacity: 1;
-    transform: scale(1);
-  }
+.scroll-fade-in {
+  opacity: 0;
+  transform: translateY(20px) rotate(var(--tilt, 0deg));
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.scroll-fade-in.visible {
+  opacity: 1;
+  transform: translateY(0) rotate(var(--tilt, 0deg));
+}
+
+.scroll-fade-in-left {
+  opacity: 0;
+  transform: translateX(-20px) rotate(var(--tilt, 0deg));
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.scroll-fade-in-left.visible {
+  opacity: 1;
+  transform: translateX(0) rotate(var(--tilt, 0deg));
+}
+
+.scroll-fade-in-right {
+  opacity: 0;
+  transform: translateX(20px) rotate(var(--tilt, 0deg));
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.scroll-fade-in-right.visible {
+  opacity: 1;
+  transform: translateX(0) rotate(var(--tilt, 0deg));
+}
+
+.scroll-scale-in {
+  opacity: 0;
+  transform: scale(0.95) rotate(var(--tilt, 0deg));
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.scroll-scale-in.visible {
+  opacity: 1;
+  transform: scale(1) rotate(var(--tilt, 0deg));
+}
+
+/* Reset tilt on hover */
+.scroll-fade-in:hover,
+.scroll-fade-in-left:hover,
+.scroll-fade-in-right:hover,
+.scroll-scale-in:hover {
+  --tilt: 0deg;
+}
 }
