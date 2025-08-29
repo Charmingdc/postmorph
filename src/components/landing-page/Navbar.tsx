@@ -48,7 +48,7 @@ const Navbar = () => {
   return (
     <div className="w-screen flex flex-col items-center justify-center gap-2">
       {/** Navigation Bar **/}
-      <div className="w-[90%] fixed flex items-center justify-between bg-popover p-3 rounded-lg mt-8 mb-2">
+      <div className="w-[90%] top-2 fixed flex items-center justify-between bg-blue-900/10 backdrop-blur-md p-3 rounded-lg z-10 mt-2 mb-2">
         <div className="flex items-center justify-center">
           <Image
             src="/icons/postmorph-logo-variant.png"
@@ -72,7 +72,7 @@ const Navbar = () => {
 
       {/** menu **/}
       {isMenuOpen && (
-        <div className="w-[90%] flex flex-col justify-center bg-popover p-3  gap-4 rounded-lg">
+        <div className="w-[90%] flex flex-col justify-center bg-blue-900/10  backdrop-blur-md p-3 gap-4 rounded-lg mt-24">
           <ul className="w-full flex flex-col items-start justify-center gap-3">
             {navLinks.map((link, index) => (
               <li key={index}>
