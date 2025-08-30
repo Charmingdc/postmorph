@@ -2,6 +2,8 @@ import Navbar from "@/components/landing-page/Navbar";
 import HeroSection from "@/components/landing-page/HeroSection";
 import FeaturesSection from "@/components/landing-page/FeaturesSection";
 import HowItWorks from "@/components/landing-page/HowItWorks";
+import TimeComparisonSection from "@/components/landing-page/TimeComparisonSection";
+import PricingSection from "@/components/landing-page/PricingSection";
 
 const Page = () => {
   return (
@@ -14,8 +16,9 @@ const Page = () => {
         <HeroSection />
         <FeaturesSection />
         <HowItWorks />
-        {/*
+        <TimeComparisonSection />
         <PricingSection />
+        {/*
         <TestimonialsSection /> */}
       </main>
     </div>

@@ -1,4 +1,4 @@
-import BuyButton from "./BuyButton";
+import BuyButton from "@/components/ui/BuyButton";
 import { Check } from "lucide-react";
 
 const PricingSection = () => {
