@@ -29,7 +29,7 @@ const features = [
     icon: <VideoIcon className="h-8 w-8 text-primary" />,
     title: "Video to Text",
     description:
-      "Automatically transcribe and summarize your youtube videos/podcasts into text-based content."
+      "Automatically transcribe and summarize your youtube videos, tiktok videos... into text-based content."
   },
   {
     icon: <FileText className="h-8 w-8 text-primary" />,

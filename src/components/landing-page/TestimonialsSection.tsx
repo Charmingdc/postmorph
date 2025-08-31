@@ -3,7 +3,7 @@ import { Quote } from "lucide-react";
 const testimonials = [
   {
     quote:
-      "Repurpose.ai has transformed my content strategy. I used to spend hours creating content for different platforms, but now I can do it in minutes.",
+      "Postmorph has transformed my content strategy. I used to spend hours creating content for different platforms, but now I can do it in minutes.",
     author: "Sarah Johnson",
     role: "Content Creator",
     avatar: "https://randomuser.me/api/portraits/women/1.jpg"

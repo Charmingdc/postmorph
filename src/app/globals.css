@@ -67,6 +67,11 @@
   * {
     @apply border-border p-0 m-0 outline-none;
   }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
   body {
     @apply w-screen font-figtree bg-accent text-foreground;
   }

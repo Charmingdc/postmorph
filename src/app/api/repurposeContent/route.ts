@@ -19,7 +19,14 @@ export async function POST(req: Request) {
       return apiError("Incomplete request body", 400);
     }
 
-    if (sourcePlatform === "blog") CREDIT_COST = 5;
+    if (sourcePlatform === "blog") {
+      CREDIT_COST = 5;
+    } else if (
+      sourcePlatform === "youtube video" ||
+      ssourcePlatform === "tiktok video"
+    ) {
+      CREDIT_COST = 8;
+    }
 
     const finalContent = await prepareContent(sourcePlatform, content);
     const prompt = buildPrompt(
@@ -151,8 +158,12 @@ export async function POST(req: Request) {
 
     return NextResponse.json(draft);
   } catch (err: unknown) {
-    if (err instanceof Error)
+    if (err instanceof Error) {
+      if (err.message.includes("high traffic")) {
+        return apiError(err.message, 429);
+      }
       return apiError(err.message || "Internal server error", 500);
+    }
     return apiError("Unknown server error", 500);
   }
 }

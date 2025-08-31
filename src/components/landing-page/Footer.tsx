@@ -11,7 +11,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="w-full bg-muted px-4 border-t">
+    <footer className="w-full bg-muted px-5 border-t">
       <div className="w-full md:px-4 py-12">
         {/* Sections */}
         <div className="w-full flex flex-col items-start md:grid md:grid-cols-4  md:justify-center md:gap-8 gap-8">
@@ -89,7 +89,7 @@ const Footer = () => {
               <li>
                 <a
                   href="#pricing"
-                  className="text-muted-foreground hover:text-foreground transition-colors"
+                  className="text-muted-foreground -ml-3 hover:text-foreground transition-colors"
                 >
                   Pricing
                 </a>
@@ -125,7 +125,7 @@ const Footer = () => {
           <p className="text-muted-foreground text-sm">
             © {currentYear} Postmorph. All rights reserved.
           </p>
-          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
+          <div className="flex flex-row items-center gap-2 sm:gap-4">
             <a
               href="#"
               className="text-sm text-muted-foreground hover:text-foreground transition-colors"

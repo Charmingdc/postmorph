@@ -1,17 +1,41 @@
 import isUrl from "@/lib/isUrl";
 import fetchBlogContent from "./fetchBlog";
+import { getTranscript } from "./getTranscript";
 
-const prepareContent = async (sourcePlatform: string, content: string) => {
-  if (sourcePlatform.toLowerCase() !== "blog") return content;
+const prepareContent = async (
+  sourcePlatform: string,
+  content: string
+): Promise<string> => {
+  try {
+    const platform = sourcePlatform.toLowerCase();
 
-  if (isUrl(content)) {
-    const blogData = await fetchBlogContent(content);
-    return `Title: ${blogData.title}\n\nBody: ${blogData.content}`;
+    // Blog handling
+    if (platform === "blog" && isUrl(content)) {
+      const blogData = await fetchBlogContent(content);
+      return `Title: ${blogData.title}\n\nBody: ${blogData.content}`;
+    }
+
+    // Video handling
+    if (
+      (platform === "youtube video" || platform === "tiktok video") &&
+      isUrl(content)
+    ) {
+      const transcript = await getTranscript(content);
+      if (!transcript) {
+        throw new Error("Couldn’t extract transcript for this video.");
+      }
+      return transcript;
+    }
+
+    // Default: return raw content
+    return content;
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      throw new Error(error.message || "Failed to prepare content.");
+    }
+    throw new Error("Unknown error occurred while preparing content.");
   }
-
-  return content;
 };
-
 const buildPrompt = (
   sourcePlatform: string,
   targetPlatform: string,

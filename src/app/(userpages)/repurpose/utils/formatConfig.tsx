@@ -1,20 +1,20 @@
 import {
   FileText,
   Youtube,
-  Instagram,
   Twitter,
   Linkedin,
   Sparkles,
   Link
 } from "lucide-react";
+import TikTok from "@/components/icon/TikTok";
 
 export const inputFormats = [
   "blog",
-  "youtube video",
-  "instagram reel",
   "x thread",
   "reddit post",
-  "linkedin post"
+  "linkedin post",
+  "youtube video",
+  "tiktok video"
 ] as const;
 
 export const defaultTones: { name: string; instruction: string }[] = [
@@ -43,7 +43,7 @@ export const defaultTones: { name: string; instruction: string }[] = [
 export const formatIcons: Record<string, JSX.Element> = {
   blog: <FileText className="w-4 h-4" />,
   "youtube video": <Youtube className="w-4 h-4" />,
-  "instagram reel": <Instagram className="w-4 h-4" />,
+  "tiktok video": <TikTok className="w-4 h-4" />,
   "x thread": <Twitter className="w-4 h-4" />,
   "linkedin post": <Linkedin className="w-4 h-4" />,
   "reddit post": <Link className="w-4 h-4" />,
@@ -58,8 +58,8 @@ export const outputOptionsMap: Record<(typeof inputFormats)[number], string[]> =
   {
     blog: ["tweet", "x thread", "linkedin post", "reddit post"],
     "youtube video": ["tweet", "x thread", "linkedin post", "reddit post"],
-    "instagram reel": ["tweet", "x thread", "linkedin post", "reddit post"],
-    "x thread": ["linkedin post", "reddit post"],
-    "linkedin post": ["x thread", "tweet", "reddit post"],
+    "tiktok video": ["tweet", "x thread", "linkedin post", "reddit post"],
+    "x thread": ["tweet", "linkedin post", "reddit post"],
+    "linkedin post": ["tweet", "reddit post"],
     "reddit post": ["tweet", "linkedin post"]
   };

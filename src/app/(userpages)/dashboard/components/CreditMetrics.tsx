@@ -7,9 +7,9 @@ import {
   FileText,
   ListOrdered,
   FilePen,
-  Youtube,
-  Instagram
+  Youtube
 } from "lucide-react";
+import TikTok from "@/components/icon/TikTok";
 
 import PowerUserBox from "./PowerUserBox";
 import { ErrorBox } from "@/components/ui/errorbox";
@@ -142,7 +142,7 @@ const CreditMetrics = async ({ currentUserId }: { currentUserId: string }) => {
 
                 <div>
                   <h4 className="font-semibold mb-3 border-b pb-2">
-                    🎥 Media Formats (Coming Soon 🚀)
+                    🎥 Media Formats
                   </h4>
                   <ul className="flex flex-col items-start text-sm divide-y divide-border rounded-lg border overflow-hidden">
                     <li className="w-full py-2 px-3 flex justify-between items-center hover:bg-muted/50 transition-colors">
@@ -150,12 +150,12 @@ const CreditMetrics = async ({ currentUserId }: { currentUserId: string }) => {
                         <Youtube className="w-4 h-4 text-muted-foreground" />
                         YouTube Video → Other Formats
                       </span>
-                      <strong>6 credits</strong>
+                      <strong>8 credits</strong>
                     </li>
                     <li className="w-full py-2 px-3 flex justify-between items-center hover:bg-muted/50 transition-colors">
                       <span className="flex items-center gap-2 text-xs">
-                        <Instagram className="w-4 h-4 text-muted-foreground" />
-                        Instagram Reel → Other Formats
+                        <TikTok className="w-4 h-4 text-muted-foreground" />
+                        TikTok Video → Other Formats
                       </span>
                       <strong>8 credits</strong>
                     </li>

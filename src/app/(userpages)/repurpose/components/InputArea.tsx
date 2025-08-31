@@ -15,7 +15,7 @@ const InputArea = ({ inputFormat, value, onChange, disabled }: Props) => {
   useAutoGrowTextarea(textareaRef, value);
 
   const isLinkInput =
-    inputFormat === "youtube video" || inputFormat === "instagram reel";
+    inputFormat === "youtube video" || inputFormat === "tiktok video";
 
   if (isLinkInput) {
     return (

@@ -59,8 +59,8 @@ const RepurposeForm = ({ userId }: { userId: string }) => {
         return;
       }
 
-      if (inputFormat === "youtube video" || inputFormat === "instagram reel") {
-        toast.warn("Media format not yet supported");
+      if (inputFormat === "instagram reel") {
+        toast.warning("Instagram reel not yet supported");
         return;
       }
 
@@ -87,6 +87,7 @@ const RepurposeForm = ({ userId }: { userId: string }) => {
     startTransition(async () => {
       try {
         await deleteDraft(id);
+        setRepurposedResult([]);
       } catch (err: unknown) {
         if (err instanceof Error) {
           toast.error("Error deleting generated draft");
@@ -152,7 +153,7 @@ const RepurposeForm = ({ userId }: { userId: string }) => {
           <Button
             type="submit"
             className={`w-[60%] h-12 p-4 rounded-xl transition-all duration-500 ${
-              loading ? "hover:opacity-70" : ""
+              loading ? "opacity-40" : ""
             }`}
           >
             {loading ? "Transforming..." : "Repurpose Now"}
