@@ -38,8 +38,8 @@ const HowItWorks = () => {
   const buttonRef = useScrollAnimation({ threshold: 0.1 });
 
   return (
-    <section id="how-it-works" className="py-28">
-      <div className="w-full px-4 md:px-6 xl:px-0">
+    <section id="how-it-works" className="py-28 md:px-8">
+      <div className="w-full px-4 md:px-8 xl:px-0">
         <div
           ref={headerRef as any}
           className="text-center max-w-3xl mx-auto mb-20 scroll-fade-in"

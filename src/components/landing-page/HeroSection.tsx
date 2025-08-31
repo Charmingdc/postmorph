@@ -85,7 +85,7 @@ const HeroSection = () => {
             </div>
           </div>
 
-          <div className="relative mt-16 w-full max-w-lg mx-auto animate-fade-in-right">
+          <div className="relative mt-16 w-full mx-auto animate-fade-in-right">
             <RepurposeDemo />
           </div>
         </div>

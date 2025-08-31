@@ -61,7 +61,7 @@ const FeaturesSection = () => {
 
   return (
     <section id="features">
-      <div className="w-full px-4 md:px-6">
+      <div className="w-full px-4 md:px-8">
         <div
           ref={headerRef as any}
           className="text-center max-w-3xl mx-auto mb-12 scroll-fade-in"

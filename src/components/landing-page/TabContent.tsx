@@ -105,9 +105,9 @@ const TabContent = ({ type }: TabContentProps) => {
               </div>
               <div className="flex-1">
                 <h4 className="font-medium">{platform.name}</h4>
-                <div className="h-16 mt-2 bg-muted/60 rounded-lg overflow-hidden relative">
+                <div className="h-16 mt-2 border border-secondary rounded-lg overflow-hidden relative">
                   <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-muted to-accent border border-[.1rem] rounded-lg shadow-lg"
+                    className="absolute inset-0 bg-gradient-to-r from-muted to-accent rounded-lg shadow-lg"
                     initial={{ scaleX: 0 }}
                     animate={{
                       scaleX:
@@ -134,7 +134,7 @@ const TabContent = ({ type }: TabContentProps) => {
               </div>
               <div className="flex-1">
                 <h4 className="font-medium">Create Once</h4>
-                <div className="h-16 mt-2 bg-muted/60 rounded-lg overflow-hidden relative">
+                <div className="h-16 mt-2 border border-secondary rounded-lg overflow-hidden relative">
                   <motion.div
                     className="absolute inset-0 bg-gradient-to-r from-muted to-primary border border-[.1rem] rounded-lg shadow-lg"
                     initial={{ scaleX: 0 }}

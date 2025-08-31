@@ -6,7 +6,7 @@ import TabContent from "./TabContent";
 
 const TimeComparisonSection = () => {
   return (
-    <section className="py-12 bg-background w-full overflow-visible rounded-3xl -mt-8">
+    <section className="py-8 bg-background w-full overflow-visible rounded-3xl">
       <div className="container px-4 md:px-6 mx-auto">
         {/* Header */}
         <motion.div
@@ -27,7 +27,7 @@ const TimeComparisonSection = () => {
 
         {/* Tabs */}
         <Tabs defaultValue="manual" className="w-full">
-          <TabsList className="h-12 grid w-full grid-cols-2 p-2 mb-8 rounded-full">
+          <TabsList className="h-12 grid w-full grid-cols-2 px-2 mb-8 rounded-full">
             <TabsTrigger value="manual" className="h-8 rounded-full">
               Manual Method
             </TabsTrigger>

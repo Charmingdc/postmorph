@@ -20,10 +20,10 @@ const RepurposeDemo = () => {
   };
 
   return (
-    <div className="w-[95%] max-w-lg mx-auto flex flex-col items-center bg-card border border rounded-2xl -mt-4 overflow-hidden">
+    <div className="w-[95%] mx-auto flex flex-col items-center bg-card border border rounded-2xl -mt-4 overflow-hidden">
       {/* Form Fields */}
 
-      <div className="p-6 space-y-4">
+      <div className="w-full p-6 space-y-4">
         <div className="w-full flex items-center justify-between">
           {/** Input Format **/}
           <div className="space-y-2">

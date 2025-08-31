@@ -5,6 +5,8 @@ import HowItWorks from "@/components/landing-page/HowItWorks";
 import TimeComparisonSection from "@/components/landing-page/TimeComparisonSection";
 import PricingSection from "@/components/landing-page/PricingSection";
 import TestimonialsSection from "@/components/landing-page/TestimonialsSection";
+import FaqSection from "@/components/landing-page/FaqSection";
+import Footer from "@/components/landing-page/Footer";
 
 const Page = () => {
   return (
@@ -20,7 +22,12 @@ const Page = () => {
         <TimeComparisonSection />
         <PricingSection />
         <TestimonialsSection />
+        <FaqSection />
       </main>
+
+      <footer className="w-screen">
+        <Footer />
+      </footer>
     </div>
   );
 };

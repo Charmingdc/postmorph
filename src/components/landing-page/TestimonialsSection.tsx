@@ -21,29 +21,19 @@ const testimonials = [
     author: "Emily Rodriguez",
     role: "Marketing Director",
     avatar: "https://randomuser.me/api/portraits/women/2.jpg"
-  },
-  {
-    quote:
-      "The ROI on this product is incredible. We're creating 5x more content with the same resources, and our engagement has never been higher.",
-    author: "David Chen",
-    role: "Social Media Manager",
-    avatar: "https://randomuser.me/api/portraits/men/2.jpg"
   }
 ];
 
 const TestimonialsSection = () => {
   return (
-    <section
-      id="testimonials"
-      className="py-20 bg-gradient-to-b from-background to-background/80 -mt-8"
-    >
+    <section id="testimonials" className="py-10 -mt-8">
       <div className="container px-4 md:px-6">
         <div className="text-center max-w-3xl mx-auto mb-12 animate-fade-in">
-          <h2 className="text-3xl font-bold mb-4">
-            Loved by <span className="heading-gradient">content creators</span>
+          <h2 className="text-2xl font-bold mb-4">
+            Loved by <span className="heading-gradient">content creators </span>
             worldwide
           </h2>
-          <p className="text-muted-foreground text-lg">
+          <p className="text-muted-foreground text-md">
             See what our users have to say about their experience with our
             platform
           </p>
@@ -53,10 +43,10 @@ const TestimonialsSection = () => {
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="animate-fade-in bg-white/60 dark:bg-secondary/80 backdrop-blur-sm border border-secondary/10 rounded-2xl p-6 shadow-sm"
+              className="animate-fade-in bg-card border rounded-2xl p-6 shadow-sm"
             >
-              <Quote className="h-10 w-10 text-primary/20 mb-4" />
-              <p className="text-lg mb-6">"{testimonial.quote}"</p>
+              <Quote className="h-10 w-10 text-accent mb-4" />
+              <p className="text-md mb-6">"{testimonial.quote}"</p>
               <div className="flex items-center">
                 <img
                   src={testimonial.avatar}

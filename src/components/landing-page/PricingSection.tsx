@@ -52,8 +52,8 @@ const plans = [
 
 const PricingSection = () => {
   return (
-    <section id="pricing" className="py-20 -mt-10">
-      <div className="container px-4 md:px-6">
+    <section id="pricing" className="py-20">
+      <div className="container px-4">
         <div className="text-center max-w-3xl mx-auto mb-12 animate-fade-in">
           <h2 className="text-2xl font-bold mb-4">
             <span className="heading-gradient">Pay-As-You-Go</span> – No
@@ -65,11 +65,11 @@ const PricingSection = () => {
           </p>
         </div>
 
-        <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(19rem,1fr))] gap-6 py-6 text-left -mt-6">
+        <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(19rem,1fr))] gap-y-6 gap-x-8 py-6 text-left -mt-6">
           {plans.map((plan, i) => (
             <div
               key={i}
-              className={`relative w-full bg-card border rounded-2xl py-6 px-4 flex flex-col gap-4 transition-all duration-300 ${
+              className={`relative w-full bg-card border rounded-2xl p-6 flex flex-col gap-4 transition-all duration-300 ${
                 plan.highlight
                   ? "border-blue-500 shadow-xl"
                   : "border border shadow-md"
