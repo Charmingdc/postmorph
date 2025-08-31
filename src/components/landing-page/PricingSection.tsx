@@ -52,7 +52,7 @@ const plans = [
 
 const PricingSection = () => {
   return (
-    <section id="pricing" className="py-20">
+    <section id="pricing" className="py-20 -mt-10">
       <div className="container px-4 md:px-6">
         <div className="text-center max-w-3xl mx-auto mb-12 animate-fade-in">
           <h2 className="text-2xl font-bold mb-4">

@@ -73,10 +73,6 @@
 }
 
 @layer components {
-  .glass-card {
-    @apply bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm border border-white/20 dark:border-zinc-800/30 shadow-lg rounded-3xl;
-  }
-  
   .heading-gradient {
     @apply bg-gradient-to-r from-primary to-blue-400 dark:from-primary dark:to-blue-300 bg-clip-text text-transparent;
   }

@@ -4,6 +4,7 @@ import FeaturesSection from "@/components/landing-page/FeaturesSection";
 import HowItWorks from "@/components/landing-page/HowItWorks";
 import TimeComparisonSection from "@/components/landing-page/TimeComparisonSection";
 import PricingSection from "@/components/landing-page/PricingSection";
+import TestimonialsSection from "@/components/landing-page/TestimonialsSection";
 
 const Page = () => {
   return (
@@ -18,8 +19,7 @@ const Page = () => {
         <HowItWorks />
         <TimeComparisonSection />
         <PricingSection />
-        {/*
-        <TestimonialsSection /> */}
+        <TestimonialsSection />
       </main>
     </div>
   );
