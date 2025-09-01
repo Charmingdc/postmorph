@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { FileSymlink, Zap, Share2, MessageCircle } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import { useScrollRefs } from "@/hooks/useScrollRefs";
 
 const steps = [
   {
@@ -38,11 +37,14 @@ const HowItWorks = () => {
 
   const headerRef = useScrollAnimation();
   const buttonRef = useScrollAnimation({ threshold: 0.1 });
-  
-  const stepRefs = useScrollRefs(steps.length, {
-    threshold: 0.1,
-    rootMargin: "0px 0px"
-  });
+
+  // Explicit hook calls for each step
+  const stepRef0 = useScrollAnimation({ threshold: 0.1 });
+  const stepRef1 = useScrollAnimation({ threshold: 0.1 });
+  const stepRef2 = useScrollAnimation({ threshold: 0.1 });
+  const stepRef3 = useScrollAnimation({ threshold: 0.1 });
+
+  const stepRefs = [stepRef0, stepRef1, stepRef2, stepRef3];
 
   return (
     <section id="how-it-works" className="py-28 md:px-8">
