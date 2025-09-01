@@ -50,4 +50,11 @@ type UserLog = {
   action_at: string | Date;
 };
 
-export type { ActionState, Profile, CreditInfo, DraftType, CustomVoice };
+export type {
+  ActionState,
+  Profile,
+  CreditInfo,
+  DraftType,
+  CustomVoice,
+  UserLog
+};

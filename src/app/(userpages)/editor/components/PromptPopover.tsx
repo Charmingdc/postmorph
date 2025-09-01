@@ -71,7 +71,7 @@ content: ${content}`);
       setReqOutput(null);
       setPrompt("");
     }
-  }, [isOpen]);
+  }, [setPrompt, isOpen]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

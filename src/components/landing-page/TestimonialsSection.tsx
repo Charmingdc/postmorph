@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Quote } from "lucide-react";
 
 const testimonials = [
@@ -46,10 +47,12 @@ const TestimonialsSection = () => {
               className="animate-fade-in bg-card border rounded-2xl p-6 shadow-sm"
             >
               <Quote className="h-10 w-10 text-accent mb-4" />
-              <p className="text-md mb-6">"{testimonial.quote}"</p>
+              <p className="text-md mb-6">{testimonial.quote}</p>
               <div className="flex items-center">
-                <img
+                <Image
                   src={testimonial.avatar}
+                  width={40}
+                  height={40}
                   alt={testimonial.author}
                   className="h-12 w-12 rounded-full object-cover mr-4"
                 />

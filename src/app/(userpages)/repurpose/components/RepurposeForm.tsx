@@ -7,7 +7,6 @@ import { toast } from "sonner";
 import DropdownField from "./DropdownField";
 import InputArea from "./InputArea";
 import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
 import DraftBox from "@/components/drafts/DraftBox";
 import { Sparkles, FileText } from "lucide-react";
 

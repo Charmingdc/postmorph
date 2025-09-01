@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useIsMobile } from "@/hooks/use-mobile";
 import { createClient } from "@/utils/supabase/client";
 
 import Image from "next/image";
@@ -24,7 +23,6 @@ const navLinks: NavLinks[] = [
 ];
 
 const Navbar = () => {
-  const isMobile = useIsMobile();
   const router = useRouter();
 
   const [isUser, setIsUser] = useState<boolean>(false);
@@ -72,7 +70,7 @@ const Navbar = () => {
 
       {/** menu **/}
       {isMenuOpen && (
-        <div className="w-[90%] fixed top-24 flex flex-col justify-center bg-blue-900/10  backdrop-blur-md p-3 gap-4 rounded-lg z-10">
+        <div className="w-[90%] fixed top-24 flex flex-col justify-center bg-blue-900/10 backdrop-blur-md p-3 gap-4 rounded-lg z-10 md:flex-row  md:items-center md:justify-evenly">
           <ul className="w-full flex flex-col items-start justify-center gap-3">
             {navLinks.map((link, index) => (
               <li key={index}>

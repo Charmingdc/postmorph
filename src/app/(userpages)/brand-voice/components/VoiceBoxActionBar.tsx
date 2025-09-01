@@ -90,8 +90,8 @@ const VoiceBoxActionBar = ({ voice }: PageProps) => {
           <DialogHeader>
             <DialogTitle>Update Voice Details</DialogTitle>
             <DialogDescription>
-              Fill the form below to update the details for this custom writing
-              style. Click save when you're done.
+              {`Fill the form below to update the details for this custom writing
+              style. Click save when you're done.`}
             </DialogDescription>
           </DialogHeader>
 

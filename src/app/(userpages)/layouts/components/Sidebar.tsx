@@ -16,7 +16,6 @@ import {
   Send,
   ChevronsUpDown,
   CircleUserRound,
-  Bell,
   LogOut
 } from "lucide-react";
 

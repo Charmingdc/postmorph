@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { FileSymlink, Zap, Share2, MessageCircle } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { useScrollRefs } from "@/hooks/useScrollRefs";
 
 const steps = [
   {
@@ -34,14 +35,20 @@ const steps = [
 
 const HowItWorks = () => {
   const router = useRouter();
+
   const headerRef = useScrollAnimation();
   const buttonRef = useScrollAnimation({ threshold: 0.1 });
+  
+  const stepRefs = useScrollRefs(steps.length, {
+    threshold: 0.1,
+    rootMargin: "0px 0px"
+  });
 
   return (
     <section id="how-it-works" className="py-28 md:px-8">
       <div className="w-full px-4 md:px-8 xl:px-0">
         <div
-          ref={headerRef as any}
+          ref={headerRef}
           className="text-center max-w-3xl mx-auto mb-20 scroll-fade-in"
         >
           <h2 className="text-2xl font-bold mb-2">
@@ -54,11 +61,6 @@ const HowItWorks = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 -mt-2">
           {steps.map((step, index) => {
-            const stepRef = useScrollAnimation({
-              threshold: 0.1,
-              rootMargin: `${index * 50}px 0px`
-            });
-
             const animationClass =
               index % 2 === 0 ? "scroll-fade-in-left" : "scroll-fade-in-right";
             const tiltAngle = index % 2 === 0 ? "rotate-4" : "-rotate-4";
@@ -66,9 +68,8 @@ const HowItWorks = () => {
             return (
               <div
                 key={index}
-                ref={stepRef as any}
-                className={`relative flex flex-col items-center text-center ${animationClass} rounded-xl p-6 bg-card backdrop-blur-sm shadow-sm transform ${tiltAngle} transition-all duration-300
-                hover:shadow-md`}
+                ref={stepRefs[index]}
+                className={`relative flex flex-col items-center text-center ${animationClass} rounded-xl p-6 bg-card backdrop-blur-sm shadow-sm transform ${tiltAngle} transition-all duration-300 hover:shadow-md`}
                 style={
                   {
                     transitionDelay: `${index * 100}ms`,
@@ -86,10 +87,7 @@ const HowItWorks = () => {
           })}
         </div>
 
-        <div
-          ref={buttonRef as any}
-          className="text-center mt-12 scroll-fade-in"
-        >
+        <div ref={buttonRef} className="text-center mt-12 scroll-fade-in">
           <Button
             size="lg"
             className="button-pulse rounded-xl"

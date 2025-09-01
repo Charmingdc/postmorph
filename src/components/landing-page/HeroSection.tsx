@@ -71,6 +71,7 @@ const HeroSection = () => {
                 </span>
               </div>
               <div className="flex items-center gap-2 rounded-xl px-4 py-2.5 bg-card/60 backdrop-blur-sm border shadow-sm hover:shadow-md transition-all duration-300 hover:border-blue-800/20">
+                {/* eslint-disable-next-line jsx-a11y/alt-text */}
                 <Image className="h-5 w-5 text-primary" />
                 <span className="text-sm text-muted-foreground">
                   TikTok Videos

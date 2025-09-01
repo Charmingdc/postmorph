@@ -1,5 +1,5 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
-import type { UserLog } from "@/types";
+import type { UserLog } from "@/types/index";
 
 type UserProfile = {
   total_credits: number;
@@ -29,7 +29,8 @@ export default async function logUserAction(
         : creditsBefore;
 
     // Remove `user` before inserting
-    const { user, ...logData } = log;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { user: __unused, ...logData } = log;
 
     // Final payload for DB
     const insertPayload: UserLog = {

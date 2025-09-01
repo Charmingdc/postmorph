@@ -6,9 +6,7 @@ import {
   VideoIcon,
   ImageIcon,
   FileText,
-  Clock,
-  Wand2,
-  BrainCircuit
+  Wand2
 } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
@@ -37,12 +35,6 @@ const features = [
     description:
       "Turn your long-form blog posts into bite-sized social media content."
   },
-  /* {
-    icon: <Clock className="h-8 w-8 text-primary" />,
-    title: "Schedule Publishing",
-    description:
-      "Schedule your repurposed content to be published across platforms."
-  }, */
   {
     icon: <Wand2 className="h-8 w-8 text-primary" />,
     title: "AI-Powered Editing",
@@ -59,11 +51,28 @@ const features = [
 const FeaturesSection = () => {
   const headerRef = useScrollAnimation();
 
+  // Explicit hook calls for each feature
+  const featureRef0 = useScrollAnimation({ threshold: 0.1 });
+  const featureRef1 = useScrollAnimation({ threshold: 0.1 });
+  const featureRef2 = useScrollAnimation({ threshold: 0.1 });
+  const featureRef3 = useScrollAnimation({ threshold: 0.1 });
+  const featureRef4 = useScrollAnimation({ threshold: 0.1 });
+  const featureRef5 = useScrollAnimation({ threshold: 0.1 });
+
+  const featureRefs = [
+    featureRef0,
+    featureRef1,
+    featureRef2,
+    featureRef3,
+    featureRef4,
+    featureRef5
+  ];
+
   return (
     <section id="features">
       <div className="w-full px-4 md:px-8">
         <div
-          ref={headerRef as any}
+          ref={headerRef}
           className="text-center max-w-3xl mx-auto mb-12 scroll-fade-in"
         >
           <h2 className="text-2xl font-bold mb-1">
@@ -78,18 +87,13 @@ const FeaturesSection = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feature, index) => {
-            const featureRef = useScrollAnimation({
-              threshold: 0.1,
-              rootMargin: `${index * 50}px 0px`
-            });
-
             const animationClass =
               index % 2 === 0 ? "scroll-fade-in-left" : "scroll-fade-in-right";
 
             return (
               <div
                 key={index}
-                ref={featureRef as any}
+                ref={featureRefs[index]}
                 className={`bg-card rounded-xl p-6 shadow-sm hover:blue-800/40 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${animationClass}`}
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
