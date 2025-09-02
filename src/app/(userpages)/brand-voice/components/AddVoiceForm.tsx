@@ -25,7 +25,7 @@ const AddVoiceForm = ({ userId }: { userId: string }) => {
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
 
   const [formState, formAction, isPending] = useActionState(addNewVoice, {
-    type: "",
+    type: "" as "" | "success" | "error",
     message: ""
   });
 

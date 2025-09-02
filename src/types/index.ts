@@ -1,5 +1,5 @@
 type ActionState = {
-  type: "success" | "error" | "";
+  type: "" | "success" | "error";
   message: string;
 };
 
