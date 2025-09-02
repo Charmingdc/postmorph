@@ -1,6 +1,6 @@
 const Tiktok = ({
   size = 52,
-  className
+  className = ""
 }: {
   size: number;
   className: string;
