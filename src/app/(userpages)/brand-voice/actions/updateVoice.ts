@@ -14,8 +14,7 @@ const updateVoice = async (
   const instruction = formData.get("voice_instruction") as string;
 
   if (!voiceId) {
-    console.error("From update voice function: Voice Id is undefined");
-    return;
+    return { type: "error", message: "No voice Id is proivided" };
   }
 
   const supabase = await createClient();

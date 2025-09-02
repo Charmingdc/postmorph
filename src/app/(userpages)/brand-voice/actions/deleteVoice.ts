@@ -11,7 +11,6 @@ const deleteVoice = async (
   const voiceId = formData.get("voice_id") as string;
 
   if (!voiceId) {
-    console.error("From delete voice function: Voice Id is undefined");
     return { type: "error", message: "No voice Id is proivided" };
   }
 
