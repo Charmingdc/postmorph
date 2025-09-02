@@ -33,7 +33,9 @@ const VoiceList = ({ userId }: { userId: string }) => {
         "postgres_changes",
         { event: "*", schema: "public", table: "custom_voices" },
         () => {
-          queryClient.invalidateQueries(["customVoices", userId]);
+          queryClient.invalidateQueries({
+            queryKey: ["customVoices", userId]
+          });
         }
       )
       .subscribe();
