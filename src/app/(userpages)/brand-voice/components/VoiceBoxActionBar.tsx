@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { toast } from "sonner";
 import { useActionState } from "react";
-import type { CustomVoice } from "@/types/index";
+import type { ActionState, CustomVoice } from "@/types/index";
 
 import useConfirmDelete from "@/app/hooks/useConfirmDelete";
 import updateVoice from "../actions/updateVoice";
@@ -25,7 +25,10 @@ type PageProps = {
   voice: CustomVoice;
 };
 
-const initialState = { type: "", message: "" };
+const initialState: ActionState = {
+  type: "" as ActionState["type"],
+  message: ""
+};
 
 const VoiceBoxActionBar = ({ voice }: PageProps) => {
   const formRef = useRef<HTMLFormElement>(null);
