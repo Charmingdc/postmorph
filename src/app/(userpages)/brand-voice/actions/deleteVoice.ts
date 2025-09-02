@@ -12,7 +12,7 @@ const deleteVoice = async (
 
   if (!voiceId) {
     console.error("From delete voice function: Voice Id is undefined");
-    return;
+    return { type: "error", message: "No voice Id is proivided" };
   }
 
   const supabase = await createClient();
