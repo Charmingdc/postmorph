@@ -6,15 +6,19 @@ import AddVoiceForm from "./components/AddVoiceForm";
 import VoiceList from "./components/VoiceList";
 
 const BrandVoicePage = async () => {
-  const userProfile: Profile = await getProfile();
+  const userProfile: Profile | null = await getProfile();
 
   return (
     <main className="mb-14">
       <p> Add custom voices that reflects your brand. </p>
 
-      <VoiceCountBar userId={userProfile.user_id} />
+      { userProfile && 
+        <>
+        <VoiceCountBar userId={userProfile.user_id} />
       <AddVoiceForm userId={userProfile.user_id} />
       <VoiceList userId={userProfile.user_id} />
+      </>
+}
     </main>
   );
 };
