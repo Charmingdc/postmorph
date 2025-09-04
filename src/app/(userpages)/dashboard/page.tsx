@@ -7,18 +7,13 @@ import { Suspense } from "react";
 
 const Dashboard = async () => {
   const profile = await getProfile();
-
-  let userId: string;
-  if (profile) {
-    userId = profile.user_id;
-  }
+  const userId = profile?.user_id;
 
   return (
     <main className="w-full flex flex-col items-center">
       {userId && (
         <>
           <CreditMetrics currentUserId={userId} />
-
           <Suspense fallback={<DraftLoader />}>
             <RecentDrafts currentUserId={userId} />
           </Suspense>
