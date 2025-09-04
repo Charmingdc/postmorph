@@ -22,6 +22,7 @@ type PageProps = {
   user_id: string;
   draft: DraftType;
 };
+type Plan = "pro" | "creator" | "free" | "starter";
 
 const TWEET_BREAK = "--tweet break--";
 
@@ -197,7 +198,10 @@ const ContentEditor = ({ user_id, draft }: PageProps) => {
           Loading Usage
         </p>
       ) : (
-        <ModifyCountBadge modifyCount={modifyCount} userPlan={profile.plan} />
+        <ModifyCountBadge
+          modifyCount={modifyCount}
+          userPlan={profile.plan as Plan}
+        />
       )}
 
       {/* Delete Draft */}
