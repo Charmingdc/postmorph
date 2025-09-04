@@ -7,7 +7,9 @@ import { Suspense } from "react";
 
 const Dashboard = async () => {
   const profile = await getProfile();
-  if (profile) const userId = profile.user_id;
+  if (profile) {
+    const userId = profile.user_id;
+  }
 
   return (
     <main className="w-full flex flex-col items-center">
