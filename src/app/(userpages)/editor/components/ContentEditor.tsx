@@ -36,7 +36,10 @@ const ContentEditor = ({ user_id, draft }: PageProps) => {
 
   const [updateDraftState, updateDraftAction, isUpdatingDraft] = useActionState(
     updateDraft,
-    { type: "", message: "" }
+    {
+      type: "" as "" | "success" | "error",
+      message: ""
+    }
   );
 
   const [deleting, confirmBeforeDelete] = useConfirmDelete(
