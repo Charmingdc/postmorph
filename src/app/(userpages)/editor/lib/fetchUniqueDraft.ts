@@ -17,7 +17,7 @@ const fetchUniqueDraft = async (
     .single();
 
   if (error || !data) {
-    throw new Error(error.message);
+    throw new Error(error?.message ?? "Unknown error");
   }
 
   return {
