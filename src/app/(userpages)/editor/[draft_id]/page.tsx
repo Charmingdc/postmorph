@@ -2,9 +2,12 @@ import getCurrentUserId from "../utils/getCurrentUserId";
 import fetchUniqueDraft from "../lib/fetchUniqueDraft";
 import ContentEditor from "../components/ContentEditor";
 import { ErrorBox } from "@/components/ui/errorbox";
-import type { PageProps } from "next/app";
 
-type DraftPageProps = PageProps<{ draft_id: string }>;
+type DraftPageProps = {
+  params: {
+    draft_id: string;
+  };
+};
 
 const Page = async ({ params }: DraftPageProps) => {
   try {
