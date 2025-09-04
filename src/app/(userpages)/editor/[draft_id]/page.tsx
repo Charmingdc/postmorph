@@ -4,18 +4,14 @@ import ContentEditor from "../components/ContentEditor";
 import { ErrorBox } from "@/components/ui/errorbox";
 
 type DraftPageProps = {
-  params: {
-    draft_id: string;
-  };
+  params: Promise<{ draft_id: string }>;
 };
 
 const Page = async ({ params }: DraftPageProps) => {
   try {
-    // Get the current user ID
+    const { draft_id } = await params; // 👈 Await params here
     const user_id = await getCurrentUserId();
-
-    // Fetch the draft for this user
-    const draft = await fetchUniqueDraft(user_id, params.draft_id);
+    const draft = await fetchUniqueDraft(user_id, draft_id);
 
     return (
       <main className="w-full flex flex-col items-center">
