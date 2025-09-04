@@ -26,7 +26,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import Spinner from "@/components/ui/spinner";
 
-const ACTIONS: { action: string; icon: React.ReactNode }[] = [
+const ACTIONS: { action: string; icon: React.ElementType }[] = [
   { action: "Add Hook", icon: Wand },
   { action: "Fix Grammar", icon: SpellCheck },
   { action: "Condense", icon: AlignCenterVertical },
