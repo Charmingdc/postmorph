@@ -198,10 +198,12 @@ const ContentEditor = ({ user_id, draft }: PageProps) => {
           Loading Usage
         </p>
       ) : (
-       profile &&  <ModifyCountBadge
-          modifyCount={modifyCount}
-          userPlan={profile.plan as Plan}
-        /> 
+        profile && (
+          <ModifyCountBadge
+            modifyCount={modifyCount}
+            userPlan={profile.plan as Plan}
+          />
+        )
       )}
 
       {/* Delete Draft */}
@@ -236,7 +238,7 @@ const ContentEditor = ({ user_id, draft }: PageProps) => {
           className="disabled:opacity-50"
         >
           {deleting ? (
-            <Spinner width="w-4" height="h-4" />
+            <Spinner w="w-4" h="h-4" />
           ) : (
             <Trash
               size={18}
