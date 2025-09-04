@@ -7,7 +7,7 @@ const RepurposePage = async () => {
 
   return (
     <main className="w-full">
-      <RepurposeForm userId={userProfile.user_id} />
+      {userProfile && <RepurposeForm userId={userProfile.user_id} />}
     </main>
   );
 };

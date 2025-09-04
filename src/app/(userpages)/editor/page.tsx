@@ -7,7 +7,7 @@ const EditorPage = async () => {
 
   return (
     <main className="w-full">
-      <DraftsList currentUserId={profile.user_id} />
+      {profile && <DraftsList currentUserId={profile.user_id} />}
     </main>
   );
 };
