@@ -1,7 +1,7 @@
 "use server";
 
 import { createClient } from "@/utils/supabase/server";
-import type { DraftType } from "@/lib/types";
+import type { DraftType } from "@/types/index";
 
 const fetchUniqueDraft = async (
   userId: string,
