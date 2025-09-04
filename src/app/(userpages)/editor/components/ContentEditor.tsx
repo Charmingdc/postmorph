@@ -198,10 +198,10 @@ const ContentEditor = ({ user_id, draft }: PageProps) => {
           Loading Usage
         </p>
       ) : (
-        <ModifyCountBadge
+       profile &&  <ModifyCountBadge
           modifyCount={modifyCount}
           userPlan={profile.plan as Plan}
-        />
+        /> 
       )}
 
       {/* Delete Draft */}
