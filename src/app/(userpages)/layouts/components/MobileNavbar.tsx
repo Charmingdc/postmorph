@@ -3,7 +3,6 @@
 import { toast } from "sonner";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-
 import { LayoutDashboard, CircleUserRound, LogOut } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -11,7 +10,6 @@ import {
   PopoverContent,
   PopoverTrigger
 } from "@/components/ui/popover";
-
 import signout from "@/app/auth/actions/signout";
 
 type CleanUser = {
@@ -28,9 +26,9 @@ const formatPageName = (name: string | undefined) => {
 
 const MobileNavbar = ({ currentUser }: { currentUser: CleanUser }) => {
   const router = useRouter();
-  const pathname: string = usePathname();
+  const pathname = usePathname() || "";
   const segments = pathname.split("/").filter(Boolean);
-  const pageName: string | undefined = segments[0];
+  const pageName = segments[0];
 
   const handleSignout = async () => {
     try {
@@ -38,13 +36,11 @@ const MobileNavbar = ({ currentUser }: { currentUser: CleanUser }) => {
       await signout();
       toast.dismiss(toastId);
       router.push("/auth/signin");
-    } catch (err: unknown) {
+    } catch (err) {
       if (err instanceof Error) {
-        toast.error("Error signing out", {
-          description: err.message
-        });
+        toast.error("Error signing out", { description: err.message });
       } else {
-        toast.error("An unknown error as occured");
+        toast.error("An unknown error has occurred");
       }
     }
   };
@@ -59,7 +55,7 @@ const MobileNavbar = ({ currentUser }: { currentUser: CleanUser }) => {
             </h2>
           ) : (
             <div className="flex items-center gap-1 pt-3 -mb-2">
-              <h2> {formatPageName(pageName)} </h2>
+              <h2>{formatPageName(pageName)}</h2>
             </div>
           )}
         </li>
@@ -69,37 +65,34 @@ const MobileNavbar = ({ currentUser }: { currentUser: CleanUser }) => {
               <PopoverTrigger asChild>
                 <Avatar className="w-10 h-10 border border-border rounded-full mr-2 mt-1">
                   <AvatarImage
-                    src={currentUser.avatar_url}
-                    alt={currentUser.name}
+                    src={currentUser.avatar_url || ""}
+                    alt={currentUser.name || ""}
                     className="w-10 h-10 object-cover"
                   />
                   <AvatarFallback className="text-lg font-bold uppercase">
-                    {currentUser.name.slice(0, 2)}
+                    {currentUser.name?.slice(0, 2) || ""}
                   </AvatarFallback>
                 </Avatar>
               </PopoverTrigger>
-
               <PopoverContent className="rounded-xl m-2 mr-4">
                 <div className="w-ful flex items-center gap-2 pb-2 border-b-2">
                   <Avatar className="rounded-full">
                     <AvatarImage
-                      src={currentUser.avatar_url}
-                      alt={currentUser.name}
+                      src={currentUser.avatar_url || ""}
+                      alt={currentUser.name || ""}
                       className="w-10 h-10 object-cover"
                     />
                     <AvatarFallback className="font-bold uppercase">
-                      {currentUser.name.slice(0, 2)}
+                      {currentUser.name?.slice(0, 2) || ""}
                     </AvatarFallback>
                   </Avatar>
-
                   <div className="w-full text-[.8rem]">
                     <p className="w-full font-bold truncate">
-                      {currentUser.name}
+                      {currentUser.name || ""}
                     </p>
-                    <p className="w-full truncate">{currentUser.email}</p>
+                    <p className="w-full truncate">{currentUser.email || ""}</p>
                   </div>
                 </div>
-
                 <div className="w-full flex flex-col items-center gap-y-2 py-2 border-b-2 my-2">
                   <Link
                     href="/dashboard"
@@ -107,7 +100,6 @@ const MobileNavbar = ({ currentUser }: { currentUser: CleanUser }) => {
                   >
                     <LayoutDashboard size={20} /> Dashboard
                   </Link>
-
                   <Link
                     href="/settings"
                     className="w-full flex items-center gap-2 p-2 rounded-lg hover:bg-card hover:text-primary"
@@ -115,7 +107,6 @@ const MobileNavbar = ({ currentUser }: { currentUser: CleanUser }) => {
                     <CircleUserRound size={20} /> Account Settings
                   </Link>
                 </div>
-
                 <button
                   onClick={handleSignout}
                   className="flex items-center gap-2 text-red-600"
