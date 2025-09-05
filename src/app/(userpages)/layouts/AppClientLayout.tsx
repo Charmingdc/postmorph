@@ -20,14 +20,15 @@ type CleanUser = {
   avatar_url: string;
 };
 
-const fetchCurrentUser = async (): Promise<CleanUser> => {
+// Fetch user and return null if no user
+const fetchCurrentUser = async (): Promise<CleanUser | null> => {
   const supabase = createClient();
   const { data, error } = await supabase.auth.getUser();
 
   if (error) throw new Error(error.message);
   const user = data.user;
 
-  if (!user) return;
+  if (!user) return null;
 
   return {
     id: user.id,
@@ -45,18 +46,20 @@ const AppClientLayout = ({ children }: { children: React.ReactNode }) => {
     data: currentUser,
     error,
     isLoading
-  } = useQuery<CleanUser>({
+  } = useQuery<CleanUser | null>({
     queryKey: ["currentUser"],
     queryFn: fetchCurrentUser,
     staleTime: 1000 * 60 * 5
   });
 
+  // Redirect if not signed in
   useEffect(() => {
-    if (!isLoading && !currentUser) {
+    if (!isLoading && currentUser === null) {
       router.push("/auth/signin");
     }
   }, [isLoading, currentUser, router]);
 
+  // Show error toast if something went wrong
   useEffect(() => {
     if (error) {
       toast.error("Something went wrong", {
