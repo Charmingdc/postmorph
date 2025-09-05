@@ -3,7 +3,7 @@ import type { Profile } from "@/types/index";
 import DraftsList from "@/components/drafts/DraftsList";
 
 const EditorPage = async () => {
-  const profile: Profile = await getProfile();
+  const profile: Profile | null = await getProfile();
 
   return (
     <main className="w-full">
