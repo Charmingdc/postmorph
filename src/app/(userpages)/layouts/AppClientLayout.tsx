@@ -1,9 +1,9 @@
 "use client";
 
 import { ReactNode } from "react";
-import { useMediaQuery } from "usehooks-ts";
-import MobileNavbar from "@/components/MobileNavbar";
-import Sidebar from "@/components/Sidebar";
+import { useIsMobile } from "@/hooks/use-mobile";
+import MobileNavbar from "./components/MobileNavbar";
+import Sidebar from "./components/Sidebar";
 
 type CleanUser = {
   id: string;
@@ -19,7 +19,7 @@ const AppClientLayout = ({
   children: ReactNode;
   currentUser: CleanUser;
 }) => {
-  const isMobile = useMediaQuery("(max-width: 1024px)");
+  const isMobile = useIsMobile();
 
   return (
     <div className="flex w-full min-h-screen">
