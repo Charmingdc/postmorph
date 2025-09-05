@@ -21,7 +21,9 @@ const Page = async ({ params }: DraftPageProps) => {
   } catch (err: unknown) {
     return (
       <main className="w-full flex flex-col items-center">
-        <ErrorBox message="Something went wrong loading the draft." />
+        <ErrorBox
+          message={`${err.message} || "Something went wrong loading the draft.`}
+        />
       </main>
     );
   }
