@@ -27,7 +27,7 @@ const fetchCurrentUser = async (): Promise<CleanUser> => {
   if (error) throw new Error(error.message);
   const user = data.user;
 
-  if (!user) return null;
+  if (!user) return;
 
   return {
     id: user.id,
@@ -73,7 +73,7 @@ const AppClientLayout = ({ children }: { children: React.ReactNode }) => {
           <MobileNavbar currentUser={currentUser} />
         </header>
       ) : (
-        <aside className='w-64'>
+        <aside className="w-64">
           <Sidebar currentUser={currentUser} />
         </aside>
       )}
