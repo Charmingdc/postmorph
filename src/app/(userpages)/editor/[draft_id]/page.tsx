@@ -9,7 +9,7 @@ type DraftPageProps = {
 
 const Page = async ({ params }: DraftPageProps) => {
   try {
-    const { draft_id } = await params; // 👈 Await params here
+    const { draft_id } = await params;
     const user_id = await getCurrentUserId();
     const draft = await fetchUniqueDraft(user_id, draft_id);
 
@@ -19,8 +19,6 @@ const Page = async ({ params }: DraftPageProps) => {
       </main>
     );
   } catch (err: unknown) {
-    console.error("Error loading draft:", err);
-
     return (
       <main className="w-full flex flex-col items-center">
         <ErrorBox message="Something went wrong loading the draft." />
