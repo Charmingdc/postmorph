@@ -11,10 +11,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 
+import type { CustomVoice } from "@/types/index";
 interface DropdownFieldProps {
   label: string;
-  value: string;
-  options: string[];
+  value: string | CustomVoice;
+  options: string[] | CustomVoice[];
   icon?: React.ReactNode;
   onChange: (value: string) => void;
 }
@@ -35,7 +36,7 @@ const DropdownField: React.FC<DropdownFieldProps> = ({
           className="w-full capitalize flex items-center justify-start"
         >
           {icon && <span className="mr-2">{icon}</span>}
-          {value?.name || value}
+          {typeof value === string ? value : value?.name}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-full">
@@ -44,11 +45,11 @@ const DropdownField: React.FC<DropdownFieldProps> = ({
         <DropdownMenuRadioGroup value={value} onValueChange={onChange}>
           {options.map(option => (
             <DropdownMenuRadioItem
-              key={option?.name || option}
+              key={typeof option === "string" ? option : option.name}
               value={option}
               className="capitalize"
             >
-              {option?.name || option}
+              {typeof option === "string" ? option : option.name}
             </DropdownMenuRadioItem>
           ))}
         </DropdownMenuRadioGroup>
