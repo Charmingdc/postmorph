@@ -67,32 +67,36 @@ const AppClientLayout = ({ children }: { children: React.ReactNode }) => {
   }, [error]);
 
   return (
-    <div className={`w-screen flex ${isMobile ? "flex-col" : "min-h-screen"}`}>
-      {isMobile ? (
-        <header>
-          <MobileNavbar currentUser={currentUser} />
-        </header>
-      ) : (
-        <aside className="w-64">
-          <Sidebar currentUser={currentUser} />
-        </aside>
-      )}
-
-      <main
-        className={`min-h-screen p-4 ${
-          !isMobile ? "bg-background rounded-lg m-4" : "pb-24"
-        } flex-1`}
+    currentUser && (
+      <div
+        className={`w-screen flex ${isMobile ? "flex-col" : "min-h-screen"}`}
       >
-        {!isMobile && currentUser && (
-          <Topbar currentUserName={currentUser.name} />
+        {isMobile ? (
+          <header>
+            <MobileNavbar currentUser={currentUser} />
+          </header>
+        ) : (
+          <aside className="w-64">
+            <Sidebar currentUser={currentUser} />
+          </aside>
         )}
 
-        {isLoading && <LoadingScreen />}
-        {!isLoading && !error && currentUser && children}
-      </main>
+        <main
+          className={`min-h-screen p-4 ${
+            !isMobile ? "bg-background rounded-lg m-4" : "pb-24"
+          } flex-1`}
+        >
+          {!isMobile && currentUser && (
+            <Topbar currentUserName={currentUser.name} />
+          )}
 
-      <footer>{isMobile && <MobileFooter />}</footer>
-    </div>
+          {isLoading && <LoadingScreen />}
+          {!isLoading && !error && currentUser && children}
+        </main>
+
+        <footer>{isMobile && <MobileFooter />}</footer>
+      </div>
+    )
   );
 };
 

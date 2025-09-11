@@ -17,7 +17,7 @@ type CleanUser = {
   name: string;
   email: string;
   avatar_url: string;
-} | null;
+};
 
 const formatPageName = (name: string | undefined) => {
   if (!name) return "";

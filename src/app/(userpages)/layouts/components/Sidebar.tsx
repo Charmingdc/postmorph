@@ -25,7 +25,7 @@ type CleanUser = {
   name: string;
   email: string;
   avatar_url: string;
-} | null;
+};
 
 const Sidebar = ({ currentUser }: { currentUser: CleanUser }) => {
   const router = useRouter();
