@@ -36,7 +36,7 @@ const DropdownField: React.FC<DropdownFieldProps> = ({
           className="w-full capitalize flex items-center justify-start"
         >
           {icon && <span className="mr-2">{icon}</span>}
-          {typeof value === string ? value : value?.name}
+          {typeof value === "string" ? value : value?.name}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-full">
