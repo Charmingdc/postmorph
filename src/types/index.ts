@@ -29,6 +29,12 @@ type DraftType = {
   createdAt: string | Date;
 };
 
+type DefaultTone = {
+  id: string;
+  name: string;
+  instruction: string;
+};
+
 type CustomVoice = {
   id: string;
   user_id: string;
@@ -55,6 +61,7 @@ export type {
   Profile,
   CreditInfo,
   DraftType,
+  DefaultTone,
   CustomVoice,
   UserLog
 };

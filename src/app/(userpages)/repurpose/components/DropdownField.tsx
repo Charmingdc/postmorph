@@ -11,12 +11,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 
-import type { CustomVoice } from "@/types/index";
-type DefaultVoice = {
-  id: string;
-  name: string;
-  instruction: string;
-};
+import type { DefaultTone as DefaultVoice, CustomVoice } from "@/types/index";
 
 interface DropdownFieldProps<T extends string | DefaultVoice | CustomVoice> {
   label: string;
@@ -26,7 +21,7 @@ interface DropdownFieldProps<T extends string | DefaultVoice | CustomVoice> {
   onChange: (value: T) => void;
 }
 
-const DropdownField = <T extends string | CustomVoice>({
+const DropdownField = <T extends string | DefaultVoice | CustomVoice>({
   label,
   value,
   options,

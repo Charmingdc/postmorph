@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import DraftBox from "@/components/drafts/DraftBox";
 import { Sparkles, FileText } from "lucide-react";
 
-import type { DraftType, CustomVoice } from "@/types/index";
+import type { DraftType, DefaultTone, CustomVoice } from "@/types/index";
 
 import {
   inputFormats,
@@ -21,8 +21,6 @@ import {
 import repurpose from "../lib/repurpose";
 import deleteDraft from "@/app/(userpages)/drafts/actions/deleteDraft";
 import fetchUserCustomVoices from "@/lib/fetchUserCustomVoices";
-
-type DefaultTone = { name: string; instruction: string };
 
 const RepurposeForm = ({ userId }: { userId: string }) => {
   const [isDeleting, startTransition] = useTransition();
@@ -36,8 +34,7 @@ const RepurposeForm = ({ userId }: { userId: string }) => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const [userTones, setUserTones] = useState<DefaultTone[] | CustomVoice[]>([
-    ...defaultTones,
-    "Fetching custom tones..."
+    ...defaultTones
   ]);
   useQuery({
     queryKey: ["tones", userId],
