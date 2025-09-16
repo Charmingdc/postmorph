@@ -1,4 +1,4 @@
-import isUrl from "@/lib/isUrl";
+import isUrl from "@/app/utils/isUrl";
 import fetchBlogContent from "./fetchBlog";
 import { getTranscript } from "./getTranscript";
 

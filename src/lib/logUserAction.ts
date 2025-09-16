@@ -37,7 +37,6 @@ export default async function logUserAction(
       ...logData,
       credits_before: creditsBefore ?? null,
       credits_after: creditsAfter ?? creditsBefore ?? null
-      // action_at handled by DB default
     };
 
     const { error } = await supabase.from("user_logs").insert(insertPayload);

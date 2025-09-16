@@ -19,12 +19,12 @@ const settingsPage = async () => {
           <GeneralSetings profileDetails={profile} />
 
           <h1 className="font-bold text-xl mt-4 mb-2"> • Security </h1>
-          <SecuritySettings userId={profile.user_id} />
+          <SecuritySetting />
 
           <h1 className="font-bold text-red-400 text-xl mt-4 mb-2">
             • Danger Zone
           </h1>
-          <DangerZone userId={profile.user_id} />
+          <DangerZone />
         </>
       )}
     </main>

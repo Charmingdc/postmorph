@@ -2,9 +2,9 @@ import { NextResponse } from "next/server";
 import { google } from "@ai-sdk/google";
 import { generateText } from "ai";
 import { createClient } from "@/utils/supabase/server";
-import { apiError } from "@/lib/apiError";
+import { apiError } from "@/app/utils/apiError";
 import fetchUserCredits from "@/lib/fetchUserCredits";
-import { prepareContent, buildPrompt } from "./lib/helpers";
+import { prepareContent, buildPrompt } from "./utils/helpers";
 import getProfile from "@/lib/user/server";
 import logUserAction from "@/lib/logUserAction";
 
