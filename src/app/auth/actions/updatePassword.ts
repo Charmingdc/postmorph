@@ -5,7 +5,7 @@ import { createClient } from "@/utils/supabase/server";
 import type { ActionState } from "@/types/index.ts";
 
 const updatePassword = async (
-  prevState: { type: "success"; message: string },
+  prevState: ActionState,
   formData: FormData
 ): Promise<ActionState> => {
   const currentPassword = formData.get("currentPassword") as string;
