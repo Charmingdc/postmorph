@@ -1,11 +1,4 @@
-import {
-  FileText,
-  Youtube,
-  Twitter,
-  Linkedin,
-  Sparkles,
-  Link
-} from "lucide-react";
+import { FileText, Youtube, Twitter, Linkedin, Link } from "lucide-react";
 import TikTok from "@/components/icon/TikTok";
 
 import type { DefaultTone } from "@/types/index";
