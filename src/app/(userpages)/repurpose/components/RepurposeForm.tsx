@@ -55,11 +55,6 @@ const RepurposeForm = ({ userId }: { userId: string }) => {
         return;
       }
 
-      if (inputFormat === "instagram reel") {
-        toast.warning("Instagram reel not yet supported");
-        return;
-      }
-
       const draft = await repurpose(
         inputFormat,
         outputFormat,
