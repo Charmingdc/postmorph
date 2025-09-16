@@ -1,6 +1,7 @@
 import { FileText, Youtube, Twitter, Linkedin, Link } from "lucide-react";
 import TikTok from "@/components/icon/TikTok";
 
+import type { ReactElement } from "react";
 import type { DefaultTone } from "@/types/index";
 
 export const inputFormats = [
@@ -39,7 +40,7 @@ export const defaultTones: DefaultTone[] = [
   }
 ];
 
-export const formatIcons: Record<string, JSX.Element> = {
+export const formatIcons: Record<string, ReactElement> = {
   blog: <FileText className="w-4 h-4" />,
   "youtube video": <Youtube className="w-4 h-4" />,
   "tiktok video": <TikTok className="w-4 h-4" />,
