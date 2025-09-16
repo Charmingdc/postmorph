@@ -12,50 +12,76 @@ import {
 import { Button } from "@/components/ui/button";
 
 import type { CustomVoice } from "@/types/index";
-interface DropdownFieldProps {
+type DefaultVoice = {
+  id: string;
+  name: string;
+  instruction: string;
+};
+
+interface DropdownFieldProps<T extends string | DefaultVoice | CustomVoice> {
   label: string;
-  value: string | CustomVoice;
-  options: string[] | CustomVoice[];
+  value: T;
+  options: T[];
   icon?: React.ReactNode;
-  onChange: (value: string) => void;
+  onChange: (value: T) => void;
 }
 
-const DropdownField: React.FC<DropdownFieldProps> = ({
+const DropdownField = <T extends string | CustomVoice>({
   label,
   value,
   options,
   icon,
   onChange
-}) => (
-  <div className="flex flex-col gap-1 flex-1 min-w-[150px]">
-    <label className="label text-sm font-medium">{label}</label>
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button
-          variant="outline"
-          className="w-full capitalize flex items-center justify-start"
-        >
-          {icon && <span className="mr-2">{icon}</span>}
-          {typeof value === "string" ? value : value?.name}
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-full">
-        <DropdownMenuLabel>{label}</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuRadioGroup value={value} onValueChange={onChange}>
-          {options.map(option => (
-            <DropdownMenuRadioItem
-              key={typeof option === "string" ? option : option.name}
-              value={option}
-              className="capitalize"
-            >
-              {typeof option === "string" ? option : option.name}
-            </DropdownMenuRadioItem>
-          ))}
-        </DropdownMenuRadioGroup>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  </div>
-);
+}: DropdownFieldProps<T>) => {
+  const serialize = (val: T) => (typeof val === "string" ? val : val.id);
+
+  const deserialize = (val: string): T => {
+    const match = options.find(opt =>
+      typeof opt === "string" ? opt === val : opt.id === val
+    );
+    return match as T;
+  };
+
+  return (
+    <div className="flex flex-col gap-1 flex-1 min-w-[150px]">
+      <label className="label text-sm font-medium">{label}</label>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button
+            variant="outline"
+            className="w-full capitalize flex items-center justify-start"
+          >
+            {icon && <span className="mr-2">{icon}</span>}
+            {typeof value === "string" ? value : value.name}
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="w-full">
+          <DropdownMenuLabel>{label}</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuRadioGroup
+            value={serialize(value)}
+            onValueChange={val => onChange(deserialize(val))}
+          >
+            {options.map((option, idx) => {
+              const strVal = serialize(option);
+              const displayLabel =
+                typeof option === "string" ? option : option.name;
+
+              return (
+                <DropdownMenuRadioItem
+                  key={strVal ?? `opt-${idx}`}
+                  value={strVal}
+                  className="capitalize"
+                >
+                  {displayLabel}
+                </DropdownMenuRadioItem>
+              );
+            })}
+          </DropdownMenuRadioGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
+  );
+};
 
 export default DropdownField;
