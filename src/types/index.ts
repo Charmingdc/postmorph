@@ -52,7 +52,7 @@ type UserLog = {
   credits_before: number;
   credits_after: number;
   status: "sucess" | "failed" | "pending";
-  err_message: "string" | null;
+  error_message: "string" | null;
   action_at: string | Date;
 };
 
