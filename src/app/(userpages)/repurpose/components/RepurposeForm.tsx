@@ -129,7 +129,7 @@ const RepurposeForm = ({ userId }: { userId: string }) => {
               label="Tone"
               value={tone}
               options={userTones}
-              icon={formatIcons[tone] || <Sparkles className="w-4 h-4" />}
+              icon={<Sparkles className="w-4 h-4" />}
               onChange={setTone}
             />
           </div>
