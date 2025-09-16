@@ -3,7 +3,7 @@ import RepurposeForm from "./components/RepurposeForm";
 import type { Profile } from "@/types/index";
 
 const RepurposePage = async () => {
-  const userProfile: Profile = await getProfile();
+  const userProfile: Profile | null = await getProfile();
 
   return (
     <main className="w-full">
