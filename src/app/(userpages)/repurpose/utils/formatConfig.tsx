@@ -8,6 +8,8 @@ import {
 } from "lucide-react";
 import TikTok from "@/components/icon/TikTok";
 
+import type { DefaultTone } from "@/types/index";
+
 export const inputFormats = [
   "blog",
   "x thread",
@@ -17,33 +19,32 @@ export const inputFormats = [
   "tiktok video"
 ] as const;
 
-export const defaultTones: { id: string; name: string; instruction: string }[] =
-  [
-    {
-      id: "default-professional",
-      name: "professional",
-      instruction:
-        "Respond with formal, concise, and respectful language. Use clear structure, avoid slang, and maintain a polished tone suitable for business or academic contexts."
-    },
-    {
-      id: "default-casual",
-      name: "casual",
-      instruction:
-        "Respond in a relaxed and friendly way, as if chatting with a friend. Use simple language, light expressions, and an approachable tone."
-    },
-    {
-      id: "default-funny",
-      name: "funny",
-      instruction:
-        "Respond with humor, witty remarks, or playful exaggeration while still keeping the answer clear. Use jokes, puns, or light sarcasm when appropriate."
-    },
-    {
-      id: "default-motivational",
-      name: "motivational",
-      instruction:
-        "Respond with encouragement, positivity, and uplifting language. Use inspiring phrases and supportive tone to boost confidence and motivation."
-    }
-  ];
+export const defaultTones: DefaultTone[] = [
+  {
+    id: "default-professional",
+    name: "professional",
+    instruction:
+      "Respond with formal, concise, and respectful language. Use clear structure, avoid slang, and maintain a polished tone suitable for business or academic contexts."
+  },
+  {
+    id: "default-casual",
+    name: "casual",
+    instruction:
+      "Respond in a relaxed and friendly way, as if chatting with a friend. Use simple language, light expressions, and an approachable tone."
+  },
+  {
+    id: "default-funny",
+    name: "funny",
+    instruction:
+      "Respond with humor, witty remarks, or playful exaggeration while still keeping the answer clear. Use jokes, puns, or light sarcasm when appropriate."
+  },
+  {
+    id: "default-motivational",
+    name: "motivational",
+    instruction:
+      "Respond with encouragement, positivity, and uplifting language. Use inspiring phrases and supportive tone to boost confidence and motivation."
+  }
+];
 
 export const formatIcons: Record<string, JSX.Element> = {
   blog: <FileText className="w-4 h-4" />,
