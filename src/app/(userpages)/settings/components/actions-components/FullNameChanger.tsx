@@ -7,15 +7,16 @@ import changeFullname from "../../actions/changeFullname";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-const initialState = { type: "success" as const, message: "" };
+import type { ActionState } from "@/types/index";
+const initialState: ActionState = { type: "", message: "" };
 
 const FullNameChanger = ({ fullName }: { fullName: string }) => {
   const [fullNameInput, setFullNameInput] = useState<string>(fullName);
 
-  const [formState, formAction, isPending] = useActionState(
-    changeFullname,
-    initialState
-  );
+  const [formState, formAction, isPending] = useActionState<
+    ActionState,
+    FormData
+  >(changeFullname, initialState);
 
   useEffect(() => {
     if (!formState.message) return;

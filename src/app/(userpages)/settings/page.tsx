@@ -6,7 +6,7 @@ import SecuritySettings from "./components/SecuritySettings";
 import DangerZone from "./components/DangerZone";
 
 const settingsPage = async () => {
-  const profile: Profile = await getProfile();
+  const profile: Profile | null = await getProfile();
 
   return (
     <main>

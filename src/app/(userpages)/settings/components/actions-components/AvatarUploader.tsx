@@ -16,7 +16,7 @@ type Props = {
 };
 
 const MAX_FILE_SIZE_MB = 4;
-const initialState = { type: "success" as const, message: "" };
+const initialState: ActionState = { type: "", message: "" };
 
 const AvatarUploader = ({ fullName, avatarUrl }: Props) => {
   const [preview, setPreview] = useState<string | null>(null);

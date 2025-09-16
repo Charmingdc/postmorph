@@ -10,15 +10,16 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-const initialState = { type: "success" as const, message: "" };
+import type { ActionState } from "@/types";
+const initialState: ActionState = { type: "", message: "" };
 
 const EmailChanger = ({ email: initialEmail }: { email: string }) => {
   const [emailInput, setEmailInput] = useState<string>(initialEmail);
 
-  const [formState, formAction, isPending] = useActionState(
-    changeEmail,
-    initialState
-  );
+  const [formState, formAction, isPending] = useActionState<
+    ActionState,
+    FormData
+  >(changeEmail, initialState);
 
   useEffect(() => {
     if (!formState.message) return;

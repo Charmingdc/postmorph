@@ -5,7 +5,7 @@ import { createClient } from "@/utils/supabase/server";
 import type { ActionState } from "@/types/index";
 
 const changeFullname = async (
-  prevState: { type: "success"; message: string },
+  prevState: ActionState,
   formData: FormData
 ): Promise<ActionState> => {
   const fullname = formData.get("fullname") as string;

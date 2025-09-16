@@ -5,7 +5,7 @@ import { createClient } from "@/utils/supabase/server";
 import type { ActionState } from "@/types/index";
 
 const changeEmail = async (
-  prevState: { type: "success"; message: string },
+  prevState: ActionState,
   formData: FormData
 ): Promise<ActionState> => {
   const newEmail = formData.get("email") as string;
