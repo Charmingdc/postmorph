@@ -11,7 +11,7 @@ type Props = {
 };
 
 const InputArea = ({ inputFormat, value, onChange, disabled }: Props) => {
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   useAutoGrowTextarea(textareaRef, value);
 
   const isLinkInput =
