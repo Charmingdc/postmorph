@@ -19,7 +19,7 @@ const settingsPage = async () => {
           <GeneralSetings profileDetails={profile} />
 
           <h1 className="font-bold text-xl mt-4 mb-2"> • Security </h1>
-          <SecuritySetting />
+          <SecuritySettings />
 
           <h1 className="font-bold text-red-400 text-xl mt-4 mb-2">
             • Danger Zone
