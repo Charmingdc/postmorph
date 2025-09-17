@@ -97,6 +97,7 @@ export async function POST(req: Request) {
     }
 
     // Generate refined text
+    // @ts-ignore
     const result = await generateText({
       model: google("gemini-2.5-flash-lite"),
       system:
