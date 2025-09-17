@@ -88,7 +88,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // @ts-ignore
+    // @ts-expect-error
     const result = await generateText({
       model: google("gemini-2.5-flash-lite"),
       system:
