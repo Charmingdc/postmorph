@@ -41,8 +41,20 @@ export async function POST(req: Request) {
     // get current user profile
     const profile = await getProfile();
 
-    // get user plan
+    if (!profile) {
+      await logUserAction(supabase, {
+        user_id: user.id,
+        action_type: "refine",
+        status: "failed",
+        error_message: "Unable to fetch user profile",
+        credit_cost: 0
+      });
+
+      return apiError("Unable to fetch user profile", 404);
+    }
+
     if (profile.plan === "pro") {
+      // get user plan
       MAX_REFINEMENT = 10;
     } else if (profile.plan === "creator") {
       MAX_REFINEMENT = 6;
