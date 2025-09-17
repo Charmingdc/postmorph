@@ -5,10 +5,13 @@ type UserProfile = {
   total_credits: number;
   used_credits: number;
 };
-
+type UserLogInput = Omit<
+  UserLog,
+  "id" | "credits_before" | "credits_after" | "action_at"
+>;
 export default async function logUserAction(
   supabase: SupabaseClient,
-  log: Omit<UserLog, "credits_before" | "credits_after"> & {
+  log: UserLogInput & {
     user?: UserProfile;
   }
 ) {
@@ -33,7 +36,7 @@ export default async function logUserAction(
     const { user: __unused, ...logData } = log;
 
     // Final payload for DB
-    const insertPayload: UserLog = {
+    const insertPayload: UserLogInput = {
       ...logData,
       credits_before: creditsBefore ?? null,
       credits_after: creditsAfter ?? creditsBefore ?? null
