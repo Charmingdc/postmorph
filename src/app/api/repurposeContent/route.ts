@@ -23,7 +23,7 @@ export async function POST(req: Request) {
       CREDIT_COST = 5;
     } else if (
       sourcePlatform === "youtube video" ||
-      ssourcePlatform === "tiktok video"
+      sourcePlatform === "tiktok video"
     ) {
       CREDIT_COST = 8;
     }
@@ -89,7 +89,9 @@ export async function POST(req: Request) {
     }
 
     const result = await generateText({
-      model: google("gemini-2.5-flash-lite") as unknown as Parameters<typeof generateText>[0]["model"],
+      model: google("gemini-2.5-flash-lite") as unknown as Parameters<
+        typeof generateText
+      >[0]["model"],
       system:
         "You are a content repurposing expert who transforms content based on user instructions. " +
         "Always preserve the original meaning and strictly follow the requested tone. " +
