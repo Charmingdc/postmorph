@@ -97,9 +97,8 @@ export async function POST(req: Request) {
     }
 
     // Generate refined text
-    // @ts-expect-error TS type mismatch between @ai-sdk/google and ai packages
     const result = await generateText({
-      model: google("gemini-2.5-flash-lite"),
+      model: google("gemini-2.5-flash-lite") as any,
       system:
         "You are a content repurposing expert who transforms content based on user instructions. " +
         "Tasks may include rephrasing, condensing, expanding, adding hooks, changing tone, or restructuring. " +
