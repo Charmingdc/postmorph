@@ -98,7 +98,9 @@ export async function POST(req: Request) {
 
     // Generate refined text
     const result = await generateText({
-      model: google("gemini-2.5-flash-lite"),
+      model: google("gemini-2.5-flash-lite") as unknown as Parameters<
+        typeof generateText
+      >[0]["model"],
       system:
         "You are a content repurposing expert who transforms content based on user instructions. " +
         "Tasks may include rephrasing, condensing, expanding, adding hooks, changing tone, or restructuring. " +
