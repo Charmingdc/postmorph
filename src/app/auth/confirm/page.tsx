@@ -50,7 +50,7 @@ const Page = () => {
         setStatus("error");
 
         if (err instanceof Error) {
-          setMessage("Something went wrong." || err.message);
+          setMessage(err.message || "Something went wrong.");
         }
       }
     };

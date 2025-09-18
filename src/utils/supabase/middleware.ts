@@ -9,9 +9,7 @@ export async function updateSession(request: NextRequest) {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
-        getAll() {
-          return request.cookies.getAll();
-        },
+        getAll: () => request.cookies.getAll(),
         setAll(cookiesToSet) {
           cookiesToSet.forEach(({ name, value }) => {
             request.cookies.set(name, value);
@@ -33,19 +31,25 @@ export async function updateSession(request: NextRequest) {
 
   const path = request.nextUrl.pathname;
 
-  if (!user && !path.startsWith("/auth") && !path === "/") {
-    const url = request.nextUrl.clone();
-    url.pathname = "/auth/signin";
-    return NextResponse.redirect(url);
-  }
-
+  const isAuthRoute = path.startsWith("/auth");
+  const isLandingPage = path === "/";
   const isConfirmRoute = path === "/auth/confirm";
 
-  if (user && path.startsWith("/auth") && !isConfirmRoute) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/dashboard";
-    return NextResponse.redirect(url);
+  // Redirect unauthenticated users away from protected routes
+  if (!user && !isAuthRoute && !isLandingPage) {
+    return redirectTo(request, "/auth/signin");
+  }
+
+  // Redirect authenticated users away from auth routes (except confirm)
+  if (user && isAuthRoute && !isConfirmRoute) {
+    return redirectTo(request, "/dashboard");
   }
 
   return supabaseResponse;
+}
+
+function redirectTo(request: NextRequest, pathname: string) {
+  const url = request.nextUrl.clone();
+  url.pathname = pathname;
+  return NextResponse.redirect(url);
 }

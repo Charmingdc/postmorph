@@ -36,7 +36,7 @@ export default async function logUserAction(
     const { user: __unused, ...logData } = log;
 
     // Final payload for DB
-    const insertPayload: UserLogInput = {
+    const insertPayload = {
       ...logData,
       credits_before: creditsBefore ?? null,
       credits_after: creditsAfter ?? creditsBefore ?? null

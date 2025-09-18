@@ -45,6 +45,7 @@ const signin = async (
 
   revalidatePath("/dashboard", "layout");
   redirect("/dashboard");
+  return { message: "Signed in successfully" };
 };
 
 export default signin;

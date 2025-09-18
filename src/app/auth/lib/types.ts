@@ -9,7 +9,7 @@ type InputFields = {
   type: string;
   id: string;
   placeholder: string;
-  valueKey: 'username' | 'email' | 'password';
+  valueKey: "username" | "email" | "password";
 };
 
-export { FormFields, InputFields };
+export type { FormFields, InputFields };

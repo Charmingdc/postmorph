@@ -56,8 +56,9 @@ const signup = async (
       data: {
         name: validFields.username,
         full_name: validFields.username,
-        avatar_url:
-        `https://ui-avatars.com/api/?name=${encodeURIComponent(validFields.username)}&background=random&bold=true&size=128.png`
+        avatar_url: `https://ui-avatars.com/api/?name=${encodeURIComponent(
+          validFields.username
+        )}&background=random&bold=true&size=128.png`
       }
     }
   });
@@ -68,6 +69,9 @@ const signup = async (
 
   revalidatePath("/dashboard", "layout");
   redirect("/auth/email-verification");
+  return {
+    message: "Signed in successfully"
+  };
 };
 
 export default signup;

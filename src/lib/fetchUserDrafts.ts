@@ -1,7 +1,7 @@
 "use server";
 
 import { createClient } from "@/utils/supabase/server";
-import type { DraftType } from "@/lib/types";
+import type { DraftType } from "@/types";
 
 const fetchUserDrafts = async (
   userId: string,
@@ -28,6 +28,7 @@ const fetchUserDrafts = async (
   return data.map(draft => ({
     id: draft.id,
     type: draft.type,
+    modify_count: draft.modify_count,
     content: draft.content,
     createdAt: draft.created_at
   }));

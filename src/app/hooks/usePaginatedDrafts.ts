@@ -1,6 +1,11 @@
 import { useState, useEffect, useCallback } from "react";
 import { createClient } from "@/utils/supabase/client";
 import type { DraftType } from "@/types/index";
+import type {
+  RealtimePostgresInsertPayload,
+  RealtimePostgresUpdatePayload,
+  RealtimePostgresDeletePayload
+} from "@supabase/supabase-js";
 
 const PAGE_SIZE = 10;
 
@@ -9,6 +14,7 @@ const usePaginatedDrafts = (userId: string) => {
   const [drafts, setDrafts] = useState<DraftType[]>([]);
   const [isDone, setIsDone] = useState(false);
   const [isInitialLoading, setIsInitialLoading] = useState(true);
+  const [isFetching, setIsFetching] = useState(false);
 
   const supabase = createClient();
 
@@ -38,14 +44,22 @@ const usePaginatedDrafts = (userId: string) => {
 
   // Fetch more drafts for pagination
   const fetchMore = async () => {
+    if (isFetching) return;
+    setIsFetching(true);
+
     const from = page * PAGE_SIZE;
     const to = from + PAGE_SIZE - 1;
     const data = await fetchDrafts(from, to);
-    if (!data || data.length === 0) return setIsDone(true);
 
-    setDrafts(prev => [...prev, ...data]);
-    setPage(prev => prev + 1);
-    if (data.length < PAGE_SIZE) setIsDone(true);
+    if (!data || data.length === 0) {
+      setIsDone(true);
+    } else {
+      setDrafts(prev => [...prev, ...data]);
+      setPage(prev => prev + 1);
+      if (data.length < PAGE_SIZE) setIsDone(true);
+    }
+
+    setIsFetching(false);
   };
 
   // Supabase real-time updates for page 0
@@ -57,9 +71,13 @@ const usePaginatedDrafts = (userId: string) => {
       .on(
         "postgres_changes",
         { event: "*", schema: "public", table: "drafts" },
-        payload => {
+        (
+          payload:
+            | RealtimePostgresInsertPayload<DraftType>
+            | RealtimePostgresUpdatePayload<DraftType>
+            | RealtimePostgresDeletePayload<DraftType>
+        ) => {
           if (payload.eventType === "INSERT" && page === 0) {
-          
             setDrafts(prev => [payload.new, ...prev].slice(0, PAGE_SIZE));
           } else if (payload.eventType === "UPDATE") {
             setDrafts(prev =>
@@ -77,7 +95,7 @@ const usePaginatedDrafts = (userId: string) => {
     };
   }, [supabase, userId, page]);
 
-  return { drafts, isInitialLoading, isDone, fetchMore };
+  return { drafts, isInitialLoading, isFetching, isDone, fetchMore };
 };
 
 export default usePaginatedDrafts;

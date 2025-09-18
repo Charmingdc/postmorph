@@ -3,13 +3,13 @@ type Props = {
   h?: string;
 };
 
-const Spinner = ({ width = "w-8", height = "h-8" }: Props) => {
+const Spinner = ({ w = "w-8", h = "h-8" }: Props) => {
   return (
     <div className="flex gap-3 flex-wrap justify-center md:p-12">
       <svg
         aria-hidden="true"
         role="status"
-        className={`inline ${width} ${height} animate-spin`}
+        className={`inline ${w} ${h} animate-spin`}
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

@@ -1,12 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import type { Dispatch, SetStateAction } from "react";
 import { toast } from "sonner";
 import { Copy, CopyCheck, Trash, PencilLine } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import useClipboard from "@/hooks/useClipboard";
 
-const DemoDraft = ({ setShowResult }: { setShowResult: () => void }) => {
+const DemoDraft = ({
+  setShowResult
+}: {
+  setShowResult: Dispatch<SetStateAction<boolean>>;
+}) => {
   const { copied, copy } = useClipboard();
   const [draftContent] = useState(`
   🚀 Want faster, scalable React apps? Learn how to build micro-frontends with Vite & Module Federation!

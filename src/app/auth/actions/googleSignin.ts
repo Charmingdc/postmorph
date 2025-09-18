@@ -24,10 +24,11 @@ const googleSignin = async (): Promise<{ message: string }> => {
     return { message: error.message };
   }
 
- if (data?.url) {
+  if (data?.url) {
     redirect(data.url);
-  } 
+  }
 
+  return { message: "Signed in successfully" };
 };
 
 export default googleSignin;

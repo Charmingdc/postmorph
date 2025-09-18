@@ -1,38 +1,36 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import Image from 'next/image';
-import { useEffect, useState, useActionState, startTransition } from 'react';
-import { toast } from 'sonner';
+import Link from "next/link";
+import Image from "next/image";
+import { useEffect, useState, useActionState, startTransition } from "react";
+import { toast } from "sonner";
 
-import signin from '@/app/auth/actions/signin';
-import GoogleAuthButton from '../ui/GoogleAuthButton';
-import Input from '../ui/Input';
-import { Button } from '@/components/ui/button';
+import signin from "@/app/auth/actions/signin";
+import GoogleAuthButton from "../ui/GoogleAuthButton";
+import Input from "../ui/Input";
+import { Button } from "@/components/ui/button";
 
-import type { FormFields } from '@/app/auth/types';
-import { inputFields } from '@/app/auth/lib/constants';
-import useForm from '@/app/auth/hooks/useForm';
+import type { FormFields } from "@/app/auth/lib/types";
+import { inputFields } from "@/app/auth/lib/constants";
+import useForm from "@/app/auth/hooks/useForm";
 
-import postmorphWorkflow from '@/app/auth/assets/postmorph-workflow.png';
+import postmorphWorkflow from "@/app/auth/assets/postmorph-workflow.png";
 
 type SigninState = { message: string };
 
 const SigninForm = () => {
   const { form, handleChange, clearForm } = useForm<FormFields>({
-    password: '',
-    email: ''
+    password: "",
+    email: ""
   });
 
-  const [state, signinAction, pending]: [
-    SigninState,
-    (formData: FormData) => Promise<SigninState>,
-    boolean
-  ] = useActionState(signin, { message: '' });
+  const [state, signinAction, pending] = useActionState(signin, {
+    message: ""
+  });
   const [formCleared, setFormCleared] = useState<boolean>(false);
 
   const filteredFields = inputFields.filter(
-    field => field.valueKey !== 'username'
+    field => field.valueKey !== "username"
   );
 
   useEffect(() => {
@@ -41,7 +39,7 @@ const SigninForm = () => {
         clearForm();
         setFormCleared(true);
       } else if (state.message && !formCleared) {
-        toast.error('Authentication Failed', {
+        toast.error("Authentication Failed", {
           description: state.message
         });
         setFormCleared(true);
@@ -57,10 +55,12 @@ const SigninForm = () => {
           setFormCleared(false);
 
           const formData = new FormData();
-          formData.append('email', form.email);
-          formData.append('password', form.password);
+          formData.append("email", form.email);
+          formData.append("password", form.password);
 
-          startTransition(() => signinAction(formData));
+          startTransition(() => {
+            signinAction(formData);
+          });
         }}
         className="w-full min-h-screen flex flex-col justify-center p-4"
       >
@@ -84,7 +84,7 @@ const SigninForm = () => {
               inputType={type}
               id={id}
               placeholder={placeholder}
-              value={form[valueKey]}
+              value={form[valueKey] ?? ""}
               onChange={value => handleChange(valueKey, value)}
             />
           </div>
@@ -96,7 +96,7 @@ const SigninForm = () => {
           type="submit"
           disabled={pending}
         >
-          {pending ? 'Authenticating...' : 'Sign In'}
+          {pending ? "Authenticating..." : "Sign In"}
         </Button>
 
         <p className="w-full text-center">
