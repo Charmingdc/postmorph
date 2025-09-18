@@ -16,8 +16,6 @@ import useForm from "@/app/auth/hooks/useForm";
 
 import postmorphWorkflow from "@/app/auth/assets/postmorph-workflow.png";
 
-type SigninState = { message: string };
-
 const SigninForm = () => {
   const { form, handleChange, clearForm } = useForm<FormFields>({
     password: "",

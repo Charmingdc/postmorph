@@ -17,8 +17,6 @@ import useForm from "@/app/auth/hooks/useForm";
 
 import postmorphUsersConcept from "@/app/auth/assets/illustration-01.png";
 
-type SignupState = { message: string };
-
 const SignupForm = () => {
   const { form, handleChange, clearForm } = useForm<FormFields>({
     username: "",
