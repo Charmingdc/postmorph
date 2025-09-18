@@ -56,6 +56,12 @@ type UserLog = {
   action_at: string | Date;
 };
 
+type OutputPlatformType =
+  | "x thread"
+  | "tweet"
+  | "linkedln post"
+  | "reddit post";
+
 export type {
   ActionState,
   Profile,
@@ -63,5 +69,6 @@ export type {
   DraftType,
   DefaultTone,
   CustomVoice,
-  UserLog
+  UserLog,
+  OutputPlatformType
 };
