@@ -35,9 +35,12 @@ const Navbar = () => {
       const {
         data: { user }
       } = await supabase.auth.getUser();
-      if (!user) setIsUser(false);
 
-      setIsUser(true);
+      if (!user) {
+        setIsUser(false);
+      } else {
+        setIsUser(true);
+      }
     };
 
     checkAuthStatus();
