@@ -21,6 +21,7 @@ Format the result as a series of tweets that make up a thread:
 - Separate each tweet ONLY with the delimiter: --tweet break--
 - Each tweet must be under 280 characters
 - Ensure tweets flow logically and feel connected
+- Ensure tweets contents are well structured with proper line breaks and spacing
 - Use line breaks and spacing natural to X`
   },
 
@@ -36,6 +37,7 @@ ${content}
 Requirements:
 - The ENTIRE output must fit within 280 characters (very important)
 - Do NOT use --tweet break--
+- Ensure that the tweet is well structured with proper line breaks and spacing
 - Use concise language, emojis, hashtags, or call-to-actions naturally`
   },
 
