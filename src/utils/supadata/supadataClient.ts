@@ -1,3 +1,4 @@
+// @ts-ignore
 import { Supadata } from "@supadata/js";
 
 export const supadata = new Supadata({
