@@ -133,7 +133,7 @@ content: ${content}`);
               className="h-9 w-9 flex items-center justify-center p-1.5 border-l disabled:opacity-50"
             >
               {isPending ? (
-                <Spinner w="w-[.5rem]" h="h-[.5rem]" />
+                <Spinner w="w-[1rem]" h="h-[1rem]" />
               ) : (
                 <WandSparkles
                   size={18}
