@@ -1,7 +1,5 @@
-import { supadata } from "@/utils/supadata/supadataClient";
-
 declare module "@supadata/js" {
-  interface JobResult<T> {
+  interface JobResult<T = any> {
     content?: string;
   }
 }
