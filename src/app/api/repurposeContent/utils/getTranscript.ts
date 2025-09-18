@@ -16,7 +16,11 @@ export async function getTranscript(videoUrl: string): Promise<string> {
       );
 
       const start = Date.now();
-      while (jobStatus.status === "pending" && Date.now() - start < 30000) {
+      while (
+        jobStatus.status !== "completed" &&
+        jobStatus.status !== "failed" &&
+        Date.now() - start < 30000
+      ) {
         await new Promise(res => setTimeout(res, 2000));
         jobStatus = await supadata.transcript.getJobStatus(
           transcriptResult.jobId

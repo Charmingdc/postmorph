@@ -27,7 +27,7 @@ const prepareContent = async (
       return transcript;
     }
 
-    // Default: return raw content
+    // return raw content
     return content;
   } catch (error: unknown) {
     if (error instanceof Error) {
