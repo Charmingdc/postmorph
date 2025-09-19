@@ -5,6 +5,17 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Video, FileText, Twitter } from "lucide-react";
 import TikTok from "@/components/icon/TikTok";
 import RepurposeDemo from "./RepurposeDemo";
+import DemoVideo from "./DemoVideo";
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+  DialogClose
+} from "@/components/ui/dialog";
 
 const HeroSection = () => {
   const router = useRouter();
@@ -31,7 +42,7 @@ const HeroSection = () => {
               style={{ animationDelay: "100ms" }}
             >
               Save hours of work by automatically repurposing your youtube
-              videos, tiktok videos, and blog posts into multiple formats for
+              videos, tiktok videos, blog posts, e.t.c into multiple formats for
               all your marketing channels.
             </p>
             <div
@@ -46,14 +57,36 @@ const HeroSection = () => {
                 Start for free
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="rounded-2xl px-6"
-                onClick={() => router.push("")}
-              >
-                Watch demo
-              </Button>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="rounded-2xl px-6"
+                  >
+                    Watch demo
+                  </Button>
+                </DialogTrigger>
+
+                <DialogContent className="w-[90%] rounded-2xl md:w-[65%]">
+                  <DialogHeader>
+                    <DialogTitle>Quick Demo</DialogTitle>
+                    <DialogDescription>
+                      Quick overview on how Postmorph works.
+                    </DialogDescription>
+                  </DialogHeader>
+
+                  <DemoVideo />
+
+                  <DialogFooter>
+                    <DialogClose asChild>
+                      <Button type="button" variant="outline">
+                        Close
+                      </Button>
+                    </DialogClose>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
             </div>
             <div
               className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-4 animate-fade-in"
@@ -81,7 +114,7 @@ const HeroSection = () => {
               <div className="flex items-center gap-2 rounded-xl px-4 py-2.5 bg-card/60 backdrop-blur-sm border shadow-sm hover:shadow-md transition-all duration-300 hover:border-blue-800/20">
                 <Twitter className="h-5 w-5 text-primary" />
                 <span className="text-sm text-muted-foreground">
-                  Tweet threads
+                  Twitter threads
                 </span>
               </div>
             </div>

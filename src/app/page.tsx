@@ -10,7 +10,7 @@ import Footer from "@/components/landing-page/Footer";
 
 const Page = () => {
   return (
-    <div className="w-screen flex flex-col items-center justify-center text-center px-8">
+    <div className="w-screen flex flex-col items-center justify-center text-center px-8 overflow-x-hidden">
       <nav>
         <Navbar />
       </nav>
