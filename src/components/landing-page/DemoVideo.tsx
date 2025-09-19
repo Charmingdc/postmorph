@@ -59,7 +59,7 @@ const DemoVideo = () => {
   };
 
   useEffect(() => {
-    if (videoPlayerRef.current && videoPlayerRef.current.duration)
+    if (videoPlayerRef.current)
       setVideoDuration(videoPlayerRef.current.duration.toFixed(2));
   }, [videoDuration, isVideoPlaying]);
 
