@@ -46,7 +46,7 @@ const DemoVideo = () => {
 
   const toggleVideoSound = () => {
     if (videoPlayerRef.current) {
-      let volume = videoPlayerRef.current.volume;
+      const volume = videoPlayerRef.current.volume;
 
       if (volume === 1) {
         videoPlayerRef.current.volume = 0;
