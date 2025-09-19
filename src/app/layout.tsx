@@ -3,6 +3,7 @@ import { Figtree } from "next/font/google";
 import "./globals.css";
 
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Toaster } from "sonner";
 
 const figtree = Figtree({
@@ -27,6 +28,7 @@ export default function RootLayout({
         {children}
 
         <Analytics />
+        <SpeedInsights />
         <Toaster
           theme="system"
           position="top-center"
