@@ -83,7 +83,7 @@ const AppClientLayout = ({ children }: { children: React.ReactNode }) => {
 
         <main
           className={`min-h-screen p-4 ${
-            !isMobile ? "bg-background rounded-lg m-4" : "pb-24"
+            !isMobile ? "bg-background rounded-lg m-4" : "pb-8"
           } flex-1`}
         >
           {!isMobile && currentUser && (

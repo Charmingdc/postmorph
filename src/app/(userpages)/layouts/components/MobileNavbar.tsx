@@ -2,6 +2,7 @@
 
 import { toast } from "sonner";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { LayoutDashboard, CircleUserRound, LogOut } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -30,7 +31,11 @@ const MobileNavbar = ({ currentUser }: { currentUser: CleanUser }) => {
   const segments = pathname.split("/").filter(Boolean);
   const pageName = segments[0];
 
+  const [open, setOpen] = useState<boolean>(false);
+
   const handleSignout = async () => {
+    setOpen(false);
+
     try {
       const toastId = toast.loading("Signing out...");
       await signout();
@@ -44,6 +49,11 @@ const MobileNavbar = ({ currentUser }: { currentUser: CleanUser }) => {
       }
     }
   };
+
+  // Close popover whenever route changes
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
 
   return (
     <nav>
@@ -61,7 +71,7 @@ const MobileNavbar = ({ currentUser }: { currentUser: CleanUser }) => {
         </li>
         {currentUser && (
           <li>
-            <Popover>
+            <Popover open={open} onOpenChange={setOpen}>
               <PopoverTrigger asChild>
                 <Avatar className="w-10 h-10 border border-border rounded-full mr-2 mt-1">
                   <AvatarImage
@@ -97,12 +107,14 @@ const MobileNavbar = ({ currentUser }: { currentUser: CleanUser }) => {
                   <Link
                     href="/dashboard"
                     className="w-full flex items-center gap-2 p-2 rounded-lg hover:bg-card hover:text-primary"
+                    onClick={() => setOpen(false)}
                   >
                     <LayoutDashboard size={20} /> Dashboard
                   </Link>
                   <Link
                     href="/settings"
                     className="w-full flex items-center gap-2 p-2 rounded-lg hover:bg-card hover:text-primary"
+                    onClick={() => setOpen(false)}
                   >
                     <CircleUserRound size={20} /> Account Settings
                   </Link>

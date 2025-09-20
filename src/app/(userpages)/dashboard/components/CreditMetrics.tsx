@@ -76,15 +76,21 @@ const CreditMetrics = async ({ currentUserId }: { currentUserId: string }) => {
         <div className="w-full flex items-center justify-between gap-2 mt-6">
           <Link
             href="/pricing"
-            className="w-full flex items-center justify-center bg-primary text-primary-foreground gap-x-2 p-3 rounded-lg transition-all duration-500 hover:opacity-80"
+            className="w-full flex items-center justify-center bg-primary text-primary-foreground gap-x-2 p-[clamp(0.75rem,2vw,1rem)] rounded-lg transition-all duration-500 hover:opacity-80"
           >
-            <Plus /> Buy Credits
+            <Plus className="w-[clamp(1rem,4vw,1.75rem)] h-[clamp(1rem,4vw,1.75rem)]" />
+            <span className="text-[clamp(0.875rem,2.5vw,1.125rem)]">
+              Buy Credits
+            </span>
           </Link>
 
           <Dialog>
             <DialogTrigger asChild>
-              <button className="w-full flex items-center justify-center bg-primary text-primary-foreground gap-x-2 p-3 rounded-lg transition-all duration-500 hover:opacity-80">
-                <ChevronsUpDown /> Credits Cost
+              <button className="w-full flex items-center justify-center bg-primary text-primary-foreground gap-x-2 p-[clamp(0.75rem,2vw,1rem)] rounded-lg transition-all duration-500 hover:opacity-80">
+                <ChevronsUpDown className="w-[clamp(1rem,4vw,1.75rem)] h-[clamp(1rem,4vw,1.75rem)]" />
+                <span className="text-[clamp(0.875rem,2.5vw,1.125rem)]">
+                  Credits Cost
+                </span>
               </button>
             </DialogTrigger>
 
