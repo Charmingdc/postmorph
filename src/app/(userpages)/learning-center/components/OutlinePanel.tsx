@@ -1,16 +1,24 @@
+import { Dispatch, SetStateAction } from "react";
 import type { Section, Lesson } from "../types";
 
 type OutlineProps = {
   sections: Section[];
   selectedLesson: Lesson;
   onSelectLesson: (lesson: Lesson) => void;
+  setIsOutlineOpened: Dispatch<SetStateAction<boolean>>;
 };
 
 const OutlinePanel = ({
   sections,
   selectedLesson,
-  onSelectLesson
+  onSelectLesson,
+  setIsOutlineOpened
 }: OutlineProps) => {
+  const handleLessonClick = (lesson: Lesson) => {
+    onSelectLesson(lesson);
+    setIsOutlineOpened(false);
+  };
+
   return (
     <aside className="w-full">
       <ul>
@@ -25,7 +33,7 @@ const OutlinePanel = ({
                 return (
                   <li
                     key={lidx}
-                    onClick={() => onSelectLesson(lesson)}
+                    onClick={() => handleLessonClick(lesson)}
                     className={`cursor-pointer rounded-md px-2 py-1 transition-colors
                       ${
                         isActive

@@ -30,6 +30,7 @@ const LearnLayout = ({ isOutlineOpened, setIsOutlineOpened }: PageProps) => {
           sections={sections}
           selectedLesson={selectedLesson}
           onSelectLesson={setSelectedLesson}
+          setIsOutlineOpened={setIsOutlineOpened}
         />
       </div>
 
