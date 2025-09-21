@@ -26,7 +26,7 @@ const RecentDrafts = async ({ currentUserId }: { currentUserId: string }) => {
       <DraftController drafts={drafts} />
 
       {drafts.length > 0 && (
-        <div className="w-full flex items-center justify-center mt-8">
+        <div className="w-full flex items-center justify-center mb-8">
           <Link href="/drafts">View all</Link>
         </div>
       )}

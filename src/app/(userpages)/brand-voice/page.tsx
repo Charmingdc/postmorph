@@ -9,16 +9,16 @@ const BrandVoicePage = async () => {
   const userProfile: Profile | null = await getProfile();
 
   return (
-    <main className="mb-14">
+    <main className="mb-16">
       <p> Add custom voices that reflects your brand. </p>
 
-      { userProfile && 
+      {userProfile && (
         <>
-        <VoiceCountBar userId={userProfile.user_id} />
-      <AddVoiceForm userId={userProfile.user_id} />
-      <VoiceList userId={userProfile.user_id} />
-      </>
-}
+          <VoiceCountBar userId={userProfile.user_id} />
+          <AddVoiceForm userId={userProfile.user_id} />
+          <VoiceList userId={userProfile.user_id} />
+        </>
+      )}
     </main>
   );
 };

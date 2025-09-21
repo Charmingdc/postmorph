@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Navbar from "./components/Navbar";
-import OutlineBar from "./components/OutlineBar";
+import LearnLayout from "./components/LearnLayout";
 
 const LearningCenter = () => {
   const [isOutlineOpened, setIsOutlineOpened] = useState<boolean>(false);
@@ -13,7 +13,7 @@ const LearningCenter = () => {
         setIsOutlineOpened={setIsOutlineOpened}
       />
 
-      <OutlineBar
+      <LearnLayout
         isOutlineOpened={isOutlineOpened}
         setIsOutlineOpened={setIsOutlineOpened}
       />

@@ -1,11 +1,11 @@
 "use client";
 
-import { Dispatch, SetState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { PanelRightOpen, PanelLeftOpen } from "lucide-react";
 
 type PageProps = {
   isOutlineOpened: boolean;
-  setIsOutlineOpened: Dispatch<SetState<boolean>>;
+  setIsOutlineOpened: Dispatch<SetStateAction<boolean>>;
 };
 
 const Navbar = ({ isOutlineOpened, setIsOutlineOpened }: PageProps) => {

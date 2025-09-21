@@ -6,7 +6,7 @@ const DraftsPage = async () => {
   const profile: Profile | null = await getProfile();
 
   return (
-    <main className="w-full">
+    <main className="w-full mb-24">
       {profile && <DraftsList currentUserId={profile.user_id} />}
     </main>
   );
