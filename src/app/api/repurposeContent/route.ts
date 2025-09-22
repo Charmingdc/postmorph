@@ -89,7 +89,7 @@ export async function POST(req: Request) {
     }
 
     const result = await generateText({
-      model: google("gemini-2.5-flash-lite") as unknown as Parameters<
+      model: google("gemini-1.5-flash") as unknown as Parameters<
         typeof generateText
       >[0]["model"],
       system:

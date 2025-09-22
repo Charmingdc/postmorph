@@ -18,6 +18,7 @@ ${toneInstruction}
 ${content}
 
 Format the result as a series of tweets that make up a thread:
+- Rephrase, don't generate your output soley based on the given text phrasing
 - Separate each tweet ONLY with the delimiter: --tweet break--
 - Each tweet must be under 280 characters
 - Ensure tweets flow logically and feel connected
@@ -35,6 +36,7 @@ ${toneInstruction}
 ${content}
 
 Requirements:
+- Rephrase, don't generate your output soley based on the given text phrasing
 - The ENTIRE output must fit within 280 characters (very important)
 - Do NOT use --tweet break--
 - Ensure that the tweet is well structured with proper line breaks and spacing
@@ -51,6 +53,7 @@ ${toneInstruction}
 ${content}
 
 Requirements:
+- Rephrase, don't generate your output soley based on the given text phrasing
 - Professional tone suitable for LinkedIn
 - Use line breaks, spacing, and call-to-actions naturally
 - Keep it engaging and readable`
@@ -66,6 +69,7 @@ ${toneInstruction}
 ${content}
 
 Format requirements:
+- Rephrase, don't generate your output soley based on the given text phrasing
 - Include a compelling title and body
 - Keep the post natural and engaging
 - Use proper spacing, line breaks, and paragraphs
