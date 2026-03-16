@@ -1,14 +1,27 @@
-import BuyButton from "@/components/ui/BuyButton";
+import BuyButton from "./BuyButton";
 import { Check } from "lucide-react";
+import getProfile from "@/lib/user/server";
 
-const PricingSection = () => {
- const plans = [
+interface Plan {
+ name: string;
+ id: string;
+ tagline: string;
+ price: string;
+ credits: string;
+ features: string[];
+ highlight?: boolean;
+}
+
+const PricingSection = async () => {
+ const profile = await getProfile();
+
+ const plans: Plan[] = [
   {
-   name: "Starter 🍿",
+   name: "Starter",
+   id: "39e6fc4e-c731-4af2-8b9f-d78e72d3c25d",
    tagline: "Perfect for getting started",
    price: "$2",
    credits: "30 Credits",
-   link: "https://me.buy",
    features: [
     "One-time payment",
     "No subscription fees",
@@ -19,11 +32,11 @@ const PricingSection = () => {
    ]
   },
   {
-   name: "Creator 🍿🍿",
+   name: "Creator",
+   id: "3bfaf4e8-f384-4ffe-bded-750e1589659c",
    tagline: "Best for content creators",
    price: "$6",
    credits: "100 Credits",
-   link: "https://me.buy",
    features: [
     "One-time payment",
     "No subscription fees",
@@ -36,11 +49,11 @@ const PricingSection = () => {
    highlight: true
   },
   {
-   name: "Pro 🍿🍿🍿",
+   name: "Pro",
+   id: "91f4904b-93e9-499b-9f58-c584269b41fd",
    tagline: "For power users & teams",
    price: "$15",
    credits: "220 Credits",
-   link: "https://me.buy",
    features: [
     "Everything in Creator",
     "Priority support",
@@ -53,36 +66,31 @@ const PricingSection = () => {
 
  return (
   <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(19rem,1fr))] gap-4 py-6">
-   {plans.map((plan, i) => (
+   {plans.map(plan => (
     <div
-     key={i}
+     key={plan.id}
      className={`relative w-full bg-card border rounded-2xl py-6 px-4 flex flex-col gap-4 transition-all duration-300 ${
       plan.highlight ? "border-blue-500 shadow-xl" : "border border shadow-md"
      }`}
     >
-     {/* Best Value badge */}
      {plan.highlight && (
       <div className="absolute top-3 right-3 bg-blue-500 text-white text-xs font-semibold px-2 py-1 rounded-full">
        Best Value
       </div>
      )}
 
-     {/* Header */}
      <div>
       <h2 className="text-xl font-semibold">{plan.name}</h2>
       <p className="text-sm text-muted-foreground">{plan.tagline}</p>
      </div>
 
-     {/* Price */}
      <div>
       <p className="text-3xl font-bold">{plan.price}</p>
       <p className="text-sm text-muted-foreground">for {plan.credits}</p>
      </div>
 
-     {/* Button */}
-     <BuyButton purchaseLink={plan.link} />
+     <BuyButton planId={plan.id} profile={profile} />
 
-     {/* Features */}
      <div>
       <p className="font-medium mb-2">What’s included:</p>
       <ul className="space-y-2">
