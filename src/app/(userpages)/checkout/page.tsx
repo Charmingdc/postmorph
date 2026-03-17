@@ -31,11 +31,10 @@ interface PolarCheckout {
  discount: PolarDiscount | null;
 }
 
-export default async function CheckoutPage({
- searchParams
-}: {
- searchParams: { checkout_id?: string };
+export default async function CheckoutPage(props: {
+ searchParams: Promise<{ checkout_id?: string }>;
 }) {
+ const searchParams = await props.searchParams;
  const sessionId = searchParams.checkout_id;
 
  if (!sessionId) {
