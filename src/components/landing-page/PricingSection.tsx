@@ -1,13 +1,15 @@
 import BuyButton from "@/components/ui/BuyButton";
 import { Check } from "lucide-react";
 
+const link = `${process.env.NEXT_PUBLIC_APP_URL}/pricing`;
+
 const plans = [
  {
-  name: "Starter 🍿",
+  name: "Starter",
   tagline: "Perfect for getting started",
   price: "$2",
   credits: "30 Credits",
-  link: "https://me.buy",
+  link,
   features: [
    "One-time payment",
    "No subscription fees",
@@ -18,11 +20,11 @@ const plans = [
   ]
  },
  {
-  name: "Creator 🍿🍿",
+  name: "Creator",
   tagline: "Best for content creators",
   price: "$6",
   credits: "100 Credits",
-  link: "https://me.buy",
+  link,
   features: [
    "One-time payment",
    "No subscription fees",
@@ -35,11 +37,11 @@ const plans = [
   highlight: true
  },
  {
-  name: "Pro 🍿🍿🍿",
+  name: "Pro",
   tagline: "For power users & teams",
   price: "$15",
   credits: "220 Credits",
-  link: "https://me.buy",
+  link,
   features: [
    "Everything in Creator",
    "Priority support",

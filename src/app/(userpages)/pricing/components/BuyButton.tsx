@@ -2,13 +2,18 @@
 
 import { useState } from "react";
 import { toast } from "sonner";
+import type { Profile } from "@/types";
 
 export default function BuyButton({
  planId,
- profile
+ profile,
+ credits,
+ planName
 }: {
  planId: string;
- profile?: any;
+ profile?: Profile | null;
+ credits: number;
+ planName: string;
 }) {
  const [loading, setLoading] = useState(false);
 
@@ -26,7 +31,10 @@ export default function BuyButton({
     body: JSON.stringify({
      planId,
      customerName: profile.full_name,
-     customerEmail: profile.email
+     customerEmail: profile.email,
+     userId: profile.user_id,
+     credits,
+     planName: planName.toLowerCase()
     })
    });
 

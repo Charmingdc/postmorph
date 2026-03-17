@@ -14,90 +14,86 @@ import MobileNavbar from "./components/MobileNavbar";
 import MobileFooter from "./components/MobileFooter";
 
 type CleanUser = {
-  id: string;
-  name: string;
-  email: string;
-  avatar_url: string;
+ id: string;
+ name: string;
+ email: string;
+ avatar_url: string;
 } | null;
 
 const fetchCurrentUser = async (): Promise<CleanUser> => {
-  const supabase = createClient();
-  const { data, error } = await supabase.auth.getUser();
+ const supabase = createClient();
+ const { data, error } = await supabase.auth.getUser();
 
-  if (error) throw new Error(error.message);
-  const user = data?.user;
+ if (error) throw new Error(error.message);
+ const user = data?.user;
 
-  if (!user) return null;
+ if (!user) return null;
 
-  return {
-    id: user.id,
-    name: user.user_metadata?.name || "User",
-    email: user.email || "",
-    avatar_url: user.user_metadata?.avatar_url || ""
-  };
+ return {
+  id: user.id,
+  name: user.user_metadata?.name || "User",
+  email: user.email || "",
+  avatar_url: user.user_metadata?.avatar_url || ""
+ };
 };
 
 const AppClientLayout = ({ children }: { children: React.ReactNode }) => {
-  const isMobile = useIsMobile();
-  const router = useRouter();
+ const isMobile = useIsMobile();
+ const router = useRouter();
 
-  const {
-    data: currentUser,
-    error,
-    isLoading
-  } = useQuery<CleanUser>({
-    queryKey: ["currentUser"],
-    queryFn: fetchCurrentUser,
-    staleTime: 1000 * 60 * 5
-  });
+ const {
+  data: currentUser,
+  error,
+  isLoading
+ } = useQuery<CleanUser>({
+  queryKey: ["currentUser"],
+  queryFn: fetchCurrentUser,
+  staleTime: 1000 * 60 * 5
+ });
 
-  useEffect(() => {
-    if (!isLoading && !currentUser) {
-      router.push("/auth/signin");
-    }
-  }, [isLoading, currentUser, router]);
+ useEffect(() => {
+  if (!isLoading && !currentUser) {
+   router.push("/auth/signin");
+  }
+ }, [isLoading, currentUser, router]);
 
-  useEffect(() => {
-    if (error) {
-      toast.error("Something went wrong", {
-        description: error.message,
-        duration: 5000
-      });
-    }
-  }, [error]);
+ useEffect(() => {
+  if (error) {
+   toast.error("Something went wrong", {
+    description: error.message,
+    duration: 5000
+   });
+  }
+ }, [error]);
 
-  return (
-    currentUser && (
-      <div
-        className={`w-screen flex ${isMobile ? "flex-col" : "min-h-screen"}`}
-      >
-        {isMobile ? (
-          <header>
-            <MobileNavbar currentUser={currentUser} />
-          </header>
-        ) : (
-          <aside className="w-64">
-            <Sidebar currentUser={currentUser} />
-          </aside>
-        )}
+ return (
+  currentUser && (
+   <div className={`w-screen flex ${isMobile ? "flex-col" : "min-h-screen"}`}>
+    {isMobile ? (
+     <header>
+      <MobileNavbar currentUser={currentUser} />
+     </header>
+    ) : (
+     <aside className="w-64">
+      <Sidebar currentUser={currentUser} />
+     </aside>
+    )}
 
-        <main
-          className={`min-h-screen p-4 ${
-            !isMobile ? "bg-background rounded-lg m-4" : "pb-8"
-          } flex-1`}
-        >
-          {!isMobile && currentUser && (
-            <Topbar currentUserName={currentUser.name} />
-          )}
+    <main
+     className={`min-h-screen p-4 ${
+      !isMobile ? "bg-background rounded-lg pb-20 m-4" : "pb-8"
+     } flex-1`}
+    >
+     {!isMobile && currentUser && <Topbar currentUserName={currentUser.name} />}
 
-          {isLoading && <LoadingScreen />}
-          {!isLoading && !error && currentUser && children}
-        </main>
+     {isLoading && <LoadingScreen />}
+     {!isLoading && !error && currentUser && children}
+    </main>
 
-        <footer>{isMobile && <MobileFooter />}</footer>
-      </div>
-    )
-  );
+    <footer>{isMobile && <MobileFooter />}</footer>
+   </div>
+  )
+ );
 };
 
 export default AppClientLayout;

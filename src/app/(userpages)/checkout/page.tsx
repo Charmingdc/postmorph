@@ -50,7 +50,9 @@ export default async function CheckoutPage({
   );
  }
 
- const { checkout, error } = (await getCheckoutSession(sessionId)) as {
+ const result = await getCheckoutSession(sessionId);
+
+ const { checkout, error } = result as unknown as {
   checkout: PolarCheckout | null;
   error: string | null;
  };
