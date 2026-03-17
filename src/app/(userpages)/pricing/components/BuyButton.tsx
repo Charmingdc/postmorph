@@ -46,6 +46,7 @@ export default function BuyButton({
     toast.error(data.error || "Checkout failed");
    }
   } catch (err) {
+   console.error("Error creating checkout session (client):", err);
    toast.error("Network error");
   } finally {
    setLoading(false);

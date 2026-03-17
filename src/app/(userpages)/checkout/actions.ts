@@ -7,6 +7,7 @@ export async function getCheckoutSession(id: string) {
   const result = await polar.checkouts.get({ id });
   return { checkout: result };
  } catch (error) {
+  console.error("Error creating checkout session:", error);
   return { error: "Could not retrieve order details." };
  }
 }
