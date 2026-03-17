@@ -1,15 +1,15 @@
 import type { OutputPlatformType } from "@/types/index";
 interface PlatformPrompt {
-  template: (
-    sourcePlatform: string,
-    toneInstruction: string,
-    content: string
-  ) => string;
+ template: (
+  sourcePlatform: string,
+  toneInstruction: string,
+  content: string
+ ) => string;
 }
 
 export const platformGuidelines: Record<OutputPlatformType, PlatformPrompt> = {
-  "x thread": {
-    template: (sourcePlatform, toneInstruction, content) => `
+ "x thread": {
+  template: (sourcePlatform, toneInstruction, content) => `
 Repurpose the following ${sourcePlatform} post into a native X thread.
 
 Follow this tone guideline:
@@ -24,10 +24,10 @@ Format the result as a series of tweets that make up a thread:
 - Ensure tweets flow logically and feel connected
 - Ensure tweets contents are well structured with proper line breaks and spacing
 - Use line breaks and spacing natural to X`
-  },
+ },
 
-  tweet: {
-    template: (sourcePlatform, toneInstruction, content) => `
+ tweet: {
+  template: (sourcePlatform, toneInstruction, content) => `
 Repurpose the following ${sourcePlatform} post into a single tweet.
 
 Follow this tone guideline:
@@ -40,11 +40,12 @@ Requirements:
 - The ENTIRE output must fit within 280 characters (very important)
 - Do NOT use --tweet break--
 - Ensure that the tweet is well structured with proper line breaks and spacing
-- Use concise language, emojis, hashtags, or call-to-actions naturally`
-  },
+- Use concise language, emojis, or call-to-actions naturally
+- do not include any hashtags`
+ },
 
-  "linkedln post": {
-    template: (sourcePlatform, toneInstruction, content) => `
+ "linkedln post": {
+  template: (sourcePlatform, toneInstruction, content) => `
 Repurpose the following ${sourcePlatform} post into a native LinkedIn post.
 
 Follow this tone guideline:
@@ -57,10 +58,10 @@ Requirements:
 - Professional tone suitable for LinkedIn
 - Use line breaks, spacing, and call-to-actions naturally
 - Keep it engaging and readable`
-  },
+ },
 
-  "reddit post": {
-    template: (sourcePlatform, toneInstruction, content) => `
+ "reddit post": {
+  template: (sourcePlatform, toneInstruction, content) => `
 Repurpose the following ${sourcePlatform} post into a native Reddit post.
 
 Follow this tone guideline:
@@ -74,5 +75,5 @@ Format requirements:
 - Keep the post natural and engaging
 - Use proper spacing, line breaks, and paragraphs
 - Follow typical Reddit conventions`
-  }
+ }
 };
