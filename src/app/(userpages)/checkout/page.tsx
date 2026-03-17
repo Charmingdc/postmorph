@@ -39,7 +39,7 @@ export default async function CheckoutPage(props: {
 
  if (!sessionId) {
   return (
-   <div className="flex items-center justify-center min-h-[90vh] px-6">
+   <div className="flex items-center justify-center min-h-[80vh] px-6">
     <div className="max-w-sm w-full border border-border bg-card rounded-xl py-3 px-6 text-center text-sm font-bold">
      <AlertCircle className="w-10 h-10 text-destructive mx-auto mb-3" />
      Session ID Missing
@@ -57,7 +57,7 @@ export default async function CheckoutPage(props: {
 
  if (error || !checkout) {
   return (
-   <div className="flex items-center justify-center min-h-[90vh] px-6">
+   <div className="flex items-center justify-center min-h-[80vh] px-6">
     <div className="max-w-sm w-full border border-border bg-card rounded-lg py-3 px-6 text-center font-bold">
      <XCircle className="w-10 h-10 text-muted-foreground mx-auto mb-3" />
      Order Not Found
@@ -73,7 +73,7 @@ export default async function CheckoutPage(props: {
  const totalPaid = checkout.totalAmount / 100;
 
  return (
-  <div className="flex flex-col items-center justify-center min-h-[90vh] px-4">
+  <div className="flex flex-col items-center justify-center min-h-[80vh] px-4">
    <div className="w-full max-w-xl border border-border bg-card rounded-2xl pt-2 pb-8 px-8">
     {isSuccess ? (
      <div className="space-y-2">
