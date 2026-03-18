@@ -17,16 +17,6 @@ const Footer = () => {
        Transform your content effortlessly with our AI-powered repurposing
        platform.
       </p>
-      <div className="flex space-x-4">
-       <a
-        href="https://x.com/postmorph_"
-        target="_blank"
-        className="text-muted-foreground hover:text-primary transition-colors"
-       >
-        <Twitter className="h-5 w-5" />
-        <span className="sr-only">Twitter</span>
-       </a>
-      </div>
      </div>
 
      {/* Company */}
@@ -72,6 +62,16 @@ const Footer = () => {
       <h3 className="font-semibold mb-4 text-left md:text-center">Contact</h3>
       <ul className="space-y-3">
        <li className="flex items-center">
+        <Twitter className="h-5 w-5 text-muted-foreground mr-2" />
+        <a
+         href="https://x.com/postmorph_"
+         target="_blank"
+         className="text-muted-foreground hover:text-primary transition-colors"
+        >
+         X (formerly Twitter)
+        </a>
+       </li>
+       <li className="flex items-center">
         <Mail className="h-5 w-5 text-muted-foreground mr-2" />
         <a
          href="mailto:adebayomuis32+postmorph@gmail.com"
@@ -95,13 +95,13 @@ const Footer = () => {
      </p>
      <div className="flex flex-row items-center gap-2 sm:gap-4">
       <a
-       href="#privacy-policy"
+       href="/legal/privacy"
        className="text-sm text-muted-foreground hover:text-foreground transition-colors"
       >
        Privacy Policy
       </a>
       <a
-       href="#terms"
+       href="/legal/terms"
        className="text-sm text-muted-foreground hover:text-foreground transition-colors"
       >
        Terms of Service
