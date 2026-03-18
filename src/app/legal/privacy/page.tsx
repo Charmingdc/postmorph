@@ -8,27 +8,20 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
  return (
   <>
-   <header className="mb-16">
-    <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-foreground">
+   <header className="mb-8">
+    <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-2 text-foreground">
      Privacy Policy
     </h1>
-    <p className="text-muted-foreground font-medium">
+    <p className="text-muted-foreground text-sm font-medium">
      Last updated March 18, 2026
     </p>
    </header>
 
-   <article
-    className="prose prose-slate max-w-none 
-        prose-headings:text-foreground 
-        prose-p:text-foreground/90 
-        prose-strong:text-foreground 
-        prose-li:text-foreground/90
-        prose-a:text-primary hover:prose-a:text-primary/80"
-   >
+   <article className="prose prose-slate max-w-none prose-headings:text-foreground prose-p:text-foreground prose-strong:text-foreground prose-li:text-foreground prose-a:text-primary hover:prose-a:text-primary/80">
     <p>
-     This Privacy Policy describes how <strong>Postmorph</strong> ("we," "us,"
-     or "our") collects, uses, and shares your information when you use our
-     services at
+     This Privacy Policy describes how <strong>Postmorph</strong>{" "}
+     (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;) collects, uses, and
+     shares your information when you use our services at{" "}
      <a href="https://postmorph.vercel.app">postmorph.vercel.app</a>.
     </p>
 
@@ -44,13 +37,10 @@ export default function PrivacyPage() {
     </p>
 
     <h2>2. HOW DO WE PROCESS YOUR INFORMATION?</h2>
-    <p>We process your information to:</p>
-    <ul>
-     <li>Facilitate account creation and authentication.</li>
-     <li>Provide and deliver the services you request.</li>
-     <li>Respond to your inquiries and offer support.</li>
-     <li>Improve the performance and security of our platform.</li>
-    </ul>
+    <p>
+     We process your information to facilitate account creation, provide
+     services, respond to support inquiries, and improve platform security.
+    </p>
 
     <h2>3. THIRD-PARTY SHARING</h2>
     <p>We only share information with providers necessary to run the app:</p>
@@ -69,32 +59,28 @@ export default function PrivacyPage() {
     <h2>4. SOCIAL LOGINS (GOOGLE)</h2>
     <p>
      Postmorph uses Google OAuth for registration. We receive your name and
-     email address from Google. We do not have access to your Google password or
-     any other private data in your Google account.
+     email address from Google. We do not have access to your Google password.
     </p>
 
     <h2>5. HOW LONG DO WE KEEP YOUR DATA?</h2>
     <p>
      We keep your information as long as your account is active. You may request
-     account deletion at any time, which will remove your data from our active
-     databases.
+     account deletion at any time to remove your data from our active databases.
     </p>
 
     <h2>6. YOUR PRIVACY RIGHTS</h2>
     <p>
      Depending on your location, you have the right to access, update, or delete
-     your data. The easiest way to exercise these rights is to contact us
-     directly via email.
+     your data. Contact us directly via email to exercise these rights.
     </p>
 
-    <h2>7. CONTACT US</h2>
-    <div className="not-prose bg-card p-6 rounded-[var(--radius)] border border-border mt-8">
-     <ul className="space-y-2 text-sm text-card-foreground">
+    <div className="not-prose bg-card p-5 rounded-[var(--radius)] border border-border mt-8">
+     <ul className="space-y-1 text-sm text-card-foreground">
       <li>
-       <span className="font-bold">Email:</span> adebayomuis32@gmail.com
+       <strong>Email:</strong> adebayomuis32@gmail.com
       </li>
       <li>
-       <span className="font-bold">Location:</span> Ede, Osun State, Nigeria
+       <strong>Location:</strong> Ede, Osun State, Nigeria
       </li>
      </ul>
     </div>
