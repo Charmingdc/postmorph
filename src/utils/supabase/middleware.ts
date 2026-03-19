@@ -33,11 +33,16 @@ export async function updateSession(request: NextRequest) {
 
  const isAuthRoute = path.startsWith("/auth");
  const isLegalRoute = path.startsWith("/legal");
+ const isBlogRoute = path.startsWith("/blog");
  const isLandingPage = path === "/";
+
  const isConfirmRoute = path === "/auth/confirm";
 
+ const isEcapedRoutes =
+  !isAuthRoute && !isLegalRoute && !isBlogRoute && !isLandingPage;
+
  // Redirect unauthenticated users away from protected routes
- if (!user && !isAuthRoute && !isLegalRoute && !isLandingPage) {
+ if (!user && isEcapedRoutes) {
   return redirectTo(request, "/auth/signin");
  }
 

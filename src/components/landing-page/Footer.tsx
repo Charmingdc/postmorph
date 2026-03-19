@@ -31,6 +31,14 @@ const Footer = () => {
          About Us
         </a>
        </li>
+       <li>
+        <a
+         href="/blog"
+         className="text-muted-foreground -ml-9 hover:text-foreground transition-colors"
+        >
+         Blog
+        </a>
+       </li>
       </ul>
      </div>
 
