@@ -33,8 +33,51 @@ export default async function ArticlePage({
      <span>{new Date(article.created_at).toDateString()}</span>
     </p>
 
-    <article className="text-foreground/70 prose max-w-none">
-     <ReactMarkdown>{article.content}</ReactMarkdown>
+    <article className="max-w-none text-foreground/80 leading-relaxed">
+     <ReactMarkdown
+      components={{
+       h1: ({ node, ...props }) => (
+        <h1 className="text-2xl font-semibold mt-6 mb-3" {...props} />
+       ),
+       h2: ({ node, ...props }) => (
+        <h2 className="text-xl font-semibold mt-6 mb-2" {...props} />
+       ),
+       h3: ({ node, ...props }) => (
+        <h3 className="text-lg font-semibold mt-5 mb-2" {...props} />
+       ),
+       p: ({ node, ...props }) => (
+        <p className="mb-4 text-muted-foreground" {...props} />
+       ),
+       strong: ({ node, ...props }) => (
+        <strong className="text-foreground font-semibold" {...props} />
+       ),
+       a: ({ node, ...props }) => (
+        <a
+         className="text-primary underline underline-offset-4"
+         target="_blank"
+         {...props}
+        />
+       ),
+       ul: ({ node, ...props }) => (
+        <ul className="list-disc pl-5 mb-4 space-y-1" {...props} />
+       ),
+       ol: ({ node, ...props }) => (
+        <ol className="list-decimal pl-5 mb-4 space-y-1" {...props} />
+       ),
+       li: ({ node, ...props }) => (
+        <li className="text-muted-foreground" {...props} />
+       ),
+       hr: () => <hr className="my-6 border-border opacity-50" />,
+       blockquote: ({ node, ...props }) => (
+        <blockquote
+         className="border-l-4 border-border pl-4 italic text-muted-foreground my-4"
+         {...props}
+        />
+       )
+      }}
+     >
+      {article.content}
+     </ReactMarkdown>
     </article>
 
     <div className="mt-10 p-4 rounded-xl border border-border bg-muted">
