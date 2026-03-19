@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Twitter, Mail, MapPin } from "lucide-react";
 
 const Footer = () => {
@@ -32,12 +33,12 @@ const Footer = () => {
         </a>
        </li>
        <li>
-        <a
+        <Link
          href="/blog"
          className="text-muted-foreground -ml-9 hover:text-foreground transition-colors"
         >
          Blog
-        </a>
+        </Link>
        </li>
       </ul>
      </div>
@@ -47,20 +48,20 @@ const Footer = () => {
       <h3 className="font-semibold mb-2">Product</h3>
       <ul className="space-y-2">
        <li>
-        <a
+        <Link
          href="#features"
          className="text-muted-foreground hover:text-foreground transition-colors"
         >
          Features
-        </a>
+        </Link>
        </li>
        <li>
-        <a
+        <Link
          href="#pricing"
          className="text-muted-foreground -ml-3 hover:text-foreground transition-colors"
         >
          Pricing
-        </a>
+        </Link>
        </li>
       </ul>
      </div>
@@ -102,18 +103,18 @@ const Footer = () => {
       © {currentYear} Postmorph. All rights reserved.
      </p>
      <div className="flex flex-row items-center gap-2 sm:gap-4">
-      <a
+      <Link
        href="/legal/privacy"
        className="text-sm text-muted-foreground hover:text-foreground transition-colors"
       >
        Privacy Policy
-      </a>
-      <a
+      </Link>
+      <Link
        href="/legal/terms"
        className="text-sm text-muted-foreground hover:text-foreground transition-colors"
       >
        Terms of Service
-      </a>
+      </Link>
      </div>
     </div>
    </div>
