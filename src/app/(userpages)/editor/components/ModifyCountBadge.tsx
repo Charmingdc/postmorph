@@ -1,44 +1,22 @@
-import { AlertTriangle, CheckCircle } from "lucide-react";
+import { RotateCcw } from "lucide-react";
 
 type PageProps = {
-  modifyCount: number;
-  userPlan: "free" | "starter" | "creator" | "pro";
+ modifyCount?: number;
 };
 
-const ModifyCountBadge = ({ modifyCount, userPlan }: PageProps) => {
-  let modifyLimit = 0;
-  if (userPlan === "pro") {
-    modifyLimit = 10;
-  } else if (userPlan === "creator") {
-    modifyLimit = 6;
-  } else if (userPlan === "free" || userPlan === "starter") {
-    modifyLimit = 3;
-  }
+const ModifyCountBadge = ({ modifyCount = 0 }: PageProps) => {
+ const count = modifyCount;
 
-  return (
-    <div className="flex justify-end">
-      <div
-        className={`flex items-center gap-1.5 text-xs font-medium px-3 py-1 rounded-full border ${
-          modifyCount < modifyLimit
-            ? "border-green-300 text-green-700 bg-green-100"
-            : "border-red-300 text-red-600 bg-red-100"
-        }`}
-      >
-        {modifyCount < modifyLimit ? (
-          <>
-            <AlertTriangle className="w-3.5 h-3.5" />
-            {modifyLimit - modifyCount} refinement
-            {modifyLimit - modifyCount !== 1 && "s"} left
-          </>
-        ) : (
-          <>
-            <CheckCircle className="w-3.5 h-3.5" />
-            All refinements used up
-          </>
-        )}
-      </div>
-    </div>
-  );
+ const label = count === 1 ? "Modification" : "Modifications";
+
+ return (
+  <div className="flex justify-end">
+   <div className="flex items-center gap-1.5 text-xs font-medium px-3 py-1 rounded-full border border-border bg-card text-card-foreground">
+    <RotateCcw className="w-3.5 h-3.5" />
+    {`${label}: ${count}`}
+   </div>
+  </div>
+ );
 };
 
 export default ModifyCountBadge;

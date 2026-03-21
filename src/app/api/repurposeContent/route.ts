@@ -4,11 +4,9 @@ import { generateText } from "ai";
 import { createClient } from "@/utils/supabase/server";
 import { apiError } from "@/app/utils/apiError";
 import fetchUserCredits from "@/lib/fetchUserCredits";
-import { prepareContent, buildPrompt } from "./utils/helpers";
+import { prepareContent, buildPrompt, getCreditCost } from "./utils/helpers";
 import getProfile from "@/lib/user/server";
 import logUserAction from "@/lib/logUserAction";
-
-let CREDIT_COST = 4;
 
 export async function POST(req: Request) {
  try {
@@ -19,14 +17,7 @@ export async function POST(req: Request) {
    return apiError("Incomplete request body", 400);
   }
 
-  if (sourcePlatform === "blog") {
-   CREDIT_COST = 5;
-  } else if (
-   sourcePlatform === "youtube video" ||
-   sourcePlatform === "tiktok video"
-  ) {
-   CREDIT_COST = 8;
-  }
+  const CREDIT_COST = getCreditCost(sourcePlatform);
 
   const finalContent = await prepareContent(sourcePlatform, content);
   const prompt = buildPrompt(
@@ -55,7 +46,6 @@ export async function POST(req: Request) {
    return apiError(userError?.message || "User authentication failed", 401);
   }
 
-  // get current user profile
   const profile = await getProfile();
   if (!profile) {
    await logUserAction(supabase, {
@@ -69,7 +59,6 @@ export async function POST(req: Request) {
    return apiError("Unable to fetch user profile", 404);
   }
 
-  // get user credit info
   const { used_credits, total_credits, is_unlimited } = await fetchUserCredits(
    user.id
   );
@@ -83,6 +72,7 @@ export async function POST(req: Request) {
     user: profile,
     credit_cost: 0
    });
+
    return apiError(
     "You don't have enough credits to repurpose this content",
     403
@@ -117,7 +107,6 @@ export async function POST(req: Request) {
    return apiError("No text was generated", 500);
   }
 
-  // Deduct credits here
   if (!is_unlimited) {
    const { error: updateError } = await supabase
     .from("Profiles")
@@ -160,7 +149,6 @@ export async function POST(req: Request) {
    return apiError("Failed to save generated content as draft", 500);
   }
 
-  // Success log, credits have been deducted
   await logUserAction(supabase, {
    user_id: user.id,
    action_type: "repurpose",

@@ -1,136 +1,250 @@
 # Postmorph: Effortless AI-Powered Content Repurposing
 
-## Overview
+Postmorph is a cutting-edge platform designed to revolutionize content creation by enabling users to effortlessly transform a single piece of content into multiple formats optimized for various platforms. Leveraging advanced AI and robust backend services, Postmorph helps content creators, marketers, and founders maximize their reach and maintain a consistent brand voice across all digital channels, saving significant time and resources.
 
-Postmorph is a cutting-edge web application built with Next.js, React, and TypeScript, designed to revolutionize content creation workflows. It leverages advanced AI to transform existing content from various sources (YouTube videos, TikTok videos, blog posts, social media posts) into multiple tailored formats for different platforms, significantly saving time and ensuring brand consistency. The platform features robust user authentication, a dynamic content editor, personalized brand voice management, and a flexible credit-based payment system.
-
-## Features
-
-- **AI-Powered Repurposing**: Converts long-form or short-form content (blogs, YouTube, TikTok, X threads, LinkedIn, Reddit posts) into various social media formats with a single click.
-- **Custom Brand Voice**: Users can define and apply unique writing styles and tones to ensure all generated content aligns with their brand identity.
-- **Interactive Content Editor**: A comprehensive editor allows users to refine, expand, condense, or rephrase AI-generated drafts, with real-time character counts and modification limits.
-- **Draft Management**: All repurposed content is saved as drafts, providing a centralized hub for editing, copying, and deleting content. Supports paginated viewing and real-time updates.
-- **Flexible Credit System**: Operates on a pay-as-you-go model, allowing users to purchase credits which do not expire, ensuring they only pay for what they use.
-- **Secure Authentication**: Implements user sign-up and sign-in via email/password and Google OAuth, powered by Supabase.
-- **Learning Center**: Provides in-depth tutorials and examples to guide users through effective content repurposing strategies and platform features.
-- **Responsive Design**: Built with Tailwind CSS and Shadcn UI components for a seamless user experience across all devices.
-- **Payment Processing**: Integrated with Polar for secure and efficient handling of credit purchases and checkout sessions.
-
-## Getting Started
-
-### Installation
+## Installation
 
 To get Postmorph up and running on your local machine, follow these steps:
 
-1. **Clone the Repository**:
-   ```bash
-   git clone git@github.com:Charmingdc/postmorph
-   cd postmorph-nextjs
-   ```
-2. **Install Dependencies**:
-   ```bash
-   npm install
-   # or yarn install
-   ```
-3. **Configure Environment Variables**:
-   Create a `.env.local` file in the root directory and populate it with the following required variables:
+### Clone the Repository
+Start by cloning the project repository from GitHub:
+```bash
+git clone git@github.com:Charmingdc/postmorph
+```
+
+### Install Dependencies
+Navigate into the project directory and install the necessary dependencies using npm or yarn:
+```bash
+cd postmorph-nextjs
+npm install
+# or
+yarn install
+```
 
 ### Environment Variables
+Postmorph relies on several environment variables for its operation. Create a `.env.local` file in the root of your project and populate it with the following required variables. You can refer to the `.env.template` file for guidance.
 
-```ini
+```dotenv
 NEXT_PUBLIC_APP_URL=http://localhost:3000
 NEXT_PUBLIC_SUPABASE_URL=https://your-supabase-project-id.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
 SUPABASE_SERVICE_ROLE_KEY=your-supabase-service-role-key
 GOOGLE_GENERATIVE_AI_API_KEY=your-google-ai-api-key
 SUPADATA_API_KEY=your-supadata-api-key
-POLAR_ACCESS_TOKEN=your-polar-access-token # generated from sandbox environment, need to generate from real dashboard when going live
-POLAR_MODE=your-polar-environment-mode
+POLAR_ACCESS_TOKEN=your-polar-access-token
+POLAR_MODE=sandbox # or production
 POLAR_WEBHOOK_SECRET=your-polar-webhook-secret
 ```
 
-4. **Run the Development Server**:
-   ```bash
-   npm run dev
-   # or yarn dev
-   ```
-   Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
+**Description of Environment Variables:**
+- `NEXT_PUBLIC_APP_URL`: The public URL of your application. Used for redirects and API calls.
+- `NEXT_PUBLIC_SUPABASE_URL`: Your Supabase project URL.
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`: Your Supabase public anonymous key.
+- `SUPABASE_SERVICE_ROLE_KEY`: Your Supabase service role key (secret).
+- `GOOGLE_GENERATIVE_AI_API_KEY`: API key for Google's Generative AI services (Gemini).
+- `SUPADATA_API_KEY`: API key for Supadata services, used for video transcription.
+- `POLAR_ACCESS_TOKEN`: Your Polar access token for payment processing.
+- `POLAR_MODE`: Specifies the Polar environment, either `sandbox` for testing or `production` for live transactions.
+- `POLAR_WEBHOOK_SECRET`: Secret key for validating Polar webhooks.
+
+### Run the Development Server
+Once environment variables are set, start the development server:
+```bash
+npm run dev
+# or
+yarn dev
+```
+Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
 
 ## Usage
 
-Postmorph simplifies content repurposing into an intuitive workflow:
+Postmorph simplifies your content workflow into a few intuitive steps:
 
-1. **Sign Up or Sign In**: Navigate to `/auth/signup` or `/auth/signin` to create an account or log in. Google OAuth is also available for quick access.
-2. **Repurpose Content**:
-   - Go to the `/repurpose` page.
-   - Select your **Input Format** (e.g., "blog", "youtube video", "x thread").
-   - Choose your desired **Output Format** (e.g., "tweet", "x thread", "linkedin post").
-   - Select a **Tone** (either a default option like "professional" or a custom voice you've created).
-   - Paste your content (a link for videos/blogs, or raw text for social posts) into the input area.
-   - Click the "Repurpose Now" button. The AI will generate a draft tailored to your specifications.
-3. **Edit and Refine Drafts**:
-   - Once content is generated, it appears in a draft box. You can also view all your drafts on the `/drafts` page.
-   - Click the "Pencil" icon to open the editor.
-   - In the editor, you can directly modify the content. For X threads, individual tweets can be edited, added, or removed.
-   - Use the "Sparkles" icon to open the AI refinement popover. Here, you can apply predefined actions (e.g., "Add Hook", "Fix Grammar", "Condense") or enter custom prompts to further refine your content.
-   - Track your remaining refinements using the badge.
-   - Click "Save" to commit your changes or "Trash" to delete the draft.
-4. **Manage Brand Voices**:
-   - Visit the `/brand-voice` page.
-   - Click "Add new custom voice" to define new tones and instructions for the AI to follow, ensuring consistent branding.
-   - You can edit or delete existing custom voices.
-5. **Monitor Credits**:
-   - Your current credit balance is displayed on the `/dashboard` page.
-   - Click "Buy Credits" or navigate to `/pricing` to purchase more credits. The pricing page provides different plans to suit your needs.
-6. **Learn More**:
-   - Explore the `/learning-center` for comprehensive tutorials on content repurposing strategies and how to best utilize Postmorph.
+1.  **Select Input and Output Formats**: Choose the original format of your content (e.g., Blog Post, YouTube Video) and the desired output format (e.g., Tweet, X Thread, LinkedIn Post).
+2.  **Define Your Tone**: Select a predefined tone (Professional, Casual, Funny, Motivational) or use a custom brand voice you have set up.
+3.  **Provide Content**: Paste a link (for videos or blog posts) or the raw text content into the input area.
+4.  **Repurpose**: Click "Repurpose Now" to let AI transform your content.
+5.  **Review and Edit**: Your newly generated draft will appear in the editor. You can refine it further using AI prompts or manually adjust the text to perfectly match your needs.
+6.  **Save or Share**: Save the draft to your collection or copy it directly for immediate sharing on your platforms.
+
+This streamlined process helps you generate diverse content quickly and efficiently, ensuring every idea reaches its full potential across all your channels.
+
+## Features
+
+-   **Intelligent Content Repurposing**: Transform YouTube videos, TikToks, blog posts, and social media content into various formats with AI.
+-   **Multiple Output Formats**: Generate content suitable for Twitter threads, single tweets, LinkedIn posts, and Reddit posts.
+-   **Customizable Brand Voices**: Define and apply custom tone instructions to ensure AI-generated content consistently matches your unique brand identity.
+-   **Interactive Content Editor**: A powerful built-in editor allows for real-time adjustments, AI-powered refinements (e.g., "Add Hook", "Fix Grammar", "Expand"), and seamless management of multi-part content like X threads.
+-   **Credit-Based System**: A transparent pay-as-you-go model where you purchase credits and only spend them for repurposing and modification actions. Unlimited access is available for power users.
+-   **User Dashboard & Draft Management**: A personalized dashboard to monitor credit usage, view recent drafts, and manage all saved content.
+-   **Secure Authentication**: Leverages Supabase for robust user authentication, including Google OAuth for easy sign-up and sign-in.
+-   **Integrated Payment Gateway**: Seamless payment processing via Polar for purchasing credit packs.
+-   **Learning Center**: Comprehensive guides and resources to help users master content repurposing strategies and get the most out of Postmorph.
+-   **Responsive Design**: Optimized for a seamless experience across desktop and mobile devices, featuring dedicated mobile navigation.
+
+## API Documentation
+
+### Overview
+The Postmorph API is built with Next.js API Routes, providing server-side functionalities for content repurposing, draft management, user authentication, and payment processing. It leverages Supabase for database and authentication, Google Generative AI for content transformation, Supadata for video transcription, and Polar for payment gateway interactions.
+
+### Base URL
+`/api`
+
+### Endpoints
+
+#### POST /api/createCheckout
+**Overview**: Initiates a checkout session via Polar for users to purchase credit packs.
+**Request**:
+```json
+{
+  "planId": "string",         // Unique ID of the Polar product plan
+  "customerName": "string",   // Full name of the customer
+  "customerEmail": "string",  // Email of the customer
+  "userId": "string",         // Supabase user ID associated with the customer
+  "credits": 0,               // Number of credits being purchased
+  "planName": "string"        // Name of the plan (e.g., "starter", "creator")
+}
+```
+**Response**:
+```json
+{
+  "url": "string" // URL to the Polar hosted checkout page
+}
+```
+**Errors**:
+- `400 Bad Request`: `{"error": "Missing fields"}`
+- `500 Internal Server Error`: `{"error": "Error message details"}` (e.g., "Error creating checkout session")
+
+#### GET /api/getDrafts
+**Overview**: Retrieves a paginated list of content drafts for a specific user.
+**Request**:
+- Query Parameters:
+  - `userId`: `string` (Required) - The Supabase user ID.
+  - `from`: `number` (Optional, default: `0`) - Starting index for pagination.
+  - `to`: `number` (Optional, default: `9`) - Ending index for pagination.
+**Response**:
+```json
+{
+  "drafts": [
+    {
+      "id": "string",
+      "type": "x thread" | "tweet" | "linkedln post" | "reddit post",
+      "modify_count": 0,
+      "content": "string",
+      "createdAt": "string"
+    }
+  ]
+}
+```
+**Errors**:
+- `400 Bad Request`: `{"error": "Missing userId", "drafts": []}`
+- `500 Internal Server Error`: `{"error": "Supabase error message", "drafts": []}`
+
+#### POST /api/modifyDraft
+**Overview**: Refines or modifies an existing content draft based on AI instructions. This action consumes user credits.
+**Request**:
+```json
+{
+  "prompt": "string", // AI instruction for modifying the draft content
+  "draftId": "string" // ID of the draft to be modified
+}
+```
+**Response**:
+```json
+{
+  "text": "string",       // The AI-generated modified content
+  "modifyCount": 0        // The updated modification count for the draft
+}
+```
+**Errors**:
+- `400 Bad Request`: `{"type": "error", "message": "Missing prompt or draft Id"}`
+- `401 Unauthorized`: `{"type": "error", "message": "User authentication failed"}`
+- `403 Forbidden`: `{"type": "error", "message": "Not enough credits to refine this draft"}`
+- `404 Not Found`: `{"type": "error", "message": "Unable to fetch user profile"}` or `{"type": "error", "message": "Draft not found or unauthorized"}`
+- `500 Internal Server Error`: `{"type": "error", "message": "No text was generated"}` or `{"type": "error", "message": "Failed to update draft modify count"}` or `{"type": "error", "message": "Failed to update credits usage"}` or `{"type": "error", "message": "Internal server error"}`
+
+#### POST /api/repurposeContent
+**Overview**: Transforms content from a specified source platform to a target platform using Google Generative AI. This action consumes user credits.
+**Request**:
+```json
+{
+  "sourcePlatform": "string",   // Original content platform (e.g., "blog", "youtube video", "tiktok video")
+  "targetPlatform": "string",   // Desired output platform (e.g., "tweet", "x thread", "linkedln post", "reddit post")
+  "content": "string",          // The content to repurpose (can be a URL for blogs/videos or raw text)
+  "toneInstruction": "string"   // AI instruction for the desired tone and style
+}
+```
+**Response**:
+```json
+{
+  "id": "string",
+  "user_id": "string",
+  "type": "x thread" | "tweet" | "linkedln post" | "reddit post",
+  "modify_count": 0,
+  "content": "string",
+  "createdAt": "string"
+}
+```
+**Errors**:
+- `400 Bad Request`: `{"type": "error", "message": "Incomplete request body"}`
+- `401 Unauthorized`: `{"type": "error", "message": "User authentication failed"}`
+- `403 Forbidden`: `{"type": "error", "message": "You don't have enough credits to repurpose this content"}`
+- `404 Not Found`: `{"type": "error", "message": "Unable to fetch user profile"}`
+- `429 Too Many Requests`: `{"type": "error", "message": "We're currently experiencing high traffic. Please try again later."}`
+- `500 Internal Server Error`: `{"type": "error", "message": "Failed to prepare content"}` or `{"type": "error", "message": "Couldn’t extract transcript for this video."}` or `{"type": "error", "message": "No text was generated"}` or `{"type": "error", "message": "Failed to update credits usage"}` or `{"type": "error", "message": "Failed to save generated content as draft"}` or `{"type": "error", "message": "Internal server error"}`
+
+#### POST /api/webhooks/polar
+**Overview**: Receives and processes webhook events from Polar, primarily to update user credit balances upon successful payment. This endpoint is configured to handle `order.paid` events.
+**Request**:
+- Polar webhook payload (JSON object with event details).
+**Response**:
+- `200 OK` (typically an empty body or a simple success message, as per webhook best practices to acknowledge receipt).
+**Errors**:
+- Errors are logged internally to the console and handled by the Polar SDK's webhook processing; the endpoint aims to return 200 to prevent repeated deliveries, even if internal processing fails.
 
 ## Technologies Used
 
-| Category               | Technology                                       | Description                                                            |
-| :--------------------- | :----------------------------------------------- | :--------------------------------------------------------------------- |
-| **Framework**          | [Next.js](https://nextjs.org/)                   | React framework for production                                         |
-| **Language**           | [TypeScript](https://www.typescriptlang.org/)    | Strongly typed JavaScript                                              |
-| **UI Library**         | [React](https://react.dev/)                      | Frontend JavaScript library                                            |
-| **Styling**            | [Tailwind CSS](https://tailwindcss.com/)         | Utility-first CSS framework                                            |
-| **Components**         | [Shadcn UI](https://ui.shadcn.com/)              | Beautifully designed reusable components                               |
-| **AI/LLM**             | [@ai-sdk/google](https://sdk.vercel.ai/)         | Vercel AI SDK with Google Gemini API                                   |
-| **Database**           | [Supabase](https://supabase.com/)                | Open Source Firebase alternative (PostgreSQL, Auth, Storage, Realtime) |
-| **Payments**           | [Polar](https://polar.sh/)                       | API for managing developer subscriptions and payments                  |
-| **Video/Blog Scraper** | [Supadata](https://supadata.dev/)                | API for fetching video transcripts and blog content                    |
-| **Animations**         | [Framer Motion](https://www.framer.com/motion/)  | Production-ready motion library for React                              |
-| **Data Fetching**      | [React Query](https://tanstack.com/query/latest) | Powerful asynchronous state management                                 |
-| **Validation**         | [Zod](https://zod.dev/)                          | TypeScript-first schema declaration and validation                     |
-| **Toasts**             | [Sonner](https://sonner.emilkowalski.dk/)        | An opinionated toast component for React                               |
-| **Deployment**         | [Vercel](https://vercel.com/)                    | Cloud platform for frontend developers                                 |
+| Category         | Technology                                                                                                    | Description                                                 |
+| :--------------- | :------------------------------------------------------------------------------------------------------------ | :---------------------------------------------------------- |
+| **Frontend**     | [Next.js](https://nextjs.org/)                                                                                | React framework for building server-rendered and static web applications. |
+|                  | [React](https://react.dev/)                                                                                   | JavaScript library for building user interfaces.            |
+|                  | [TypeScript](https://www.typescriptlang.org/)                                                                 | Typed superset of JavaScript that compiles to plain JavaScript. |
+|                  | [Tailwind CSS](https://tailwindcss.com/)                                                                      | Utility-first CSS framework for rapidly styling.          |
+|                  | [Framer Motion](https://www.framer.com/motion/)                                                               | Production-ready motion library for React.                  |
+|                  | [Shadcn UI](https://ui.shadcn.com/)                                                                           | Reusable UI components built with Radix UI and Tailwind CSS. |
+| **Backend/AI**   | [Supabase](https://supabase.com/)                                                                             | Open-source Firebase alternative providing a PostgreSQL database, authentication, and storage. |
+|                  | [Polar](https://polar.sh/)                                                                                    | Payment processing platform for creators.                   |
+|                  | [Supadata](https://supadata.dev/)                                                                             | API for media data extraction, including video transcription. |
+|                  | [AI SDK (Google Gemini)](https://ai.google.dev/models/gemini)                                                 | SDK for integrating Google's Generative AI models.        |
+| **Deployment**   | [Vercel](https://vercel.com/)                                                                                 | Platform for frontend developers, providing analytics and speed insights. |
+|                  | [Sonner](https://sonner.emilkowalski.studio/)                                                                 | An opinionated toast component for React.                   |
+| **Validation**   | [Zod](https://zod.dev/)                                                                                       | TypeScript-first schema declaration and validation library. |
 
 ## Contributing
 
-We welcome contributions to Postmorph! If you have ideas for new features, bug fixes, or improvements, please follow these guidelines:
+We welcome contributions to Postmorph! If you're interested in helping improve the project, please follow these guidelines:
 
-- ✨ **Fork the repository** and clone it locally.
-- 🌿 Create a new branch for your feature or fix.
-- 💻 Make your changes and commit them with clear, concise messages.
-- 🧪 Write tests for new features or bug fixes.
-- 🚀 Push your branch and open a pull request.
-- 🤝 Ensure your code adheres to the project's coding standards.
+*   ✨ **Fork the repository**: Create your own copy of the project.
+*   🌿 **Create a new branch**: Branch off from `main` for your feature or bug fix.
+*   🚀 **Implement your changes**: Write clear, concise code following existing patterns.
+*   🧪 **Test thoroughly**: Ensure your changes work as expected and don't introduce regressions.
+*   📝 **Commit messages**: Use descriptive commit messages that explain your changes.
+*   📬 **Open a pull request**: Submit your changes for review against the `main` branch.
+
+## License
+
+This project is licensed under the ISC License.
 
 ## Author Info
 
-**Adebayo Muis (Charmingdc)**
+**Adebayo Muis**
+- X (formerly Twitter): [@Charmingdc01](https://x.com/Charmingdc01)
+- LinkedIn: [Your LinkedIn Profile](https://linkedin.com/in/yourusername)
 
-- LinkedIn: [Adebayo Muis](https://linkedin.com/in/adebayo-muis)
-- X (formerly Twitter): [Muis](https://x.com/@Charmingdc01)
+**Charming Dc**
+- X (formerly Twitter): [@Charmingdc01](https://x.com/Charmingdc01)
+- LinkedIn: [Your LinkedIn Profile](https://linkedin.com/in/yourusername)
 
-## Badges
-
-[![Next.js](https://img.shields.io/badge/Next.js-Black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
-[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
-[![Supabase](https://img.shields.io/badge/Supabase-181818?style=for-the-badge&logo=supabase&logoColor=green)](https://supabase.com/)
-[![Polar](https://img.shields.io/badge/Polar-0070F3?style=for-the-badge&logo=polar&logoColor=white)](https://polar.sh/)
-[![Google Gemini](https://img.shields.io/badge/Google_Gemini-4285F4?style=for-the-badge&logo=google&logoColor=white)](https://ai.google.dev/models/gemini)
-[![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
+---
 
 [![Readme was generated by Dokugen](https://img.shields.io/badge/Readme%20was%20generated%20by-Dokugen-brightgreen)](https://www.npmjs.com/package/dokugen)

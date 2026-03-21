@@ -21,13 +21,12 @@ const PricingSection = async () => {
    id: "2a5f3701-8fea-4adf-805e-1204791022e3",
    tagline: "Perfect for getting started",
    price: "$2",
-   credits: 30,
+   credits: 35,
    features: [
     "One-time payment",
     "No subscription fees",
     "Full access to all features",
     "Credits never expire",
-    "Up to 3 edits per draft",
     "Pay only for what you use"
    ]
   },
@@ -35,14 +34,13 @@ const PricingSection = async () => {
    name: "Creator",
    id: "a0748692-737e-4e39-ac8a-f10474a7bcb2",
    tagline: "Best for content creators",
-   price: "$6",
-   credits: 100,
+   price: "$7",
+   credits: 120,
    features: [
     "One-time payment",
     "No subscription fees",
     "Full access to all features",
     "Credits never expire",
-    "Up to 6 edits per draft",
     "Pay only for what you use",
     "Email support"
    ],
@@ -52,14 +50,13 @@ const PricingSection = async () => {
    name: "Pro",
    id: "38a80411-9f82-436b-88c0-fd15cddd8101",
    tagline: "For power users & teams",
-   price: "$15",
-   credits: 220,
+   price: "$18",
+   credits: 300,
    features: [
     "Everything in Creator",
     "Priority support",
     "Advanced analytics",
-    "Early access to new features",
-    "Up to 10 edits per draft"
+    "Early access to new features"
    ]
   }
  ];

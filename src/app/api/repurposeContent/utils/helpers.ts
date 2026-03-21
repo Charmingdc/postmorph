@@ -1,3 +1,4 @@
+import { CREDIT_COSTS } from "@/lib/credits/credits.config";
 import isUrl from "@/app/utils/isUrl";
 import fetchBlogContent from "./fetchBlog";
 import { getTranscript } from "./getTranscript";
@@ -63,4 +64,33 @@ Ensure the output aligns with ${targetPlatform}'s natural writing style and form
  return platform.template(sourcePlatform, toneInstruction, content);
 };
 
-export { prepareContent, buildPrompt };
+function getCreditCost(sourcePlatform: string) {
+ const platform = sourcePlatform.trim().toLowerCase();
+
+ switch (platform) {
+  case "blog":
+   return CREDIT_COSTS.repurpose.blog;
+
+  case "youtube video":
+   return CREDIT_COSTS.media.youtube;
+
+  case "tiktok video":
+   return CREDIT_COSTS.media.tiktok;
+
+  case "tweet":
+   return CREDIT_COSTS.repurpose.tweet;
+
+  case "linkedin post":
+   return CREDIT_COSTS.repurpose.linkedin;
+
+  case "reddit post":
+   return CREDIT_COSTS.repurpose.reddit;
+
+  case "x thread":
+   return CREDIT_COSTS.repurpose.thread;
+
+  default:
+   return CREDIT_COSTS.repurpose.tweet;
+ }
+}
+export { prepareContent, buildPrompt, getCreditCost };

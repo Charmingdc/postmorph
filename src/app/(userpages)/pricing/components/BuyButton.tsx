@@ -59,7 +59,7 @@ export default function BuyButton({
    disabled={loading}
    className="w-full bg-primary text-primary-foreground py-2 rounded-lg font-medium hover:brightness-110 disabled:opacity-50"
   >
-   {loading ? "Processing..." : "Buy Now"}
+   {loading ? "Processing..." : "Buy Credits Pack"}
   </button>
  );
 }

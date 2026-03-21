@@ -8,29 +8,27 @@ const plans = [
   name: "Starter",
   tagline: "Perfect for getting started",
   price: "$2",
-  credits: "30 Credits",
+  credits: "35 Credits",
   link,
   features: [
    "One-time payment",
    "No subscription fees",
    "Full access to all features",
    "Credits never expire",
-   "Up to 3 edits per draft",
    "Pay only for what you use"
   ]
  },
  {
   name: "Creator",
   tagline: "Best for content creators",
-  price: "$6",
-  credits: "100 Credits",
+  price: "$7",
+  credits: "120 Credits",
   link,
   features: [
    "One-time payment",
    "No subscription fees",
    "Full access to all features",
    "Credits never expire",
-   "Up to 6 edits per draft",
    "Pay only for what you use",
    "Email support"
   ],
@@ -39,15 +37,14 @@ const plans = [
  {
   name: "Pro",
   tagline: "For power users & teams",
-  price: "$15",
-  credits: "220 Credits",
+  price: "$18",
+  credits: "300 Credits",
   link,
   features: [
    "Everything in Creator",
    "Priority support",
    "Advanced analytics",
    "Early access to new features",
-   "Up to 10 edits per draft"
   ]
  }
 ];
