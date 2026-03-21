@@ -22,7 +22,6 @@ type PageProps = {
  user_id: string;
  draft: DraftType;
 };
-type Plan = "pro" | "creator" | "free" | "starter";
 
 const TWEET_BREAK = "--tweet break--";
 
