@@ -43,9 +43,9 @@ export async function POST(req: Request) {
    return_url: `${process.env.NEXT_PUBLIC_APP_URL}/pricing`
   });
 
-  return NextResponse.json({ id: session.id, url: session.checkout_url });
+  return NextResponse.json({ url: session.checkout_url });
  } catch (err) {
-  console.error(err, err.error);
+  console.error(err);
   return NextResponse.json(
    { error: err instanceof Error ? err.message : "Error" },
    { status: 500 }

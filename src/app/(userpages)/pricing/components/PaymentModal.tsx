@@ -10,7 +10,7 @@ import {
  CreditCard
 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import type { PaymentResponse } from "./types";
+import type { PaymentResponse } from "../types";
 
 interface PaymentModalProps {
  data: PaymentResponse;
