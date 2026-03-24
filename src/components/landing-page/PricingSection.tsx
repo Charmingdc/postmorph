@@ -44,67 +44,74 @@ const plans = [
    "Everything in Creator",
    "Priority support",
    "Advanced analytics",
-   "Early access to new features",
+   "Early access to new features"
   ]
  }
 ];
 
 const PricingSection = () => {
  return (
-  <section id="pricing" className="py-20">
-   <div className="container px-4">
-    <div className="text-center max-w-3xl mx-auto mb-12 animate-fade-in">
-     <h2 className="text-2xl font-bold mb-4">
+  <section id="pricing" className="py-24">
+   <div className="container px-4 mx-auto">
+    <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-in">
+     <h2 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight">
       <span className="heading-gradient">Pay-As-You-Go</span> – No
       Subscriptions!
      </h2>
-     <p className="text-muted-foreground text-md">
+     <p className="text-lg text-muted-foreground">
       Buy credits upfront and use them as needed. No recurring fees, just pay
       for what you use!
      </p>
     </div>
 
-    <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(19rem,1fr))] gap-y-6 gap-x-8 py-6 text-left -mt-6">
+    <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(19rem,1fr))] gap-8 max-w-6xl mx-auto">
      {plans.map((plan, i) => (
       <div
        key={i}
-       className={`relative w-full bg-card border rounded-2xl p-6 flex flex-col gap-4 transition-all duration-300 ${
-        plan.highlight ? "border-blue-500 shadow-xl" : "border border shadow-md"
+       className={`relative w-full bg-card rounded-3xl p-8 flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ${
+        plan.highlight
+         ? "border-2 border-blue-500 shadow-xl"
+         : "border border-border shadow-md"
        }`}
       >
-       {/* Best Value badge */}
        {plan.highlight && (
-        <div className="absolute top-3 right-3 bg-blue-500 text-white text-xs font-semibold px-2 py-1 rounded-full">
+        <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-500 text-white text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-full shadow-sm">
          Best Value
         </div>
        )}
 
-       {/* Header */}
-       <div>
-        <h2 className="text-xl font-semibold">{plan.name}</h2>
-        <p className="text-sm text-muted-foreground">{plan.tagline}</p>
+       <div className="mb-6">
+        <h3 className="text-xl font-bold">{plan.name}</h3>
+        <p className="text-sm text-muted-foreground mt-1.5">{plan.tagline}</p>
        </div>
 
-       {/* Price */}
-       <div>
-        <p className="text-3xl font-bold">{plan.price}</p>
-        <p className="text-sm text-muted-foreground">for {plan.credits}</p>
+       <div className="mb-8 flex items-baseline gap-2">
+        <p className="text-5xl font-extrabold tracking-tight">{plan.price}</p>
+        <p className="text-sm font-medium text-muted-foreground">
+         for {plan.credits}
+        </p>
        </div>
 
-       {/* Button */}
-       <BuyButton purchaseLink={plan.link} />
-
-       {/* Features */}
-       <div>
-        <p className="font-medium mb-2">What’s included:</p>
-        <ul className="space-y-2">
+       <div className="flex-1 mb-8">
+        <p className="text-sm font-semibold mb-4">What’s included:</p>
+        <ul className="space-y-3">
          {plan.features.map((feature, idx) => (
-          <li key={idx} className="flex items-center gap-2 text-sm">
-           <Check className="w-4 h-4 text-green-500" />
-           <span>{feature}</span>
+          <li
+           key={idx}
+           className="flex items-start gap-3 text-sm text-muted-foreground"
+          >
+           <Check
+            className="w-5 h-5 text-green-500 shrink-0"
+            strokeWidth={2.5}
+           />
+           <span className="leading-tight">{feature}</span>
           </li>
          ))}
         </ul>
+       </div>
+
+       <div className="mt-auto pt-6 border-t border-border/50">
+        <BuyButton purchaseLink={plan.link} />
        </div>
       </div>
      ))}

@@ -1,113 +1,116 @@
 import BuyButton from "./BuyButton";
 import { Check } from "lucide-react";
 import getProfile from "@/lib/user/server";
+import type { Plan } from "../types";
 
-interface Plan {
- name: string;
- id: string;
- tagline: string;
- price: string;
- credits: number;
- features: string[];
- highlight?: boolean;
-}
+const plans: Plan[] = [
+ {
+  name: "Starter",
+  id: "pdt_0Nb8i4doFy1GcbaCk2JxZ",
+  tagline: "Perfect for getting started",
+  price: "$2",
+  credits: 35,
+  features: [
+   "One-time payment",
+   "No subscription fees",
+   "Full access to all features",
+   "Credits never expire",
+   "Pay only for what you use"
+  ]
+ },
+ {
+  name: "Creator",
+  id: "a0748692-737e-4e39-ac8a-f10474a7bcb2",
+  tagline: "Best for content creators",
+  price: "$7",
+  credits: 120,
+  features: [
+   "One-time payment",
+   "No subscription fees",
+   "Full access to all features",
+   "Credits never expire",
+   "Pay only for what you use",
+   "Email support"
+  ],
+  highlight: true
+ },
+ {
+  name: "Pro",
+  id: "38a80411-9f82-436b-88c0-fd15cddd8101",
+  tagline: "For power users & teams",
+  price: "$18",
+  credits: 300,
+  features: [
+   "Everything in Creator",
+   "Priority support",
+   "Advanced analytics",
+   "Early access to new features"
+  ]
+ }
+];
 
 const PricingSection = async () => {
  const profile = await getProfile();
 
- const plans: Plan[] = [
-  {
-   name: "Starter",
-   id: "2a5f3701-8fea-4adf-805e-1204791022e3",
-   tagline: "Perfect for getting started",
-   price: "$2",
-   credits: 35,
-   features: [
-    "One-time payment",
-    "No subscription fees",
-    "Full access to all features",
-    "Credits never expire",
-    "Pay only for what you use"
-   ]
-  },
-  {
-   name: "Creator",
-   id: "a0748692-737e-4e39-ac8a-f10474a7bcb2",
-   tagline: "Best for content creators",
-   price: "$7",
-   credits: 120,
-   features: [
-    "One-time payment",
-    "No subscription fees",
-    "Full access to all features",
-    "Credits never expire",
-    "Pay only for what you use",
-    "Email support"
-   ],
-   highlight: true
-  },
-  {
-   name: "Pro",
-   id: "38a80411-9f82-436b-88c0-fd15cddd8101",
-   tagline: "For power users & teams",
-   price: "$18",
-   credits: 300,
-   features: [
-    "Everything in Creator",
-    "Priority support",
-    "Advanced analytics",
-    "Early access to new features"
-   ]
-  }
- ];
-
  return (
-  <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(19rem,1fr))] gap-4 py-6">
-   {plans.map(plan => (
-    <div
-     key={plan.id}
-     className={`relative w-full bg-card border rounded-2xl py-6 px-4 flex flex-col gap-4 transition-all duration-300 ${
-      plan.highlight ? "border-blue-500 shadow-xl" : "border border shadow-md"
-     }`}
-    >
-     {plan.highlight && (
-      <div className="absolute top-3 right-3 bg-blue-500 text-white text-xs font-semibold px-2 py-1 rounded-full">
-       Best Value
+  <div className="relative w-full">
+   <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(19rem,1fr))] gap-8 py-10 md:px-0">
+    {plans.map(plan => (
+     <div
+      key={plan.id}
+      className={`relative w-full bg-card rounded-3xl p-8 flex flex-col transition-all duration-300 hover:shadow-lg ${
+       plan.highlight
+        ? "border-blue-500 shadow-xl"
+        : "border border-border shadow-sm"
+      }`}
+     >
+      {plan.highlight && (
+       <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-500 text-white text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-full shadow-sm">
+        Best Value
+       </div>
+      )}
+
+      <div className="mb-6">
+       <h2 className="text-xl font-bold">{plan.name}</h2>
+       <p className="text-sm text-muted-foreground mt-1.5">{plan.tagline}</p>
       </div>
-     )}
 
-     <div>
-      <h2 className="text-xl font-semibold">{plan.name}</h2>
-      <p className="text-sm text-muted-foreground">{plan.tagline}</p>
+      <div className="mb-8 flex items-baseline gap-2">
+       <p className="text-5xl font-extrabold tracking-tight">{plan.price}</p>
+       <p className="text-sm font-medium text-muted-foreground">
+        / {plan.credits} Credits
+       </p>
+      </div>
+
+      <div className="flex-1 mb-8">
+       <p className="text-sm font-semibold mb-4">What’s included:</p>
+       <ul className="space-y-3">
+        {plan.features.map((feature, idx) => (
+         <li
+          key={idx}
+          className="flex items-start gap-3 text-sm text-muted-foreground"
+         >
+          <Check
+           className="w-5 h-5 text-green-500 shrink-0"
+           strokeWidth={2.5}
+          />
+          <span className="leading-tight">{feature}</span>
+         </li>
+        ))}
+       </ul>
+      </div>
+
+      <div className="mt-auto pt-6 border-t border-border">
+       <BuyButton
+        planId={plan.id}
+        profile={profile}
+        credits={plan.credits}
+        planName={plan.name}
+       />
+      </div>
      </div>
-
-     <div>
-      <p className="text-3xl font-bold">{plan.price}</p>
-      <p className="text-sm text-muted-foreground">
-       for {plan.credits} Credits
-      </p>
-     </div>
-
-     <BuyButton
-      planId={plan.id}
-      profile={profile}
-      credits={plan.credits}
-      planName={plan.name}
-     />
-
-     <div>
-      <p className="font-medium mb-2">What’s included:</p>
-      <ul className="space-y-2">
-       {plan.features.map((feature, idx) => (
-        <li key={idx} className="flex items-center gap-2 text-sm">
-         <Check className="w-4 h-4 text-green-500" />
-         <span>{feature}</span>
-        </li>
-       ))}
-      </ul>
-     </div>
-    </div>
-   ))}
+    ))}
+   </div>
   </div>
  );
 };
