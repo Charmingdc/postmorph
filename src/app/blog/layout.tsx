@@ -1,5 +1,3 @@
-import Link from "next/link";
-import { ChevronLeft } from "lucide-react";
 import Navbar from "@/components/landing-page/Navbar";
 
 export default function BlogLayout({
