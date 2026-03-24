@@ -15,7 +15,7 @@ const Page = () => {
     <Navbar />
    </nav>
 
-   <main className="w-screen flex flex-col items-center gap-y-10">
+   <main className="w-screen flex flex-col items-center px-4 gap-y-10">
     <HeroSection />
     <FeaturesSection />
     <HowItWorks />

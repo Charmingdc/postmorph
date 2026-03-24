@@ -51,8 +51,8 @@ const plans = [
 
 const PricingSection = () => {
  return (
-  <section id="pricing" className="py-24">
-   <div className="container px-4 mx-auto">
+  <section id="pricing" className="py-20 w-full max-w-full">
+   <div className="w-full mx-auto">
     <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-in">
      <h2 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight">
       <span className="heading-gradient">Pay-As-You-Go</span> – No
@@ -64,11 +64,11 @@ const PricingSection = () => {
      </p>
     </div>
 
-    <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(19rem,1fr))] gap-8 max-w-6xl mx-auto">
+    <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto text-left">
      {plans.map((plan, i) => (
       <div
        key={i}
-       className={`relative w-full bg-card rounded-3xl p-8 flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ${
+       className={`relative w-full max-w-md mx-auto lg:max-w-none bg-card rounded-3xl p-6 sm:p-8 flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ${
         plan.highlight
          ? "border-2 border-blue-500 shadow-xl"
          : "border border-border shadow-md"
@@ -93,7 +93,9 @@ const PricingSection = () => {
        </div>
 
        <div className="flex-1 mb-8">
-        <p className="text-sm font-semibold mb-4">What’s included:</p>
+        <p className="selft-start text-left text-sm font-semibold mb-4">
+         What’s included:
+        </p>
         <ul className="space-y-3">
          {plan.features.map((feature, idx) => (
           <li
@@ -110,7 +112,7 @@ const PricingSection = () => {
         </ul>
        </div>
 
-       <div className="mt-auto pt-6 border-t border-border/50">
+       <div className="mt-auto pt-6 border-t border-border">
         <BuyButton purchaseLink={plan.link} />
        </div>
       </div>
