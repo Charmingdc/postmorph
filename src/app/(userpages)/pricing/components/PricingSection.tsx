@@ -6,7 +6,7 @@ import type { Plan } from "../types";
 const plans: Plan[] = [
  {
   name: "Starter",
-  id: "pdt_0Nb8i4doFy1GcbaCk2JxZ",
+  id: "pdt_0Nb8g2a0s5YKJEiEoU1VE",
   tagline: "Perfect for getting started",
   price: "$2",
   credits: 35,
@@ -20,7 +20,7 @@ const plans: Plan[] = [
  },
  {
   name: "Creator",
-  id: "a0748692-737e-4e39-ac8a-f10474a7bcb2",
+  id: "pdt_0Nb8hFKuc6sCZBOByta85",
   tagline: "Best for content creators",
   price: "$7",
   credits: 120,
@@ -36,7 +36,7 @@ const plans: Plan[] = [
  },
  {
   name: "Pro",
-  id: "38a80411-9f82-436b-88c0-fd15cddd8101",
+  id: "pdt_0Nb8hXA6aRxXtu9uj1zWn",
   tagline: "For power users & teams",
   price: "$18",
   credits: 300,
