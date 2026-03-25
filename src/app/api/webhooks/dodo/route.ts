@@ -10,15 +10,23 @@ const client = new DodoPayments({
  webhookKey: process.env.DODO_PAYMENTS_WEBHOOK_KEY
 });
 
-const processedWebhooks = new Set();
+const processedWebhooks = new Set<string>();
+
+interface DodoWebhookEvent {
+ type: string;
+ data: {
+  metadata?: Record<string, string | number | undefined>;
+ };
+}
+
 export async function POST(req: Request) {
  try {
   const webhookId = req.headers.get("webhook-id");
 
-  if (processedWebhooks.has(webhookId)) {
+  if (webhookId && processedWebhooks.has(webhookId)) {
    return NextResponse.json({ received: true }, { status: 200 });
   }
-  processedWebhooks.add(webhookId);
+  if (webhookId) processedWebhooks.add(webhookId);
 
   const rawBody = await req.text();
 
@@ -38,7 +46,7 @@ export async function POST(req: Request) {
     "webhook-signature": webhookSignature,
     "webhook-timestamp": webhookTimestamp
    }
-  });
+  }) as unknown as DodoWebhookEvent;
 
   await processWebhookEvent(unwrappedEvent);
 
@@ -53,22 +61,24 @@ export async function POST(req: Request) {
  }
 }
 
-async function processWebhookEvent(event: any) {
+async function processWebhookEvent(event: DodoWebhookEvent) {
  switch (event.type) {
   case "payment.succeeded":
-   await handlePaymentSucceeded(event.data || event.payload || event);
+   await handlePaymentSucceeded(event);
    break;
   default:
    console.log(`Unhandled webhook event type: ${event.type}`);
  }
 }
 
-async function handlePaymentSucceeded(paymentData: any) {
- const metadata = paymentData?.metadata;
+async function handlePaymentSucceeded(event: DodoWebhookEvent) {
+ const metadata = event.data?.metadata;
 
- const userId = metadata?.user_id as string;
+ const userId = metadata?.user_id as string | undefined;
  const creditsToAdd = Number(metadata?.credits) || 0;
- const planName = ((metadata?.plan as string) || "pro").toLowerCase();
+ const planName = (
+  (metadata?.plan as string | undefined) || "pro"
+ ).toLowerCase();
 
  if (userId && creditsToAdd > 0) {
   const supabase = createAdminClient();
