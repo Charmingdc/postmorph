@@ -53,11 +53,11 @@ const PricingSection = async () => {
  const profile = await getProfile();
 
  return (
-  <div className="relative w-full pt-20">
-   <div className="text-center mb-4">
-    <p className="mx-auto max-w-2xl text-lg font-semibold text-white">
-     Use code <span className="font-bold">EARLY20</span> for an exclusive launch
-     discount on <span className="font-bold">Starter</span> and{" "}
+  <div className="relative w-full pt-10">
+   <div className="text-left mb-4">
+    <p className="mx-auto max-w-2xl font-semibold text-muted-foreground">
+     Use code <span className="font-bold italic">EARLY20</span> for an exclusive
+     launch discount on <span className="font-bold">Starter</span> and{" "}
      <span className="font-bold">Creator</span> plans only!
     </p>
    </div>
