@@ -8,6 +8,7 @@ const plans = [
   name: "Starter",
   tagline: "Perfect for getting started",
   price: "$2",
+  discountedPrice: "$0.40",
   credits: "35 Credits",
   link,
   features: [
@@ -22,6 +23,7 @@ const plans = [
   name: "Creator",
   tagline: "Best for content creators",
   price: "$7",
+  discountedPrice: "$1.40",
   credits: "120 Credits",
   link,
   features: [
@@ -63,7 +65,6 @@ const PricingSection = () => {
       for what you use!
      </p>
     </div>
-
     <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto text-left">
      {plans.map((plan, i) => (
       <div
@@ -79,19 +80,32 @@ const PricingSection = () => {
          Best Value
         </div>
        )}
-
+       {plan.discountedPrice && (
+        <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-blue-500 text-white text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-sm">
+         80% Off!
+        </div>
+       )}
        <div className="mb-6">
         <h3 className="text-xl font-bold">{plan.name}</h3>
         <p className="text-sm text-muted-foreground mt-1.5">{plan.tagline}</p>
        </div>
-
        <div className="mb-8 flex items-baseline gap-2">
-        <p className="text-5xl font-extrabold tracking-tight">{plan.price}</p>
+        {plan.discountedPrice ? (
+         <>
+          <p className="text-2xl line-through text-muted-foreground">
+           {plan.price}
+          </p>
+          <p className="text-5xl font-extrabold tracking-tight text-blue-600">
+           {plan.discountedPrice}
+          </p>
+         </>
+        ) : (
+         <p className="text-5xl font-extrabold tracking-tight">{plan.price}</p>
+        )}
         <p className="text-sm font-medium text-muted-foreground">
          for {plan.credits}
         </p>
        </div>
-
        <div className="flex-1 mb-8">
         <p className="selft-start text-left text-sm font-semibold mb-4">
          What’s included:
@@ -111,7 +125,6 @@ const PricingSection = () => {
          ))}
         </ul>
        </div>
-
        <div className="mt-auto pt-6 border-t border-border">
         <BuyButton purchaseLink={plan.link} />
        </div>

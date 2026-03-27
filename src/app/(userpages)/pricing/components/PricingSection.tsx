@@ -54,6 +54,14 @@ const PricingSection = async () => {
 
  return (
   <div className="relative w-full">
+   <div className="text-center mb-6">
+    <p className="text-sm font-semibold text-blue-600">
+     Use code <span className="font-bold">EARLY20</span> for an exclusive launch
+     discount on <span className="font-bold">Starter</span> and{" "}
+     <span className="font-bold">Creator</span> plans only!
+    </p>
+   </div>
+
    <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(19rem,1fr))] gap-8 py-10 md:px-0">
     {plans.map(plan => (
      <div
