@@ -55,9 +55,9 @@ const PricingSection = async () => {
  return (
   <div className="relative w-full pt-4">
    <div className="text-left mb-2">
-    <p className="mx-auto max-w-2xl text-muted-foreground">
-     Use code <span className="font-bold italic">EARLY20</span> for an exclusive
-     launch discount on <span className="font-bold">Starter</span> and{" "}
+    <p className="mx-auto max-w-2xl">
+     Use code <span className="font-semibold">EARLY20</span> for an exclusive launch
+     discount on <span className="font-bold">Starter</span> and{" "}
      <span className="font-bold">Creator</span> plans only!
     </p>
    </div>

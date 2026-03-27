@@ -65,14 +65,14 @@ const PricingSection = () => {
       for what you use!
      </p>
     </div>
-    <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto text-left">
+    <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto text-left">
      {plans.map((plan, i) => (
       <div
        key={i}
-       className={`relative w-full max-w-md mx-auto lg:max-w-none bg-card rounded-3xl p-6 sm:p-8 flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ${
+       className={`relative w-full max-w-md mx-auto lg:max-w-none bg-card rounded-3xl p-6 sm:p-8 flex flex-col transition-all duration-300 hover:-translate-y-1 ${
         plan.highlight
-         ? "border-2 border-blue-500 shadow-xl"
-         : "border border-border shadow-md"
+         ? "border border-blue-500 shadow-md"
+         : "border border-border shadow-sm"
        }`}
       >
        {plan.highlight && (

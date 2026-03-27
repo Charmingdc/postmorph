@@ -30,7 +30,7 @@ const HeroSection = () => {
      <div className="flex flex-col items-center gap-4 max-w-3xl mx-auto">
       <div className="max-w-[80%] inline-flex items-center rounded-2xl border border-primary/20 bg-secondary backdrop-blur-md px-4 py-1.5 text-sm font-medium text-primary">
        <span className="animate-pulse-subtle mr-2">⚡ </span>80% OFF Starter &
-       Creator Plans — Only for the first 20 users!”
+       Creator Plans — Only 20 free spots!
       </div>
       <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight animate-fade-in">
        Turn

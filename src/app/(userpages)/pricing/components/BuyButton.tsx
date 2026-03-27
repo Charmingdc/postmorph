@@ -58,7 +58,7 @@ export default function BuyButton({
   <button
    onClick={handleBuy}
    disabled={loading}
-   className="group relative w-full bg-primary text-primary-foreground py-4 px-6 rounded-xl font-bold text-sm uppercase tracking-wider transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] shadow-md hover:shadow-lg disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2 overflow-hidden"
+   className="group relative w-full bg-primary text-primary-foreground py-4 px-6 rounded-2xl font-semibold text-sm uppercase tracking-wider transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] hover:shadow-md disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2 overflow-hidden"
   >
    {loading ? (
     <Loader2 className="w-5 h-5 animate-spin" />
