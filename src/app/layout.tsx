@@ -77,9 +77,20 @@ export default function RootLayout({
 }: Readonly<{
  children: React.ReactNode;
 }>) {
+ const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Postmorph",
+  url: "https://postmorph.vercel.app/"
+ };
+
  return (
   <html lang="en" className={figtree.className}>
    <body className="antialiased">
+    <script
+     type="application/ld+json"
+     dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
     {children}
 
     <Analytics />
