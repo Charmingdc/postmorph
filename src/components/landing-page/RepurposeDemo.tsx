@@ -10,7 +10,7 @@ const RepurposeDemo = () => {
   const handleRepurpose = async () => {
     setIsLoading(true);
 
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     setIsLoading(false);
     setShowResult(true);
 
@@ -20,7 +20,7 @@ const RepurposeDemo = () => {
   };
 
   return (
-    <div className="w-[95%] mx-auto flex flex-col items-center bg-card border border rounded-2xl -mt-4 overflow-hidden">
+    <div className="w-[80%] md:w-[65%] mx-auto flex flex-col items-center bg-card border border-border rounded-2xl -mt-4 overflow-hidden">
       {/* Form Fields */}
 
       <div className="w-full p-6 space-y-4">
@@ -45,8 +45,8 @@ const RepurposeDemo = () => {
             <label className="text-left text-sm font-medium text-foreground">
               Output Format
             </label>
-            <div className="relative">
-              <div className="w-full px-6 py-2 rounded-xl border bg-muted flex items-center justify-between gap-2 cursor-not-allowed">
+            <div className="w-full relative">
+              <div className="w-full px-2 py-2 mb-2 rounded-xl border bg-muted flex items-center justify-between gap-2 cursor-not-allowed">
                 <div className="flex items-center gap-2">
                   <span className="text-muted-foreground">tweet</span>
                 </div>
