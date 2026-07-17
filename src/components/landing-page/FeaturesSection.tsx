@@ -54,7 +54,7 @@ const FeaturesSectionHeadline = () => {
   return (
     <section
       id="features"
-      className="w-[95%] py-16 border-x border-[0.5px] border-y-0 border-border"
+      className="w-full md:w-[95%] py-16 px-4 md:px-0 md:border-x md:border-[0.5px] border-y-0 border-border"
     >
       <div className="w-full px-4 md:px-8">
         <div
@@ -93,7 +93,7 @@ const FeaturesSectionContent = () => {
   ];
 
   return (
-    <section className="w-[95%] border-x border-[0.5px] border-y-0 border-border">
+    <section className="w-full md:w-[95%] md:border-x md:border-[0.5px] border-y-0 border-border">
       <div className="w-full">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 divide-y divide-x divide-border [&>*]:border-[0.5px] [&>*]:border-border">
           {features.map((feature, index) => {
@@ -101,18 +101,14 @@ const FeaturesSectionContent = () => {
               <div
                 key={index}
                 ref={featureRefs[index]}
-                className="p-6 hover:bg-accent transition-all duration-300"
+                className="flex flex-col items-center justify-center gap-2 text-center p-8 md:p-6 hover:bg-accent transition-all duration-300"
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
                 <div className="mb-4 rounded-xl bg-secondary w-16 h-16 flex items-center justify-center">
                   {feature.icon}
                 </div>
-                <h3 className="font-semibold text-left text-xl mb-2">
-                  {feature.title}
-                </h3>
-                <p className="text-left text-muted-foreground">
-                  {feature.description}
-                </p>
+                <h3 className="font-semibold text-xl mb-2">{feature.title}</h3>
+                <p className="text-muted-foreground">{feature.description}</p>
               </div>
             );
           })}

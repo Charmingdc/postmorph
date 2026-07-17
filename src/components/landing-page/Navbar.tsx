@@ -51,7 +51,7 @@ const Navbar = () => {
       </div>
 
       <div className="flex items-center justify-center gap-6">
-        <div className="flex items-center justify-center gap-2">
+        <div className="hidden md:flex items-center justify-center gap-2">
           {navLinks.map((navLink, idx) => (
             <Link
               href={navLink.link}

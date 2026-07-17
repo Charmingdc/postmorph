@@ -55,7 +55,7 @@ const PricingSectionHeadline = () => {
   return (
     <section
       id="pricing"
-      className="w-[95%] py-16 border-x border-[0.5px] border-y-0 border-border"
+      className="w-full md:w-[95%] py-16 px-4 md:px-0 md:border-x md:border-[0.5px] border-y-0 border-border"
     >
       <div className="text-center max-w-3xl mx-auto animate-fade-in">
         <h2 className="text-2xl md:text-4xl mb-3">
@@ -72,9 +72,9 @@ const PricingSectionHeadline = () => {
 
 const PricingSection = () => {
   return (
-    <section className="w-[95%] py-20 border-x border-[0.5px] border-y-0 border-border">
+    <section className="w-full md:w-[95%] py-20 md:border-x md:border-[0.5px] border-y-0 border-border">
       <div className="w-full mx-auto">
-        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto text-left">
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-4 md:p-0 max-w-6xl mx-auto text-left">
           {plans.map((plan, i) => (
             <div
               key={i}

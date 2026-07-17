@@ -80,7 +80,7 @@ const FaqSection = () => {
   return (
     <section
       id="faq"
-      className="w-[95%] border-x border-[0.5px] border-y-0 border-border"
+      className="w-full md:w-[95%] md:border-x md:border-[0.5px] border-y-0 border-border"
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-border [&>*]:border-[0.5px] [&>*]:border-l-0 [&>*]:border-r-0 [&>*]:border-border">
         <div
@@ -90,7 +90,7 @@ const FaqSection = () => {
         >
           <div
             ref={headlineRef}
-            className="flex flex-col gap-3 text-left scroll-fade-in"
+            className="flex flex-col gap-3 text-center md:text-left scroll-fade-in"
           >
             <h2 className="text-2xl md:text-4xl">
               Frequently Asked{" "}
@@ -109,7 +109,7 @@ const FaqSection = () => {
               <AccordionItem
                 key={index}
                 value={`item-${index}`}
-                className="p-3 border-b-[0.5px] border-border first:border-t-0 last:border-b-0"
+                className="p-2 border-b-[0.5px] border-border first:border-t-0 last:border-b-0"
               >
                 <AccordionTrigger className="py-4 hover:no-underline text-left">
                   <span className="text-left font-medium">{faq.question}</span>

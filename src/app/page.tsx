@@ -1,5 +1,6 @@
 import Navbar from "@/components/landing-page/Navbar";
 import HeroSection from "@/components/landing-page/HeroSection";
+import Showcase from "@/components/landing-page/Showcase";
 import {
   FeaturesSectionHeadline,
   FeaturesSectionContent,
@@ -32,6 +33,8 @@ const Page = () => {
 
       <main className="w-full flex flex-col items-center">
         <HeroSection />
+        <Divider />
+        <Showcase />
         <Divider />
         <FeaturesSectionHeadline />
         <Divider />
