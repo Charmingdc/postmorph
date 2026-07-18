@@ -78,14 +78,11 @@ const FaqSection = () => {
   }, []);
 
   return (
-    <section
-      id="faq"
-      className="w-full md:w-[95%] md:border-x md:border-[0.5px] border-y-0 border-border"
-    >
-      <div className="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-border [&>*]:border-[0.5px] [&>*]:border-l-0 [&>*]:border-r-0 [&>*]:border-border">
+    <section id="faq" className="w-full">
+      <div className="w-[95%] mx-auto grid grid-cols-1 lg:grid-cols-2">
         <div
           ref={headlineColRef}
-          className="lg:sticky lg:self-start p-10 lg:py-16"
+          className="lg:sticky lg:self-start p-10 lg:py-16 lg:border-r-[0.5px] border-border"
           style={{ top: "-9999px" }}
         >
           <div

@@ -1,11 +1,9 @@
-![Postmorph Workflow](src/app/auth/assets/postmorph-workflow.png)
-![Built for Modern Creators](src/app/auth/assets/illustration-01.png)
+![Postmorph Workflow](https://github.com/Charmingdc/postmorph/blob/main/src/app/auth/assets/postmorph-workflow.png)
+![Built for Modern Creators](https://github.com/Charmingdc/postmorph/blob/main/src/app/auth/assets/illustration-01.png)
 
 # Postmorph
 
-## Overview
-
-Postmorph is a smart tool that helps content creators and marketers get more from their content. You give it your existing content, like a blog post or video, and it quickly transforms it into various formats for different platforms, saving you tons of time and effort. It's all about making content creation straightforward and efficient.
+Postmorph helps content creators and marketers get more from their existing content. It takes your long-form pieces, like blog posts or videos, and quickly transforms them into various formats for different social platforms, saving you a ton of time and effort. It's all about making content creation straightforward and efficient.
 
 ## Features
 
@@ -156,12 +154,12 @@ From the landing page, you can learn more about Postmorph or sign up to start tr
 ### Content Repurposing Workflow
 
 1.  **Sign Up/Sign In**: Create an account or log in to access the dashboard.
-2.  **Navigate to "Repurpose New"**: In the dashboard sidebar, select "Repurpose New."
+2.  **Navigate to "Repurpose New"**: In the dashboard sidebar, select "Repurpose New".
 3.  **Choose Formats**:
-    *   Select your "Input Format" (e.g., "blog", "youtube video", "x thread").
-    *   Choose your desired "Output Format" (e.g., "tweet", "linkedin post").
+    *   Select your "Input Format", for example, "blog", "youtube video", or "x thread".
+    *   Choose your desired "Output Format", such as "tweet" or "linkedin post".
     *   Pick a "Tone" that fits your needs. You can use default tones or create custom ones.
-4.  **Provide Content**: Paste a link (for videos/blogs) or the text content into the input area.
+4.  **Provide Content**: Paste a link, for videos/blogs, or the text content into the input area.
 5.  **Repurpose**: Click "Repurpose Now" and let the AI work its magic.
 6.  **Review and Edit**: Your new draft will appear. You can copy it, or click the edit icon to open it in the editor for further adjustments.
 
@@ -261,7 +259,7 @@ GET /api/getDrafts?userId=your-user-id-here&from=0&to=9
 - 500: An internal server error occurred, possibly during AI content generation or while updating the draft/user credits in the database.
 
 #### POST /api/repurposeContent
-**Description**: Transforms content from one platform format (e.g., blog, YouTube video) into another (e.g., tweet, X thread) using AI. This process includes content extraction (for URLs), AI generation, and saving the new content as a draft. It also deducts credits from the user's account.
+**Description**: Transforms content from one platform format, for example, a blog or YouTube video, into another, for example, a tweet or X thread, using AI. This process includes content extraction for URLs, AI generation, and saving the new content as a draft. It also deducts credits from the user's account.
 
 **Request**:
 ```json
@@ -295,7 +293,7 @@ GET /api/getDrafts?userId=your-user-id-here&from=0&to=9
 #### POST /api/webhooks/dodo
 **Description**: This is an internal webhook endpoint that listens for events from Dodo Payments. Its primary function is to verify incoming payment success events and update user credit balances in the Supabase database accordingly. This endpoint is not intended for direct client-side interaction.
 
-**Request**: (Example of a `payment.succeeded` webhook payload from Dodo Payments)
+**Request**:
 ```json
 {
   "type": "payment.succeeded",
@@ -309,7 +307,6 @@ GET /api/getDrafts?userId=your-user-id-here&from=0&to=9
     "status": "succeeded",
     "total_amount": 200,
     "currency": "USD"
-    // ... other Dodo Payments fields
   }
 }
 ```
@@ -350,7 +347,7 @@ GET /api/getDrafts?userId=your-user-id-here&from=0&to=9
 We welcome contributions to Postmorph! If you're interested in helping out, please follow these guidelines:
 
 1.  **Fork the repository**.
-2.  **Create a new branch** for your feature or bug fix: `git checkout -b feature/your-feature-name` or `git checkout -b bugfix/issue-description`.
+2.  **Create a new branch** for your feature or bug fix, for example, `git checkout -b feature/your-feature-name` or `git checkout -b bugfix/issue-description`.
 3.  **Make your changes**, ensuring that your code adheres to the project's coding style and practices.
 4.  **Write clear, concise commit messages**.
 5.  **Push your branch** and open a pull request.

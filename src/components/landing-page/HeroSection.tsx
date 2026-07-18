@@ -3,8 +3,8 @@ import RepurposeDemo from "./RepurposeDemo";
 
 const HeroSection = () => {
   return (
-    <section className="w-full md:w-[95%] py-20 border-0 md:border-x md:border-[0.5px] border-y-0 border-border overflow-x-hidden relative">
-      <div className="container px-4 md:px-6">
+    <section className="w-full py-20 overflow-x-hidden relative">
+      <div className="w-[95%] mx-auto px-4 md:px-6">
         <div className="flex flex-col items-center text-center gap-1">
           <div className="flex flex-col items-center gap-6 max-w-4xl mx-auto">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-normal tracking-tight animate-fade-in">

@@ -6,8 +6,8 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="w-full text-left px-4 md:px-0 border-t border-[0.5px] border-border">
-      <div className="w-[95%] mx-auto py-16 grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-12">
+    <footer className="w-full text-left">
+      <div className="w-[95%] mx-auto py-16 px-6 md:px-8 grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-12">
         {/* Brand — full width on mobile, first col on md */}
         <div className="col-span-2 md:col-span-1 flex flex-col gap-5">
           <Link href="/" className="flex items-center gap-2 w-fit">

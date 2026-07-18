@@ -4,94 +4,46 @@
 
 @layer base {
   :root {
-    /* Backgrounds */
-    --background: 252, 252, 251;
-    --foreground: 28, 28, 30;
+    --background: 237, 236, 232;
+    --foreground: 22, 22, 24;
 
-    --card: 248, 248, 248;
-    --card-foreground: 28, 28, 30;
+    --card: 243, 242, 239;
+    --card-foreground: 22, 22, 24;
 
-    --popover: 255, 255, 255;
-    --popover-foreground: 28, 28, 30;
+    --popover: 243, 242, 239;
+    --popover-foreground: 22, 22, 24;
 
-    /* Brand */
-    --primary: 35, 35, 38;
-    --primary-foreground: 255, 255, 255;
+    --primary: 22, 22, 24;
+    --primary-foreground: 237, 236, 232;
 
-    /* UI */
-    --secondary: 255, 255, 255;
-    --secondary-foreground: 60, 60, 65;
+    --secondary: 230, 229, 225;
+    --secondary-foreground: 22, 22, 24;
 
-    --muted: 245, 245, 245;
-    --muted-foreground: 120, 120, 125;
+    --muted: 230, 229, 225;
+    --muted-foreground: 118, 116, 110;
 
-    --accent: 242, 242, 242;
-    --accent-foreground: 35, 35, 38;
+    --accent: 230, 229, 225;
+    --accent-foreground: 22, 22, 24;
 
-    /* States */
     --destructive: 220, 53, 69;
-    --destructive-foreground: 255, 255, 255;
+    --destructive-foreground: 237, 236, 232;
 
-    /* Borders */
-    --border: 228, 228, 228;
-    --input: 232, 232, 232;
+    --border: 214, 212, 207;
+    --input: 214, 212, 207;
 
-    /* Radius */
     --radius: 1rem;
 
-    /* Sidebar */
-    --sidebar-background: 252, 252, 251;
-    --sidebar-foreground: 28, 28, 30;
+    --sidebar-background: 237, 236, 232;
+    --sidebar-foreground: 22, 22, 24;
 
-    --sidebar-primary: 35, 35, 38;
-    --sidebar-primary-foreground: 255, 255, 255;
+    --sidebar-primary: 22, 22, 24;
+    --sidebar-primary-foreground: 237, 236, 232;
 
-    --sidebar-accent: 245, 245, 245;
-    --sidebar-accent-foreground: 35, 35, 38;
+    --sidebar-accent: 230, 229, 225;
+    --sidebar-accent-foreground: 22, 22, 24;
 
-    --sidebar-border: 228, 228, 228;
+    --sidebar-border: 214, 212, 207;
   }
-
-  /* @media (prefers-color-scheme: dark) {
-    :root {
-      --background: 18, 18, 20;
-      --foreground: 245, 245, 245;
-
-      --card: 24, 24, 27;
-      --card-foreground: 245, 245, 245;
-
-      --popover: 28, 28, 30;
-      --popover-foreground: 245, 245, 245;
-
-      --primary: 245, 245, 245;
-      --primary-foreground: 28, 28, 30;
-
-      --secondary: 36, 36, 40;
-      --secondary-foreground: 220, 220, 220;
-
-      --muted: 30, 30, 34;
-      --muted-foreground: 160, 160, 165;
-
-      --accent: 40, 40, 44;
-      --accent-foreground: 245, 245, 245;
-
-      --destructive: 239, 68, 68;
-      --destructive-foreground: 255, 255, 255;
-
-      --border: 58, 58, 62;
-      --input: 50, 50, 54;
-
-      --sidebar-background: 18, 18, 20;
-      --sidebar-foreground: 245, 245, 245;
-
-      --sidebar-primary: 245, 245, 245;
-      --sidebar-primary-foreground: 28, 28, 30;
-
-      --sidebar-accent: 36, 36, 40;
-      --sidebar-accent-foreground: 245, 245, 245;
-
-      --sidebar-border: 58, 58, 62;
-    } */
 }
 
 @layer base {
@@ -105,47 +57,26 @@
   }
 
   body {
-    @apply w-full font-ui bg-accent text-foreground overflow-x-hidden;
+    @apply w-full font-ui bg-background text-foreground overflow-x-hidden;
   }
 }
 
 @layer components {
-  .feature-card-hover {
-    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-2 hover:scale-105;
-  }
-
   .button-pulse {
-    @apply relative overflow-hidden shadow-lg hover:shadow-xl;
+    @apply relative overflow-hidden;
   }
 
   .button-pulse::after {
-    @apply content-[''] absolute top-0 left-0 w-full h-full bg-primary/30 rounded-xl blur-md opacity-0 transition-opacity;
+    @apply content-[''] absolute top-0 left-0 w-full h-full bg-primary/20 rounded-xl blur-md opacity-0 transition-opacity;
   }
 
   .button-pulse:hover::after {
-    @apply opacity-70 animate-pulse-subtle;
+    @apply opacity-60;
   }
 
-  .modern-card {
-    @apply bg-card/95 backdrop-blur-sm rounded-3xl border border-primary/10 hover:border-primary/25 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1;
-  }
-
-  .elegant-container {
-    @apply max-w-7xl mx-auto px-6 md:px-8 lg:px-12;
-  }
-
-  .section-spacing {
-    @apply py-24 md:py-32;
-  }
-
-  .card-shadow {
-    @apply shadow-lg hover:shadow-2xl transition-shadow duration-300;
-  }
-
-  /* Scroll animations */
   .scroll-fade-in {
     opacity: 0;
-    transform: translateY(20px) rotate(var(--tilt, 0deg));
+    transform: translateY(20px);
     transition:
       opacity 0.6s ease-out,
       transform 0.6s ease-out;
@@ -153,12 +84,12 @@
 
   .scroll-fade-in.visible {
     opacity: 1;
-    transform: translateY(0) rotate(var(--tilt, 0deg));
+    transform: translateY(0);
   }
 
   .scroll-fade-in-left {
     opacity: 0;
-    transform: translateX(-20px) rotate(var(--tilt, 0deg));
+    transform: translateX(-20px);
     transition:
       opacity 0.6s ease-out,
       transform 0.6s ease-out;
@@ -166,12 +97,12 @@
 
   .scroll-fade-in-left.visible {
     opacity: 1;
-    transform: translateX(0) rotate(var(--tilt, 0deg));
+    transform: translateX(0);
   }
 
   .scroll-fade-in-right {
     opacity: 0;
-    transform: translateX(20px) rotate(var(--tilt, 0deg));
+    transform: translateX(20px);
     transition:
       opacity 0.6s ease-out,
       transform 0.6s ease-out;
@@ -179,12 +110,12 @@
 
   .scroll-fade-in-right.visible {
     opacity: 1;
-    transform: translateX(0) rotate(var(--tilt, 0deg));
+    transform: translateX(0);
   }
 
   .scroll-scale-in {
     opacity: 0;
-    transform: scale(0.95) rotate(var(--tilt, 0deg));
+    transform: scale(0.95);
     transition:
       opacity 0.6s ease-out,
       transform 0.6s ease-out;
@@ -192,14 +123,6 @@
 
   .scroll-scale-in.visible {
     opacity: 1;
-    transform: scale(1) rotate(var(--tilt, 0deg));
-  }
-
-  /* Reset tilt on hover */
-  .scroll-fade-in:hover,
-  .scroll-fade-in-left:hover,
-  .scroll-fade-in-right:hover,
-  .scroll-scale-in:hover {
-    --tilt: 0deg;
+    transform: scale(1);
   }
 }

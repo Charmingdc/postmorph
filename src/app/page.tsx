@@ -6,6 +6,14 @@ import {
   FeaturesSectionContent,
 } from "@/components/landing-page/FeaturesSection";
 import {
+  EditorSectionHeadline,
+  EditorSectionContent,
+} from "@/components/landing-page/EditorSection";
+import {
+  CustomVoiceSectionHeadline,
+  CustomVoiceSection,
+} from "@/components/landing-page/CustomVoiceSection";
+import {
   HowItWorksHeadline,
   HowItWorks,
   HowItWorksButton,
@@ -16,49 +24,48 @@ import {
 } from "@/components/landing-page/PricingSection";
 import FaqSection from "@/components/landing-page/FaqSection";
 import Footer from "@/components/landing-page/Footer";
+import GridRails from "@/components/landing-page/GridRails";
 
-{
-  /*import TimeComparisonSection from "@/components/landing-page/TimeComparisonSection";
-import TestimonialsSection from "@/components/landing-page/TestimonialsSection";
- */
-}
-import Divider from "@/components/landing-page/Divider";
+const HR = () => <hr className="w-full border-none h-px bg-border" />;
 
 const Page = () => {
   return (
     <div className="w-full flex flex-col items-center text-center">
-      <nav className="w-full flex items-center justify-center">
+      <GridRails />
+      <nav className="w-full relative z-10">
         <Navbar />
       </nav>
-
-      <main className="w-full flex flex-col items-center">
+      <main className="w-full flex flex-col items-center relative z-10">
         <HeroSection />
-        <Divider />
+        <HR />
         <Showcase />
-        <Divider />
+        <HR />
         <FeaturesSectionHeadline />
-        <Divider />
+        <HR />
         <FeaturesSectionContent />
-        <Divider />
+        <HR />
+        <EditorSectionHeadline />
+        <HR />
+        <EditorSectionContent />
+        <HR />
+        <CustomVoiceSectionHeadline />
+        <HR />
+        <CustomVoiceSection />
+        <HR />
         <HowItWorksHeadline />
-        <Divider />
+        <HR />
         <HowItWorks />
-        <Divider />
+        <HR />
         <HowItWorksButton />
-        <Divider />
+        <HR />
         <PricingSectionHeadline />
-        <Divider />
+        <HR />
         <PricingSection />
-        <Divider />
+        <HR />
         <FaqSection />
-        <Divider />
-
-        {/*
-        <TimeComparisonSection />
-        <TestimonialsSection /> */}
+        <HR />
       </main>
-
-      <footer className="w-full">
+      <footer className="w-full relative z-10">
         <Footer />
       </footer>
     </div>

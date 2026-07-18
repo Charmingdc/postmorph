@@ -55,9 +55,9 @@ const PricingSectionHeadline = () => {
   return (
     <section
       id="pricing"
-      className="w-full md:w-[95%] py-16 px-4 md:px-0 md:border-x md:border-[0.5px] border-y-0 border-border"
+      className="w-full py-16 px-4 md:px-0 bg-accent md:bg-transparent"
     >
-      <div className="text-center max-w-3xl mx-auto animate-fade-in">
+      <div className="w-[95%] mx-auto text-center max-w-3xl px-4 md:px-0 animate-fade-in">
         <h2 className="text-2xl md:text-4xl mb-3">
           Pay-As-You-Go – No Subscriptions!
         </h2>
@@ -72,14 +72,14 @@ const PricingSectionHeadline = () => {
 
 const PricingSection = () => {
   return (
-    <section className="w-full md:w-[95%] py-20 md:border-x md:border-[0.5px] border-y-0 border-border">
+    <section className="w-full py-20 px-6 md:px-8">
       <div className="w-full mx-auto">
-        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-4 md:p-0 max-w-6xl mx-auto text-left">
+        <div className="w-[95%] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mx-auto text-left">
           {plans.map((plan, i) => (
             <div
               key={i}
-              className={`relative w-full max-w-md mx-auto lg:max-w-none rounded-2xl flex flex-col transition-all duration-300 hover:-translate-y-1 border-[0.5px] ${
-                plan.highlight ? "border-primary" : "border-border"
+              className={`relative w-full max-w-md mx-auto lg:max-w-none bg-accent rounded-2xl flex flex-col transition-all duration-300 hover:-translate-y-1 border-[0.5px] ${
+                plan.highlight ? "border-primary shadow-sm" : "border-border"
               }`}
             >
               <div className="w-full flex flex-col px-4 py-6 border-b-[0.5px] border-border">
@@ -87,7 +87,7 @@ const PricingSection = () => {
                   <h3 className="text-xl font-bold">{plan.name}</h3>
 
                   {plan.highlight && (
-                    <div className="text-xs border border-border tracking-wider px-4 py-1.5 rounded-md">
+                    <div className="text-xs border-[0.5px] border-border text-muted-foreground tracking-wider px-3 py-1 rounded-md">
                       Best Value
                     </div>
                   )}

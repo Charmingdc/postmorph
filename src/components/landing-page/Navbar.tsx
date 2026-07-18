@@ -15,48 +15,39 @@ const navLinks = [
 
 const Navbar = () => {
   const router = useRouter();
-
   const [isUser, setIsUser] = useState<boolean>(false);
 
   useEffect(() => {
     const checkAuthStatus = async () => {
       const supabase = createClient();
-
       const {
         data: { user },
       } = await supabase.auth.getUser();
-
-      if (!user) {
-        setIsUser(false);
-      } else {
-        setIsUser(true);
-      }
+      setIsUser(!!user);
     };
-
     checkAuthStatus();
   }, []);
 
   return (
-    <div className="w-full flex items-center justify-between py-3 px-7 border-b border-[0.5px] border-border -ml-2">
-      <div className="flex items-center justify-center">
+    <div className="w-full flex items-center justify-between py-3 px-7 border-b border-[0.5px] border-border bg-background">
+      <div className="flex items-center gap-1">
         <Image
           src="/icons/postmorph-logo-variant.png"
-          width={40}
-          height={40}
+          width={36}
+          height={36}
           alt="Postmorph Logo"
           priority
         />
-
-        <h1 className="text-lg font-extrabold"> Postmorph </h1>
+        <span className="text-base font-bold">Postmorph</span>
       </div>
 
-      <div className="flex items-center justify-center gap-6">
-        <div className="hidden md:flex items-center justify-center gap-2">
+      <div className="flex items-center gap-6">
+        <div className="hidden md:flex items-center gap-4">
           {navLinks.map((navLink, idx) => (
             <Link
               href={navLink.link}
               key={idx}
-              className="text-muted-foreground transition-colors duration-200 hover:text-primary"
+              className="text-sm text-muted-foreground transition-colors duration-200 hover:text-foreground"
             >
               {navLink.text}
             </Link>
@@ -64,12 +55,21 @@ const Navbar = () => {
         </div>
 
         {isUser ? (
-          <Link href="/dashboard"> Dashboard </Link>
+          <Link href="/dashboard" className="text-sm font-medium">
+            Dashboard
+          </Link>
         ) : (
-          <Button onClick={() => router.push("/auth/signin")}> Sign In </Button>
+          <Button
+            size="sm"
+            className="rounded-sm"
+            onClick={() => router.push("/auth/signin")}
+          >
+            Sign In
+          </Button>
         )}
       </div>
     </div>
   );
 };
+
 export default Navbar;

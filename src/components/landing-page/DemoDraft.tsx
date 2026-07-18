@@ -37,7 +37,7 @@ const DemoDraft = ({
       </div>
 
       {/* Content Box */}
-      <div className="bg-muted/20 p-2 rounded-lg text-sm">
+      <div className="bg-muted p-3 rounded-lg text-sm">
         <div className="text-left whitespace-pre-wrap line-clamp-[12] -mt-4 mb-2">
           {draftContent}
         </div>

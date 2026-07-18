@@ -20,7 +20,7 @@ const RepurposeDemo = () => {
   };
 
   return (
-    <div className="w-[90%] md:w-[65%] mx-auto flex flex-col items-center bg-card border border-border rounded-2xl -mt-4 overflow-hidden">
+    <div className="w-[90%] md:w-[65%] mx-auto flex flex-col items-center bg-card border-[0.5px] border-border rounded-2xl overflow-hidden shadow-sm">
       {/* Form Fields */}
 
       <div className="w-full p-6 space-y-4">
