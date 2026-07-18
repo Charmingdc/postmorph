@@ -4,7 +4,7 @@ const Showcase = () => {
   return (
     <section
       id="showcase"
-      className="w-full md:w-[95%] p-4 md:border-x md:border-[0.5px] border-y-0 border-border overflow-x-hidden"
+      className="w-full md:w-[95%] py-4 px-2 md:p-6 md:border-x md:border-[0.5px] border-y-0 border-border overflow-x-hidden"
     >
       <Image
         src="/landing/postmorph-interface.png"

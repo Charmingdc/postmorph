@@ -68,7 +68,7 @@ const HowItWorks = () => {
           <div
             key={index}
             ref={stepRefs[index]}
-            className="flex flex-col items-center text-center gap-3 p-8 hover:bg-accent transition-colors duration-200 outline outline-[0.5px] outline-border"
+            className="flex flex-col items-center text-center gap-3 py-8 px-6 md:p-8 hover:bg-accent transition-colors duration-200 outline outline-[0.5px] outline-border"
           >
             <div className="rounded-lg bg-secondary w-10 h-10 flex items-center justify-center">
               {step.icon}

@@ -23,7 +23,7 @@ const RepurposeDemo = () => {
     <div className="w-[90%] md:w-[65%] mx-auto flex flex-col items-center bg-card border-[0.5px] border-border rounded-2xl overflow-hidden shadow-sm">
       {/* Form Fields */}
 
-      <div className="w-full p-6 space-y-4">
+      <div className="w-full p-4 md:p-6 space-y-4">
         <div className="w-full flex items-center justify-between">
           {/** Input Format **/}
           <div className="space-y-2">
@@ -31,7 +31,7 @@ const RepurposeDemo = () => {
               Input Format
             </label>
             <div className="relative">
-              <div className="w-full px-6 py-2 rounded-xl border bg-muted flex items-center justify-between gap-2 cursor-not-allowed">
+              <div className="w-full px-2 md:px-4 py-2 rounded-xl border bg-muted flex items-center justify-between gap-1 md:gap-2 cursor-not-allowed">
                 <div className="flex items-center gap-2">
                   <span className="text-muted-foreground">Blog Post</span>
                 </div>
@@ -46,7 +46,7 @@ const RepurposeDemo = () => {
               Output Format
             </label>
             <div className="w-full relative">
-              <div className="w-full px-2 py-2 mb-2 rounded-xl border bg-muted flex items-center justify-between gap-2 cursor-not-allowed">
+              <div className="w-full px-2 py-2 mb-2 rounded-xl border bg-muted flex items-center justify-between gap-1 md:gap-2 cursor-not-allowed">
                 <div className="flex items-center gap-2">
                   <span className="text-muted-foreground">tweet</span>
                 </div>
@@ -62,7 +62,6 @@ const RepurposeDemo = () => {
           <div className="relative">
             <div className="w-full px-4 py-2 rounded-xl border bg-muted flex items-center justify-between cursor-not-allowed">
               <div className="flex items-center gap-2">
-                <span className="text-sm">✨</span>
                 <span className="text-muted-foreground">Professional</span>
               </div>
               <ChevronDown className="h-4 w-4 text-muted-foreground/50" />

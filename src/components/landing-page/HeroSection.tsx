@@ -11,7 +11,7 @@ const HeroSection = () => {
               Turn one piece of content into dozens
             </h1>
             <p
-              className="w-[90%] md:w-[80%] text-md md:text-lg text-muted-foreground animate-fade-in max-w-2xl"
+              className="w-[95%] md:w-[80%] text-md md:text-lg text-muted-foreground animate-fade-in max-w-2xl"
               style={{ animationDelay: "100ms" }}
             >
               Save hours of work by automatically repurposing your youtube

@@ -97,7 +97,7 @@ const FaqSection = () => {
           </div>
         </div>
 
-        <div className="p-10 lg:py-16">
+        <div className="p-8 lg:py-16">
           <Accordion type="single" collapsible className="w-full">
             {faqs.map((faq, index) => (
               <AccordionItem
