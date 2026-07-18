@@ -89,10 +89,7 @@ const FaqSection = () => {
             ref={headlineRef}
             className="flex flex-col gap-3 text-center md:text-left scroll-fade-in"
           >
-            <h2 className="text-2xl md:text-4xl">
-              Frequently Asked{" "}
-              <span className="heading-gradient">Questions</span>
-            </h2>
+            <h2 className="text-2xl md:text-4xl">Frequently Asked Questions</h2>
             <p className="text-muted-foreground text-md md:text-lg">
               Everything you need to know about our content repurposing
               platform.

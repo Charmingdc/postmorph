@@ -23,7 +23,7 @@ const EditorSectionHeadline = () => {
   const headerRef = useScrollAnimation();
 
   return (
-    <section className="w-full py-16 px-4 md:px-0 bg-accent md:bg-transparent">
+    <section className="w-full py-16 px-4 md:px-0 bg-transparent">
       <div
         ref={headerRef}
         className="flex flex-col justify-center text-center max-w-3xl mx-auto px-4 md:px-8 scroll-fade-in"

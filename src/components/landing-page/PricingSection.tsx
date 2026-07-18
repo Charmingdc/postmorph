@@ -51,10 +51,7 @@ const plans = [
 
 const PricingSectionHeadline = () => {
   return (
-    <section
-      id="pricing"
-      className="w-full py-16 px-4 md:px-0 bg-accent md:bg-transparent"
-    >
+    <section id="pricing" className="w-full py-16 px-4 md:px-0 bg-transparent">
       <div className="w-[95%] mx-auto text-center max-w-3xl px-4 md:px-0 animate-fade-in">
         <h2 className="text-2xl md:text-4xl mb-3">
           Pay-As-You-Go – No Subscriptions!

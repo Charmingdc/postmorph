@@ -38,7 +38,7 @@ const HowItWorksHeadline = () => {
   return (
     <section
       id="how-it-works"
-      className="w-full py-16 px-4 md:px-0 bg-accent md:bg-transparent"
+      className="w-full py-16 px-4 md:px-0 bg-transparent"
     >
       <div
         ref={headerRef}
