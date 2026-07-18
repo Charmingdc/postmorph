@@ -8,7 +8,6 @@ const plans = [
     name: "Starter",
     tagline: "Perfect for getting started",
     price: "$2",
-    discountedPrice: "$0.40",
     credits: "35 Credits",
     link,
     features: [
@@ -23,7 +22,6 @@ const plans = [
     name: "Creator",
     tagline: "Best for content creators",
     price: "$7",
-    discountedPrice: "$1.40",
     credits: "120 Credits",
     link,
     features: [
@@ -97,20 +95,10 @@ const PricingSection = () => {
                 </p>
 
                 <div className="flex items-baseline gap-2">
-                  {plan.discountedPrice ? (
-                    <>
-                      <p className="text-2xl line-through text-muted-foreground">
-                        {plan.price}
-                      </p>
-                      <p className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">
-                        {plan.discountedPrice}
-                      </p>
-                    </>
-                  ) : (
-                    <p className="text-5xl font-extrabold tracking-tight">
-                      {plan.price}
-                    </p>
-                  )}
+                  <p className="text-5xl font-extrabold tracking-tight">
+                    {plan.price}
+                  </p>
+
                   <p className="text-sm font-medium text-muted-foreground">
                     for {plan.credits}
                   </p>
