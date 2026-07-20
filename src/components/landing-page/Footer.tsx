@@ -7,7 +7,7 @@ const Footer = () => {
 
   return (
     <footer className="w-full text-left">
-      <div className="w-[95%] mx-auto py-16 px-6 md:px-8 grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-12">
+      <div className="w-[95%] mx-auto py-16 px-4 md:px-8 grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-12">
         {/* Brand — full width on mobile, first col on md */}
         <div className="col-span-2 md:col-span-1 flex flex-col gap-5">
           <Link href="/" className="flex items-center gap-2 w-fit">
@@ -119,7 +119,7 @@ const Footer = () => {
       </div>
 
       <div className="border-t border-[0.5px] border-border">
-        <div className="w-[95%] mx-auto py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+        <div className="w-[95%] mx-auto p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
           <p className="text-xs text-muted-foreground">
             © {currentYear} Postmorph. All rights reserved.
           </p>
